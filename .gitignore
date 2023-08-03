@@ -42,3 +42,5 @@ testem.log
 Thumbs.db
 package-lock.json
 package-lock.json
+/.vscode
+/.angular/cache/16.1.1
