@@ -1,0 +1,13 @@
+<mat-accordion *ngIf="formModel != null">
+  <mat-expansion-panel hideToggle [expanded]="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ formModel.name }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <p></p>
+    <form [formGroup]="isoForm">
+      <ngx-iso-panel [schemaElement]="formModel.elements" (onFormInit)="onFormInit($event)"></ngx-iso-panel>
+    </form>
+  </mat-expansion-panel>
+</mat-accordion>

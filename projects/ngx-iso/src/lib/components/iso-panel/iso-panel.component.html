@@ -1,0 +1,77 @@
+<form *ngIf="_form" [formGroup]="_form">
+  <div class="form-group">
+    <ng-template #nodeTemplateRef let-node="node" let-formElement="formElement" let-choice="choice" let-parentFormElement="parentFormElement">
+      <ng-container *ngIf="node.multi then arr else obj"></ng-container>
+      <ng-template #arr>
+        <ng-template *ngFor="let model of node.elements;let i = index" [ngTemplateOutlet]="nodeTemplateRef" [ngTemplateOutletContext]="{
+          node: model,
+          formElement: formElement,
+          parentFormElement: node,
+          choice: model.dataType === 'choice' || choice 
+        }">
+        </ng-template>
+      </ng-template>
+      <ng-template #obj>
+        <ng-container *ngIf="node.elements.length">
+          <mat-accordion [formGroup]="formElement">
+            <mat-expansion-panel multi style="width:100%;margin:5px 0" [expanded]="expand(node.minOccurs)" #expan>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{ node.name | trans: node.name }}
+                </mat-panel-title>
+                <mat-panel-description *ngIf="maxOccurs(node.maxOccurs)">
+                  &nbsp;
+                  <button mat-icon-button (click)="addSection($event, node,parentFormElement)">
+                    <mat-icon>add</mat-icon>
+                  </button>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <ng-container *ngIf="expan.expanded">
+                <mat-form-field *ngIf="node.dataType === 'choice'">
+                  <mat-label>{{ node.name | trans: node.name }}</mat-label>
+                  <mat-select (selectionChange)="onChoiceSelectionChange($event.value,formElement,node)">
+                    <mat-option *ngFor="let item of node.elements" [value]="item">
+                      {{item.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <ng-template *ngFor="let model of node.elements" [ngTemplateOutlet]="nodeTemplateRef"
+                  [ngTemplateOutletContext]="{
+            node: model,
+            formElement: getElement(formElement,model,3),
+            choice: model.dataType === 'choice' || choice
+          }">
+                </ng-template>
+                <div *ngIf="node.elements.length === 0">
+                  <ngx-iso-control [formControl]="formElement" [control]="node"></ngx-iso-control>
+                </div>
+              </ng-container>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </ng-container>
+        <ng-container *ngIf="!node.elements.length">
+          <ngx-iso-control [formControl]="formElement" [control]="node" id="{{choice}}"></ngx-iso-control>
+        </ng-container>
+      </ng-template>
+    </ng-template>
+    <ng-container *ngFor="let model of _formModel">
+      <ng-container *ngIf="isArray(model);then formArray else formObject">
+      </ng-container>
+      <ng-template #formArray>
+        <ng-template *ngFor="let key of model" [ngTemplateOutlet]="nodeTemplateRef" [ngTemplateOutletContext]="{
+          node: key,
+          formElement: getElement(_form,key,2)
+        }">
+        </ng-template>
+      </ng-template>
+      <ng-template #formObject>
+        <ng-template [ngTemplateOutlet]="nodeTemplateRef" [ngTemplateOutletContext]="{
+          node: model,
+          formElement: getElement(_form,model,1)
+        }">
+        </ng-template>
+      </ng-template>
+    </ng-container>
+  </div>
+</form>
+<pre>{{_form.value | json }}</pre>
