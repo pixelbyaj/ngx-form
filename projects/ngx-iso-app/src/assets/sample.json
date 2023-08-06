@@ -2,7 +2,7 @@
     "id": "document",
     "name": "Document",
     "dataType": null,
-    "minOccurs": null,
+    "minOccurs": "1",
     "maxOccurs": null,
     "minLength": null,
     "maxLength": null,

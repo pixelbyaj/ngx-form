@@ -16,7 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import {  MatSelectModule } from '@angular/material/select';
 
-import { NgxIsoComponent, ControlService } from '../public-api';
+import { NgxIsoFormComponent, ControlService } from '../public-api';
 import { NgxIsoPanelComponent } from './components/iso-panel/iso.panel.component';
 import { NgxIsoControlComponent } from './components/iso-control/iso-control.component';
 import { ComponentDirective } from './shared/directives/component-content.directive';
@@ -37,7 +37,7 @@ import { NgxIsoChoiceComponent } from './components/iso-choice/iso-choice.compon
 
 @NgModule({
   declarations: [
-    NgxIsoComponent,
+    NgxIsoFormComponent,
     NgxIsoPanelComponent,
     NgxIsoControlComponent,
     NgxDynamicComponent,
@@ -68,8 +68,8 @@ import { NgxIsoChoiceComponent } from './components/iso-choice/iso-choice.compon
     ControlService
   ],
   exports: [
-    NgxIsoComponent,
+    NgxIsoFormComponent,
     NgxIsoPanelComponent
   ]
 })
-export class NgxIsoModule { }
+export class NgxIsoFormModule { }

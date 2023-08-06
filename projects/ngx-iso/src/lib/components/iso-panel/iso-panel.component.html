@@ -1,9 +1,11 @@
 <form *ngIf="_form" [formGroup]="_form">
   <div class="form-group">
-    <ng-template #nodeTemplateRef let-node="node" let-formElement="formElement" let-choice="choice" let-parentFormElement="parentFormElement">
+    <ng-template #nodeTemplateRef let-node="node" let-formElement="formElement" let-choice="choice"
+      let-parentFormElement="parentFormElement">
       <ng-container *ngIf="node.multi then arr else obj"></ng-container>
       <ng-template #arr>
-        <ng-template *ngFor="let model of node.elements;let i = index" [ngTemplateOutlet]="nodeTemplateRef" [ngTemplateOutletContext]="{
+        <ng-template *ngFor="let model of node.elements;let i = index" [ngTemplateOutlet]="nodeTemplateRef"
+          [ngTemplateOutletContext]="{
           node: model,
           formElement: formElement,
           parentFormElement: node,
@@ -74,4 +76,3 @@
     </ng-container>
   </div>
 </form>
-<pre>{{_form.value | json }}</pre>
