@@ -49,6 +49,14 @@ export class NgxIsoFormComponent implements OnChanges {
     control.push(groupControls);
   }
 
+  protected removeSection($event: Event, parentNode: any, index:number)
+  {
+    const control: FormArray = this.getFormArray(this._form, parentNode.elements[index].id) as FormArray;
+    parentNode.elements.splice(index, 1);
+    control.removeAt(index);
+    debugger;
+  }
+
   protected isArray(myKey: Object | Array<any>) {
     if (myKey instanceof Array) {
       return true;

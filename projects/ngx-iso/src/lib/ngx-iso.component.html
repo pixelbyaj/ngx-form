@@ -1,6 +1,6 @@
 <form *ngIf="_form" [formGroup]="_form">
   <div class="form-group">
-    <ng-template #nodeTemplateRef let-node="node" let-formElement="formElement" let-choice="choice"
+    <ng-template #nodeTemplateRef let-node="node" let-formElement="formElement" let-choice="choice" let-index="index"
       let-parentFormElement="parentFormElement">
       <ng-container *ngIf="node.multi then arr else obj"></ng-container>
       <ng-template #arr>
@@ -9,7 +9,8 @@
           node: model,
           formElement: formElement,
           parentFormElement: node,
-          choice: model.dataType === 'choice' || choice 
+          choice: model.dataType === 'choice' || choice,
+          index:i
         }">
         </ng-template>
       </ng-template>
@@ -23,8 +24,11 @@
                 </mat-panel-title>
                 <mat-panel-description *ngIf="maxOccurs(node.maxOccurs)">
                   &nbsp;
-                  <button mat-icon-button (click)="addSection($event, node,parentFormElement)">
+                  <button *ngIf="index < 1" mat-icon-button (click)="addSection($event, node,parentFormElement)">
                     <mat-icon>add</mat-icon>
+                  </button>
+                  <button *ngIf="index > 0" mat-icon-button (click)="removeSection($event,parentFormElement,index)">
+                    <mat-icon>remove</mat-icon>
                   </button>
                 </mat-panel-description>
               </mat-expansion-panel-header>
@@ -60,9 +64,10 @@
       <ng-container *ngIf="isArray(model);then formArray else formObject">
       </ng-container>
       <ng-template #formArray>
-        <ng-template *ngFor="let key of model" [ngTemplateOutlet]="nodeTemplateRef" [ngTemplateOutletContext]="{
+        <ng-template *ngFor="let key of model;let i = index" [ngTemplateOutlet]="nodeTemplateRef" [ngTemplateOutletContext]="{
           node: key,
-          formElement: getElement(_form,key,2)
+          formElement: getElement(_form,key,2),
+          index:i
         }">
         </ng-template>
       </ng-template>
