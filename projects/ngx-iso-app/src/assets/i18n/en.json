@@ -1,5 +1,7 @@
 {
     "iso": {
+        "BkToCstmrStmt": "Bank To Customer Statement",
+        "GrpHdr":"Group Header",
         "PurchaseOrder_ShipTo_CreDtTm": "Created Datetime"
     }
 }

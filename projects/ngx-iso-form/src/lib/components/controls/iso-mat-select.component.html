@@ -1,0 +1,8 @@
+<mat-form-field class="form-control form-control-m">
+    <mat-label>{{ control.name | trans: control.id : control.name }}</mat-label>
+    <mat-select [formControl]="formControl">
+      <mat-option *ngFor="let item of control.values" [value]="item">
+        {{item}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>

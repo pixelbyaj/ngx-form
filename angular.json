@@ -3,10 +3,10 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ngx-iso": {
+    "ngx-iso-form": {
       "projectType": "library",
-      "root": "projects/ngx-iso",
-      "sourceRoot": "projects/ngx-iso/src",
+      "root": "projects/ngx-iso-form",
+      "sourceRoot": "projects/ngx-iso-form/src",
       "prefix": "lib",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,14 +17,14 @@
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "projects/ngx-iso/ng-package.json"
+            "project": "projects/ngx-iso-form/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/ngx-iso/tsconfig.lib.prod.json"
+              "tsConfig": "projects/ngx-iso-form/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/ngx-iso/tsconfig.lib.json"
+              "tsConfig": "projects/ngx-iso-form/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -32,7 +32,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "tsConfig": "projects/ngx-iso/tsconfig.spec.json",
+            "tsConfig": "projects/ngx-iso-form/tsconfig.spec.json",
             "polyfills": [
               "zone.js",
               "zone.js/testing"

@@ -13,8 +13,8 @@
     "strictPropertyInitialization": false,
     "sourceMap": true,
     "paths": {
-      "ngx-iso": [
-        "dist/ngx-iso"
+      "ngx-iso-form": [
+        "dist/ngx-iso-form"
       ]
     },
     "declaration": false,

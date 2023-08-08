@@ -1,0 +1,4 @@
+<mat-form-field class="form-control form-control-m">
+    <mat-label>{{ control.id | trans: control.id : control.name }}</mat-label>
+    <input matInput placeholder="{{ control.name }}" [formControl]="formControl" [attr.minlength]="control.minLength" [attr.maxlength]="control.maxLength">
+</mat-form-field>

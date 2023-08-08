@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
-import { SchemaElement } from 'projects/ngx-iso/src/lib/Models/ISchemaElement';
+import { SchemaElement } from 'projects/ngx-iso-form/src/lib/Models/ISchemaElement';
 
 @Component({
   selector: 'app-root',

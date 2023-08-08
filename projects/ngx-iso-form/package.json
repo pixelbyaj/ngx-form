@@ -1,0 +1,20 @@
+{
+  "name": "ngx-iso-form",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^16.1.0",
+    "@angular/core": "^16.1.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "exports": {
+    ".": {
+      "sass": "./_index.scss"
+    },
+    "./package.json": {
+      "default": "./package.json"
+    }
+  },
+  "sideEffects": false
+}
