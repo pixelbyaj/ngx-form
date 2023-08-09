@@ -30,6 +30,7 @@ import { NgxIsoFormComponent } from './ngx-iso-form.component';
 import { ComponentDirective } from './shared/directives/component-content.directive';
 import { NgxDynamicComponent } from './shared/components/dynamic/ngx-dynamic.component';
 import { IsoTranslatePipe } from './shared/pipe/translate.pipe';
+import { IsoErrorPipe } from './shared/pipe/error.pipe';
 import { ControlService } from './shared/services';
 
 
@@ -49,7 +50,8 @@ import { ControlService } from './shared/services';
     IsoMatDateTime,
     IsoMatSelect,
     ComponentDirective,
-    IsoTranslatePipe
+    IsoTranslatePipe,
+    IsoErrorPipe
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,5 @@
 export interface SchemaElement {
     id: string;
-    uniqueId?:string;
     name: string;
     dataType: string;
     minOccurs: string;
@@ -15,9 +14,14 @@ export interface SchemaElement {
     values: string[];
     isCurrency: boolean;
     xpath: string;
-    value?:string;
-    multi?:string;
     elements: SchemaElement[];
     children: SchemaElement[];
+}
+
+export interface SchemaModel extends SchemaElement{
+    uniqueId?:string;
     hidden?: boolean;
+    value?:string;
+    multi?:string;
+    isFormControls?:boolean;
 }

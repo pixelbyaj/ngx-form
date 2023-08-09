@@ -1,15 +1,16 @@
-<form *ngIf="_form" [formGroup]="_form">
+<form *ngIf="_form && schema" [formGroup]="_form">
   <div class="form-group">
     <ng-template #nodeTemplateRef let-node="node" let-formElement="formElement" let-index="index"
-      let-parentFormElement="parentFormElement">
+      let-parentNode="parentNode" let-parentFormElement="parentFormElement">
       <ng-container *ngIf="node.multi then arr else obj"></ng-container>
       <ng-template #arr>
         <ng-template *ngFor="let model of node.elements;let i = index" [ngTemplateOutlet]="nodeTemplateRef"
           [ngTemplateOutletContext]="{
           node: model,
           formElement: formElement,
-          parentFormElement: node,
-          index:i
+          parentFormElement: parentFormElement,
+          parentNode: node,
+          index: i
         }">
         </ng-template>
       </ng-template>
@@ -23,10 +24,10 @@
                 </mat-panel-title>
                 <mat-panel-description *ngIf="maxOccurs(node.maxOccurs)">
                   &nbsp;
-                  <button *ngIf="index < 1" mat-icon-button (click)="addSection($event, node,parentFormElement)">
+                  <button *ngIf="index < 1" mat-icon-button (click)="addSection($event, node,parentNode, parentFormElement)">
                     <mat-icon>add</mat-icon>
                   </button>
-                  <button *ngIf="index > 0" mat-icon-button (click)="removeSection($event,parentFormElement,index)">
+                  <button *ngIf="index > 0" mat-icon-button (click)="removeSection($event,parentNode,parentFormElement,index)">
                     <mat-icon>remove</mat-icon>
                   </button>
                 </mat-panel-description>
@@ -41,10 +42,11 @@
                   </mat-select>
                 </mat-form-field>
                 <ng-container *ngIf="!isEmpty(formElement)">
-                  <ng-template *ngFor="let model of node.elements" [ngTemplateOutlet]="nodeTemplateRef"
+                  <ng-template *ngFor="let model of node.elements; let i = index" [ngTemplateOutlet]="nodeTemplateRef"
                     [ngTemplateOutletContext]="{
             node: model,
-            formElement: getElement(formElement,model)
+            formElement: getElement(formElement,model),
+            parentFormElement: formElement
           }">
                   </ng-template>
                 </ng-container>
@@ -56,11 +58,20 @@
           </mat-accordion>
         </ng-container>
         <ng-container *ngIf="!node.elements.length && !node.hidden">
+          <div *ngIf="maxOccurs(node.maxOccurs)" class="form-add-section">
+            &nbsp;
+            <button *ngIf="index < 1" mat-icon-button (click)="addNewControl($event, node,parentNode,parentFormElement)">
+              <mat-icon>add</mat-icon>
+            </button>
+            <button *ngIf="index > 0" mat-icon-button (click)="removeNewControl($event,parentNode,parentFormElement,index)">
+              <mat-icon>remove</mat-icon>
+            </button>
+          </div>
           <ngx-iso-control [formControl]="formElement" [control]="node"></ngx-iso-control>
         </ng-container>
       </ng-template>
     </ng-template>
-    <ng-container *ngFor="let model of _formModel">
+    <ng-container *ngFor="let model of _formModel; let i = index">
       <ng-container *ngIf="isArray(model);then formArray else formObject">
       </ng-container>
       <ng-template #formArray>
@@ -68,6 +79,7 @@
           [ngTemplateOutletContext]="{
           node: key,
           formElement: getElement(_form,key),
+          parentFormElement: _form,
           index:i
         }">
         </ng-template>
@@ -75,7 +87,9 @@
       <ng-template #formObject>
         <ng-template [ngTemplateOutlet]="nodeTemplateRef" [ngTemplateOutletContext]="{
           node: model,
-          formElement: getElement(_form,model)
+          formElement: getElement(_form,model),
+          parentFormElement: _form,
+          index: i,
         }">
         </ng-template>
       </ng-template>

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IControlModel } from '../../Models/IControlModel';
+import { IControlModel } from '../../Models/Control';
 import { FormControl } from '@angular/forms';
 import { IsoBaseControlComponent } from './iso-base-control.component';
 

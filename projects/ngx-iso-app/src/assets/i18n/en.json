@@ -1,7 +1,16 @@
 {
     "iso": {
-        "BkToCstmrStmt": "Bank To Customer Statement",
-        "GrpHdr":"Group Header",
-        "PurchaseOrder_ShipTo_CreDtTm": "Created Datetime"
+        "BkToCstmrStmt": {
+            "label": "Bank To Customer Statement"
+        },
+        "GrpHdr":{
+            "label": "Group Header"
+        },
+        "document_bktocstmrstmt_grphdr_credttm": {
+            "label": "Create Datetime",
+             "error": {
+                "required":"This field is required"
+             }
+        }
     }
 }

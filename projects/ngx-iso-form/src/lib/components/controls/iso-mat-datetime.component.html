@@ -1,6 +1,9 @@
 <mat-form-field class="form-control form-control-m">
-    <mat-label>{{ control.name | trans: control.id : control.name }}</mat-label>
-    <input matInput [matDatepicker]="picker" [formControl]="formControl">
-    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
+  <mat-label>{{ control.name | trans: control.id : control.name }}</mat-label>
+  <input matInput [matDatepicker]="picker" [formControl]="formControl">
+  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+  <div *ngIf="formControl.errors?.['required'] && formControl.touched">
+    {{ control.name | error: control.id : 'required' : 'This is requireds' }}
+  </div>
+</mat-form-field>

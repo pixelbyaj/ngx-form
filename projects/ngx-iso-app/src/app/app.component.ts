@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
-import { SchemaElement } from 'projects/ngx-iso-form/src/lib/Models/ISchemaElement';
+import { SchemaElement } from 'projects/ngx-iso-form/src/lib/Models/Schema';
 
 @Component({
   selector: 'app-root',
@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
    
     const camt = './assets/camt.053.001.10.json';
     const sample = './assets/sample.json'
-    this.httpClient.get(sample).subscribe((data) => {
+    this.httpClient.get(camt).subscribe((data) => {
       this.schemaElement = data as SchemaElement;
     });
 

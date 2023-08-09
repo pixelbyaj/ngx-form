@@ -1,6 +1,6 @@
 import { FormControl } from "@angular/forms";
 import { ComponentModel } from "../models/component.model";
-import { SchemaElement } from "../../Models/ISchemaElement";
+import { SchemaElement } from "../../Models/Schema";
 import { IsoMatDateTime, IsoMatInput, IsoMatSelect, IsoMatTextarea } from "../../components";
 
 export class ControlService{

@@ -6,5 +6,5 @@ export * from './lib/ngx-iso-form.module';
 export * from './lib/ngx-iso-form.component';
 export * from './lib/shared/services';
 
-export * from './lib/Models/ISchemaElement'
-export * from './lib/Models/IControlModel'
+export * from './lib/Models/Schema'
+export * from './lib/Models/Control'

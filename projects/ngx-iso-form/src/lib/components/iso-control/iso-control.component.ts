@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges, forwardRef } from '
 import { ControlService } from '../../shared/services/control.service';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { ComponentModel } from '../../shared/models/component.model';
-import { SchemaElement } from '../../Models/ISchemaElement';
+import { SchemaElement } from '../../Models/Schema';
 
 @Component({
   selector: 'ngx-iso-control',

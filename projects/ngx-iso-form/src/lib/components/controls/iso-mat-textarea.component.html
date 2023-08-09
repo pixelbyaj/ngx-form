@@ -1,4 +1,7 @@
 <mat-form-field class="form-control form-control-full">
     <mat-label>{{ control.name | trans: control.id : control.name }}</mat-label>
     <textarea matInput placeholder="{{control.name}}" [formControl]="formControl"></textarea>
+    <div *ngIf="formControl.errors?.['pattern']">
+        {{ formControl.errors?.['pattern']['requiredPattern'] }} is required.
+    </div>
 </mat-form-field>

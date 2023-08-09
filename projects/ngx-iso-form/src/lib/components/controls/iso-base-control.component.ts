@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { IControlModel } from '../../Models/IControlModel';
+import { IControlModel } from '../../Models/Control';
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -11,4 +11,13 @@ export class IsoBaseControlComponent {
 
     @Input() control: IControlModel;
     @Input() formControl: FormControl;
+
+    getKeys(errors: any)
+    {
+        if(errors)
+        {
+            return Object.keys(errors);
+        }
+        return [];
+    }
 }
