@@ -71,7 +71,7 @@
         </ng-container>
       </ng-template>
     </ng-template>
-    <ng-container *ngFor="let model of _formModel; let i = index">
+    <ng-container *ngFor="let model of getFormModel; let i = index">
       <ng-container *ngIf="isArray(model);then formArray else formObject">
       </ng-container>
       <ng-template #formArray>

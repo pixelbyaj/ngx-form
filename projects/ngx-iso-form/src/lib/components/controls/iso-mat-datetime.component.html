@@ -3,7 +3,7 @@
     <input matInput placeholder="{{ control.name }}" [formControl]="formControl" [attr.minlength]="control.minLength" [attr.maxlength]="control.maxLength">
     <mat-hint>{{ control.id | general: control.id : "format" : "YYYY-MM-DDThh:mm:ss.sss+/-hh:mm"   }}</mat-hint>
     <ng-container *ngFor="let item of getKeys(formControl.errors)">
-        <div *ngIf="formControl.errors?.[item] && formControl.touched">
+        <div *ngIf="formControl.errors?.[item] && formControl.touched" class="iso-mat-error">
             {{ control.name | error: control.id : item : item + " validation failed" }}
         </div>
     </ng-container>

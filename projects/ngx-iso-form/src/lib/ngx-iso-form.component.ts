@@ -1,7 +1,21 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, FormArray } from '@angular/forms';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnChanges,
+  SimpleChanges
+} from '@angular/core';
+import {
+  FormGroup,
+  FormControl,
+  FormArray,
+  AbstractControl
+} from '@angular/forms';
+
 import { SchemaModel } from './Models/Schema';
 import { NgxIsoService } from './ngx-iso-form.service';
+import { IsoForm } from './Models/IsoForm';
 
 @Component({
   selector: 'ngx-iso-form',
@@ -10,31 +24,57 @@ import { NgxIsoService } from './ngx-iso-form.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NgxIsoFormComponent implements OnChanges {
-  @Input() schema: SchemaModel;
+  @Input({ required: true }) form: IsoForm;
+  @Input({ required: true }) schema: SchemaModel;
   protected _form: FormGroup;
-  protected _formModel: any[] = [];
+  private _isFormInitiate: boolean;
+  private _ngModel: any;
 
-  constructor(private service: NgxIsoService, private fb: FormBuilder, private cd: ChangeDetectorRef) {
-
+  constructor(private service: NgxIsoService, private changeDetection: ChangeDetectorRef) {
   }
 
+  public ngOnChanges(changes: SimpleChanges): void {
+    if (changes['schema'] && changes['schema'].currentValue) {
+      this.initiateForm();
+    }
+    if (changes['form'] && changes['form'].currentValue) {
+      this.initiateFormModel();
+    }
+  }
 
   public get getIsoForm(): any {
     if (this._form)
       return this.service.sanitize(this._form.value);
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['schema'].previousValue !== changes['schema'].currentValue) {
-      this._formModel = [structuredClone(this.schema)];
-      this._formModel[0].elements = [];
-      let group: any = {};
-      group[this.schema.id] = this.service.getFormGroupControls(this.schema.elements, this._formModel[0].elements);
-      this._form = new FormGroup(group);
+  protected get getFormModel(): any[] {
+    return this.service._formModel;
+  }
+
+  private initiateForm(): void {
+    this.service._formModel = [structuredClone(this.schema)];
+    this.service._formModel[0].elements = [];
+    let group: any = {};
+    group[this.schema.id] = this.service.getFormGroupControls(this.schema.elements, this.service._formModel[0].elements);
+    this._form = new FormGroup(group);
+    if (!this._isFormInitiate) {
+      this.service.initFormModel(this._ngModel, this._form);
     }
   }
 
-  protected onChoiceSelectionChange(value: SchemaModel, formElement: any, nodes: SchemaModel) {
+  private initiateFormModel(): void {
+    if (this._form) {
+      this._ngModel = this.form.model;
+      const newFunc = this.form.getFormModel as Function;
+      this.form.getFormModel = () => {
+        newFunc(this.getIsoForm);
+      };
+      this._isFormInitiate = true;
+      this.service.initFormModel(this._ngModel, this._form);
+    }
+  }
+
+  protected onChoiceSelectionChange(value: SchemaModel, formElement: any, nodes: SchemaModel): void {
     nodes.elements.forEach((element: SchemaModel) => {
       element.hidden = true;
       formElement.removeControl(element.id);
@@ -52,15 +92,15 @@ export class NgxIsoFormComponent implements OnChanges {
     });
   }
 
-  protected maxOccurs(maxOccurs: string) {
-    return this.service.maxOccurs(maxOccurs);
+  protected maxOccurs(maxOccurs: string): boolean {
+    return maxOccurs !== null && maxOccurs !== undefined && this.service.maxOccurs(maxOccurs);
   }
 
-  protected expand(minOccurs: string) {
-    return minOccurs && parseInt(minOccurs, 10) > 0;
+  protected expand(minOccurs: string): boolean {
+    return minOccurs !== null && minOccurs !== undefined && parseInt(minOccurs, 10) > 0;
   }
 
-  protected addSection($event: Event, node: SchemaModel, parentNode: SchemaModel, parentFormEle: FormGroup) {
+  protected addSection($event: Event, node: SchemaModel, parentNode: SchemaModel, parentFormEle: FormGroup): void {
     $event.stopPropagation();
     const control: FormArray = parentFormEle.get(node.id) as FormArray;
     if (node.maxOccurs && parseInt(node.maxOccurs, 10) <= parentNode.elements.length) {
@@ -71,18 +111,18 @@ export class NgxIsoFormComponent implements OnChanges {
     const groupControls = this.service.getFormGroupControls(newEle.elements, newKeys, parentNode.elements.length - 1);
     parentNode.elements.push(newEle);
     control.push(groupControls);
-    this.cd.detectChanges();
+    this.changeDetection.detectChanges();
   }
 
-  protected removeSection($event: Event, parentNode: SchemaModel, parentFormEle: FormGroup, index: number) {
+  protected removeSection($event: Event, parentNode: SchemaModel, parentFormEle: FormGroup, index: number): void {
     $event.stopPropagation();
     const control: FormArray = parentFormEle.get(parentNode.id) as FormArray;
     parentNode.elements.splice(index, 1);
     control.removeAt(index);
-    this.cd.detectChanges();
+    this.changeDetection.detectChanges();
   }
 
-  protected addNewControl($event: Event, node: SchemaModel, parentNode: SchemaModel, parentFormEle: FormGroup) {
+  protected addNewControl($event: Event, node: SchemaModel, parentNode: SchemaModel, parentFormEle: FormGroup): void {
     $event.stopPropagation();
     if (node.maxOccurs && parseInt(node.maxOccurs, 10) <= parentNode.elements.length) {
       return;
@@ -92,29 +132,29 @@ export class NgxIsoFormComponent implements OnChanges {
     const newEle = structuredClone(parentNode.elements[parentNode.elements.length - 1]);
     control.push(newControl);
     parentNode.elements.push(newEle);
-    this.cd.detectChanges();
+    this.changeDetection.detectChanges();
   }
-  
-  protected removeNewControl($event: Event, parentNode: SchemaModel, parentFormEle: FormGroup, index: number) {
+
+  protected removeNewControl($event: Event, parentNode: SchemaModel, parentFormEle: FormGroup, index: number): void {
     $event.stopPropagation();
     const control: FormArray = parentFormEle.get(parentNode.id) as FormArray;
     parentNode.elements.splice(index, 1);
     control.removeAt(index);
-    this.cd.detectChanges();
+    this.changeDetection.detectChanges();
   }
 
-  protected isArray(myKey: Object | Array<any>) {
+  protected isArray(myKey: Object | Array<any>): boolean {
     if (myKey instanceof Array) {
       return true;
     }
     return false;
   }
 
-  protected isEmpty(formElement: FormGroup) {
+  protected isEmpty(formElement: FormGroup): boolean {
     return Object.keys(formElement.controls).length === 0;
   }
 
-  protected getElement(formElement: FormGroup, element: any) {
+  protected getElement(formElement: FormGroup, element: any): AbstractControl<any, any> | undefined {
     if (element.hidden) {
       return;
     }
@@ -144,4 +184,5 @@ export class NgxIsoFormComponent implements OnChanges {
     }
     return formControl;
   }
+
 }

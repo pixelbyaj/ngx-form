@@ -4,9 +4,11 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve ngx-iso-app",
-    "build": "ng build ngx-iso",
+    "build": "ng build ngx-iso-form --prod && npm run scss",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "scss": "node ./copy_sass.js ./dist/ngx-iso-form/src/lib/ ./dist/ngx-iso-form/lib/styles/",
+    "package:ngxisoform": "ng build npm run build && cd dist/ngx-iso-form && npm publish"
   },
   "private": true,
   "dependencies": {

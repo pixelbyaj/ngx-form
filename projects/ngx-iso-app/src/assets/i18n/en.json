@@ -8,7 +8,9 @@
         },
         "document_bktocstmrstmt_grphdr_credttm": {
             "label": "Create Datetime",
-            "format":"",
+            "general":{
+                "format":"YYYY-MM-DDThh:mm:ss.sss+/-"
+            },
              "error": {
                 "required":"This field is required"
              }

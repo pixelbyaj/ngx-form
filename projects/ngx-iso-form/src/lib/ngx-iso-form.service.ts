@@ -1,16 +1,70 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
-import { SchemaModel } from '../public-api';
+import { SchemaModel } from './Models/Schema';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NgxIsoService {
-
+  public _formModel: any[] = [];
   constructor(private fb: FormBuilder) { }
 
-  public maxOccurs(maxOccurs: string) {
+  public maxOccurs(maxOccurs: string): boolean {
     return maxOccurs === 'unbounded' || parseInt(maxOccurs, 10) > 1;
+  }
+
+  public initFormModel(model: any, form: FormGroup | FormArray): void {
+    if (typeof model === 'object') {
+      for (const key in model) {
+        if (Array.isArray(model[key])) {
+          const parentNode = this.getFormModel(this._formModel[0], key);
+          const item = model[key];
+          const formArray = form.get(key) as FormArray;
+          if (formArray && formArray.length !== item.length) {
+            const newEle = structuredClone(parentNode.elements[parentNode.elements.length - 1]);
+            if (!(newEle.maxOccurs && parseInt(newEle.maxOccurs, 10) <= parentNode.elements.length)) {
+              const newKeys: any = [];
+              const groupControls = this.getFormGroupControls(newEle.elements, newKeys, parentNode.elements.length - 1);
+              parentNode.elements.push(newEle);
+              formArray.push(groupControls);
+              parentNode.elements.forEach((element: SchemaModel) => {
+                if (!element.minOccurs || parseInt(element.minOccurs, 10) === 0) {
+                  element.minOccurs = "1";
+                }
+              });
+            }
+          }
+
+          for (let i = 0; i < item.length; i++) {
+            const formArray = form.get(key);
+            if (formArray) {
+              const frmGroup = (formArray as FormArray).at(i);
+              if (frmGroup) {
+                this.initFormModel(item[i], frmGroup as FormGroup);
+              }
+            }
+          }
+        } else if (typeof model[key] === 'object') {
+          const node = this.getFormModel(this._formModel[0], key);
+          if (node && (!node.minOccurs || parseInt(node.minOccurs, 10) === 0)) {
+            node.minOccurs = "1";
+          }
+          const _form = form.get(key) as FormGroup
+          if (_form) {
+            this.initFormModel(model[key], _form);
+          }
+        }
+        else {
+          const _form = form.get(key) as FormControl;
+          _form.setValue(model[key]);
+        }
+      }
+    } else if (Array.isArray(model)) {
+      for (let i = 0; i < model.length; i++) {
+        const frmGroup = (form as FormArray).at(i);
+        this.initFormModel(model[i], frmGroup as FormGroup);
+      }
+    }
   }
 
   public getFormGroupControls(json: SchemaModel[], keys: any, index: number = 0, choiceEle: boolean = false): FormGroup {
@@ -81,48 +135,14 @@ export class NgxIsoService {
     });
   }
 
-  public getFormModel = (object: any, key: string, value: string): any => {
-    if (Array.isArray(object)) {
-      for (const obj of object) {
-        const result = this.getFormModel(obj, key, value);
-        if (result) {
-          return result;
-        }
-      }
-    } else {
-      if (object.hasOwnProperty(key) && object[key] === value) {
-        return object;
-      } else if (object.elements && object.elements.length > 0) {
-        return this.getFormModel(object.elements, key, value);
-      }
-      return null;
-    }
-  }
-
-  public getFormArray = (formGroup: any, value: string): any => {
-    if (formGroup) {
-      for (let control in formGroup.controls) {
-        const forms = formGroup.controls[control];
-        if (control === value) {
-          return forms;
-        }
-        if (forms instanceof FormArray) {
-          return this.getFormArray(forms, value)
-        } else if (forms.controls) {
-          return this.getFormArray(forms, value);
-        }
-      }
-    }
-  }
-
-  public sanitize = (obj: any) => {
+  public sanitize = (obj: any): any => {
     if (obj === null || obj === "") {
       return null;
     }
 
     if (Array.isArray(obj)) {
       const cleanedObj: any = {};
-      for(const index in obj){
+      for (const index in obj) {
         const cleanedValue = this.sanitize(obj[index]);
         if (cleanedValue !== null && cleanedValue !== "" && Object.keys(cleanedValue).length > 0 && (!Array.isArray(cleanedValue) || cleanedValue.length > 0)) {
           cleanedObj[index] = cleanedValue;
@@ -145,4 +165,24 @@ export class NgxIsoService {
 
     return obj;
   }
+
+  private getFormModel = (object: any, key: string): any => {
+    if (object) {
+      if (object.elements.length) {
+        if (object.id === key) {
+          return object;
+        }
+        for (let i = 0; i < object.elements.length; i++) {
+          const obj = this.getFormModel(object.elements[i], key);
+          if (obj)
+            return obj;
+        }
+      } else {
+        if (object.id === key) {
+          return object;
+        }
+      }
+    }
+  }
+
 }

@@ -1,0 +1,30 @@
+{
+    "document": {
+        "purchaseorder_shipto": [
+            {
+                "purchaseorder_shipto_name": "Abhishek",
+                "purchaseorder_shipto_street": "Focha 2",
+                "purchaseorder_shipto_city": "Gdansk",
+                "purchaseorder_shipto_state": "Gdansk",
+                "purchaseorder_shipto_zip": "80-156"
+            },
+            {
+                "purchaseorder_shipto_name": "Abhishek_1",
+                "purchaseorder_shipto_street": "Focha 2_1",
+                "purchaseorder_shipto_city": "Gdansk_1",
+                "purchaseorder_shipto_state": "Gdansk_1",
+                "purchaseorder_shipto_zip": "80-156_1"
+            }
+        ],
+        "purchaseorder_billto": {
+            "purchaseorder_billto_name": "Abhishek1",
+            "purchaseorder_billto_street": "Focha 3",
+            "purchaseorder_billto_city": "Gdansk1",
+            "purchaseorder_billto_state": "Gdansk1",
+            "purchaseorder_billto_zip": "80-157",
+            "purchaseorder_billto_envlp": {
+                "purchaseorder_billto_envlp_any": "adsa"
+            }
+        }
+    }
+}
