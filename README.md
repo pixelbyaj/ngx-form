@@ -27,7 +27,7 @@ This form is used to design Angular Reactive Form using any given XSD. The prima
 - 💪 Built on top of [Angular Reactive Forms](https://angular.io/guide/reactive-forms)
 
 ## Supported JSON Schema
-```json
+```typescript
 export interface SchemaElement {
     id: string;
     name: string;
