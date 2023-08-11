@@ -8,6 +8,7 @@
         },
         "document_bktocstmrstmt_grphdr_credttm": {
             "label": "Create Datetime",
+            "format":"",
              "error": {
                 "required":"This field is required"
              }
