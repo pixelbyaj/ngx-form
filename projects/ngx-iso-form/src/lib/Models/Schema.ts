@@ -15,7 +15,6 @@ export interface SchemaElement {
     isCurrency: boolean;
     xpath: string;
     elements: SchemaElement[];
-    children: SchemaElement[];
 }
 
 export interface SchemaModel extends SchemaElement{
@@ -24,4 +23,5 @@ export interface SchemaModel extends SchemaElement{
     value?:string;
     multi?:string;
     isFormControls?:boolean;
+    children?: SchemaModel[];
 }

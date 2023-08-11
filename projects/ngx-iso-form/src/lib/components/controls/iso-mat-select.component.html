@@ -5,4 +5,9 @@
         {{item}}
       </mat-option>
     </mat-select>
+    <ng-container *ngFor="let item of getKeys(formControl.errors)">
+      <div *ngIf="formControl.errors?.[item] && formControl.touched">
+          {{ control.name | error: control.id : item : item + " validation failed" }}
+      </div>
+  </ng-container>
   </mat-form-field>

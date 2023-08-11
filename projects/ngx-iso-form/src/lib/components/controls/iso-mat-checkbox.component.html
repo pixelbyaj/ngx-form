@@ -1,6 +1,5 @@
-<mat-form-field class="form-control form-control-full">
-    <mat-label>{{ control.name | trans: control.id : control.name }}</mat-label>
-    <textarea matInput placeholder="{{control.name}}" [formControl]="formControl"></textarea>
+<mat-form-field class="form-control form-control-m">
+    <mat-checkbox [formControl]="formControl">{{ control.id | trans: control.id : control.name }}</mat-checkbox>
     <ng-container *ngFor="let item of getKeys(formControl.errors)">
         <div *ngIf="formControl.errors?.[item] && formControl.touched">
             {{ control.name | error: control.id : item : item + " validation failed" }}

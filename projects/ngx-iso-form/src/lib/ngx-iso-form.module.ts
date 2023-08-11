@@ -20,9 +20,11 @@ import {
   NgxIsoControlComponent,
   IsoBaseControlComponent,
   IsoMatInput,
-  IsoMatDateTime,
+  IsoMatDate,
   IsoMatTextarea,
-  IsoMatSelect
+  IsoMatSelect,
+  IsoMatCheckbox,
+  IsoMatDateTime,
 } from './components';
 
 import { NgxIsoFormComponent } from './ngx-iso-form.component';
@@ -31,6 +33,7 @@ import { ComponentDirective } from './shared/directives/component-content.direct
 import { NgxDynamicComponent } from './shared/components/dynamic/ngx-dynamic.component';
 import { IsoTranslatePipe } from './shared/pipe/translate.pipe';
 import { IsoErrorPipe } from './shared/pipe/error.pipe';
+import { IsoGeneralPipe } from './shared/pipe/general.pipe';
 import { ControlService } from './shared/services';
 
 
@@ -47,11 +50,14 @@ import { ControlService } from './shared/services';
     IsoBaseControlComponent,
     IsoMatInput,
     IsoMatTextarea,
+    IsoMatDate,
     IsoMatDateTime,
     IsoMatSelect,
+    IsoMatCheckbox,
     ComponentDirective,
     IsoTranslatePipe,
-    IsoErrorPipe
+    IsoErrorPipe,
+    IsoGeneralPipe
   ],
   imports: [
     BrowserModule,

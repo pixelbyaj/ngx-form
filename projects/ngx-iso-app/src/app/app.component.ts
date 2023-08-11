@@ -36,6 +36,6 @@ export class AppComponent implements OnInit {
   }
   getForm(){
     this.isoForm = (this.someInput as any).getIsoForm;
-    console.log(this.fb.group({'new': new FormGroup('')}));
+    console.log(this.isoForm);
   }
 }

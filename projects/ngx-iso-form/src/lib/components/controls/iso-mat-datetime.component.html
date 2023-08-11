@@ -1,9 +1,11 @@
 <mat-form-field class="form-control form-control-m">
-  <mat-label>{{ control.name | trans: control.id : control.name }}</mat-label>
-  <input matInput [matDatepicker]="picker" [formControl]="formControl">
-  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-datepicker #picker></mat-datepicker>
-  <div *ngIf="formControl.errors?.['required'] && formControl.touched">
-    {{ control.name | error: control.id : 'required' : 'This is requireds' }}
-  </div>
+    <mat-label>{{ control.id | trans: control.id : control.name }}</mat-label>
+    <input matInput placeholder="{{ control.name }}" [formControl]="formControl" [attr.minlength]="control.minLength" [attr.maxlength]="control.maxLength">
+    <mat-hint>{{ control.id | general: control.id : "format" : "YYYY-MM-DDThh:mm:ss.sss+/-hh:mm"   }}</mat-hint>
+    <ng-container *ngFor="let item of getKeys(formControl.errors)">
+        <div *ngIf="formControl.errors?.[item] && formControl.touched">
+            {{ control.name | error: control.id : item : item + " validation failed" }}
+        </div>
+    </ng-container>
+    
 </mat-form-field>
