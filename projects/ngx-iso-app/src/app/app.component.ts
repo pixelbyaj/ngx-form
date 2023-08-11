@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
-import { IsoForm, SchemaElement } from 'projects/ngx-iso-form/src/public-api';
+import { IsoForm, SchemaElement } from 'ngx-iso-form';
 
 @Component({
   selector: 'app-root',
@@ -24,6 +24,11 @@ export class AppComponent implements OnInit {
     // the lang to use, if the lang isn't available, it will use the current loader to get them
     translate.use('en');
 
+    
+    
+
+  }
+  ngOnInit(): void {
     const camt = './assets/camt.053.001.10.json';
     const sample = './assets/sample.json'
     const sampleLoad = './assets/sample.load.json'
@@ -39,9 +44,6 @@ export class AppComponent implements OnInit {
       }
 
     });
-
-  }
-  ngOnInit(): void {
   }
   getForm() {
     this.form.getFormModel();

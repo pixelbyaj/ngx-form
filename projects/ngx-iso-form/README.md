@@ -1,24 +1,118 @@
-# NgxIso
+<div align="center">
+  <a href="https://https://github.com/pixelbyaj/ngx-iso-form">
+    <img width="200" src="https://raw.githubusercontent.com/ngx-formly/ngx-formly/v5/logo.svg?sanitize=true" />
+  </a>
+  <br />
+  XSD - JSON powered / Dynamic ISO 20022 forms in Angular
+  <br /><br />
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.0.
+  [![Npm version](https://badge.fury.io/js/%40ngx-iso-form.svg)](https://npmjs.org/package/ngx-iso-form.svg)
+  [![Downloads](https://img.shields.io/npm/dm/ngx-iso-form.svg)](https://npmjs.org/package/ngx-iso-form.svg)
+</div>
 
-## Code scaffolding
+---
+# NgxIsoForm
 
-Run `ng generate component component-name --project ngx-iso` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ngx-iso`.
-> Note: Don't forget to add `--project ngx-iso` or else it will be added to the default project in your `angular.json` file. 
 
-## Build
+This form is used to design Angular Reactive Form using any given XSD. The primary use of this UI library is to design ISO 20022 forms dynamically.
 
-Run `ng build ngx-iso` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Features
 
-## Publishing
+- 🔥 Automatic forms generation
+- 📝 Easy to extend with custom field types
+- ⚡️ Supports ISO 20022 schemas:
+    - XSD - JSON Schema using XSDService nuget
+    - Support all validation like required, pattern, minlength, maxlength
+    - Support translation labels, errors and date formats.
+- 💪 Built on top of [Angular Reactive Forms](https://angular.io/guide/reactive-forms)
 
-After building your library with `ng build ngx-iso`, go to the dist folder `cd dist/ngx-iso` and run `npm publish`.
+## Supported JSON Schema
+```json
+export interface SchemaElement {
+    id: string;
+    name: string;
+    dataType: string;
+    minOccurs: string;
+    maxOccurs: string;
+    minLength: string;
+    maxLength: string;
+    pattern: string;
+    fractionDigits: string;
+    totalDigits: string;
+    minInclusive: string;
+    maxInclusive: string;
+    values: string[];
+    isCurrency: boolean;
+    xpath: string;
+    elements: SchemaElement[];
+}
 
-## Running unit tests
+```
+## [Live Demo](https://angular-ngrxeventbus.stackblitz.io)
+## How to consume
 
-Run `ng test ngx-iso` to execute the unit tests via [Karma](https://karma-runner.github.io).
+1. Install npm package ngx-iso-form.
 
-## Further help
+    ```console
+    npm i ngx-iso-form
+    ```
+2. Import Module
+```typescript 
+import { NgxIsoFormModule } from 'ngx-iso-form';
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+@NgModule({
+    ...
+  imports:[NgxIsoFormModule],
+    ...
+})
+
+```
+3. View
+```html
+<ngx-iso-form [schema]="schema" [form]="form"></ngx-iso-form>
+
+```
+4. Component
+```typescript
+export class AppComponent implements OnInit {
+    form: IsoForm;
+    schema: SchemaElement;
+
+    this.httpClient.get(sample).subscribe((data) => {
+      this.schema = data as SchemaElement
+    });
+
+    this.httpClient.get(sampleLoad).subscribe((model) => {
+      this.form = {
+        model: model,
+        getFormModel: (formModel: any) => {
+          console.log(formModel);
+        }
+      }
+
+    });
+}
+```
+3. Translation Support
+It support name and id properties of the SchemaElement
+```json
+{
+    "iso": {
+        "BkToCstmrStmt": {
+            "label": "Bank To Customer Statement"
+        },
+        "GrpHdr":{
+            "label": "Group Header"
+        },
+        "document_bktocstmrstmt_grphdr_credttm": {
+            "label": "Create Datetime",
+            "general":{
+                "format":"YYYY-MM-DDThh:mm:ss.sss+/-"
+            },
+             "error": {
+                "required":"This field is required"
+             }
+        }
+    }
+}
+```
