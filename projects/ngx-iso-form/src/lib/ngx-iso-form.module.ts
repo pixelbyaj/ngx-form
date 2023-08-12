@@ -25,6 +25,7 @@ import {
   IsoMatSelect,
   IsoMatCheckbox,
   IsoMatDateTime,
+  IsoMatCurrency,
 } from './components';
 
 import { NgxIsoFormComponent } from './ngx-iso-form.component';
@@ -54,6 +55,7 @@ import { ControlService } from './shared/services';
     IsoMatDateTime,
     IsoMatSelect,
     IsoMatCheckbox,
+    IsoMatCurrency,
     ComponentDirective,
     IsoTranslatePipe,
     IsoErrorPipe,

@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
-import { IsoForm, SchemaElement } from 'ngx-iso-form';
+import { IsoForm, SchemaElement } from 'projects/ngx-iso-form/src/public-api';
+// import { IsoForm, SchemaElement } from 'ngx-iso-form';
 
 @Component({
   selector: 'app-root',
@@ -32,16 +33,16 @@ export class AppComponent implements OnInit {
     const camt = './assets/camt.053.001.10.json';
     const sample = './assets/sample.json'
     const sampleLoad = './assets/sample.load.json'
-    this.httpClient.get(sample).subscribe((data) => {
+    this.httpClient.get(camt).subscribe((data) => {
       this.schema = data as SchemaElement
     });
     this.httpClient.get(sampleLoad).subscribe((model) => {
-      this.form = {
-        model: model,
-        getFormModel: (data: any) => {
-          debugger
-        }
-      }
+      // this.form = {
+      //   model: model,
+      //   getFormModel: (data: any) => {
+      //     debugger
+      //   }
+      // }
 
     });
   }

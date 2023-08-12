@@ -123,6 +123,24 @@
                     "elements": []
                 },
                 {
+                    "id": "purchaseorder_shipto_amt",
+                    "name": "Amt",
+                    "dataType": "Decimal",
+                    "minOccurs": "1",
+                    "maxOccurs": "1",
+                    "minLength": null,
+                    "maxLength": null,
+                    "pattern": "[A-Z]{3,3}",
+                    "fractionDigits": "5",
+                    "totalDigits": "18",
+                    "minInclusive": null,
+                    "maxInclusive": null,
+                    "values": null,
+                    "isCurrency": true,
+                    "xpath": "PurchaseOrder/ShipTo/Amt",
+                    "elements": []
+                },
+                {
                     "id": "purchaseorder_shipto_envlp",
                     "name": "Envlp",
                     "dataType": null,

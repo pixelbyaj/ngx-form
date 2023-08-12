@@ -119,6 +119,12 @@ export class NgxIsoService {
       else if (this.maxOccurs(item.maxOccurs)) {
         keys.push({ id: element.id, multi: true, xpath: element.xpath, elements: [element], isFormControls: true });
         control[id] = this.fb.array([this.getFormControl(item.value)]);
+      } else if (item.isCurrency) {
+        debugger
+        const _amountCurrency = this.getAmountCurrency(item);
+        keys.push(element);
+        const data = this.getFormGroupControls(_amountCurrency, element.elements, 0, false);
+        control[item.id] = data;
       }
       else {
         keys.push(element);
@@ -185,4 +191,26 @@ export class NgxIsoService {
     }
   }
 
+  private getAmountCurrency(item: SchemaModel): SchemaModel[]
+  {
+    const elements: SchemaModel[] = []; 
+    const ccy = structuredClone(item);
+    const amt = structuredClone(item);
+
+    ccy.id = `${ccy.id}_ccy`;
+    ccy.name = "Ccy";
+    ccy.fractionDigits = '';
+    ccy.totalDigits = '';
+    ccy.maxLength = "3"
+    ccy.xpath = `${ccy.xpath}@ccy`;
+    ccy.isCurrency = false;
+    elements.push(ccy);
+
+    amt.id = `${amt.id}_amt`;
+    amt.xpath = `${amt.xpath}/amt`;
+    amt.isCurrency = false;
+    amt.pattern = '';
+    elements.push(amt);
+    return elements;
+  }
 }

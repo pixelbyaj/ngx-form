@@ -1,7 +1,7 @@
 import { FormControl } from "@angular/forms";
 import { ComponentModel } from "../models/component.model";
 import { SchemaElement } from "../../Models/Schema";
-import { IsoMatDate, IsoMatDateTime, IsoMatInput, IsoMatSelect, IsoMatTextarea } from "../../components";
+import { IsoMatCurrency, IsoMatDate, IsoMatDateTime, IsoMatInput, IsoMatSelect, IsoMatTextarea } from "../../components";
 
 export class ControlService {
 
@@ -13,6 +13,10 @@ export class ControlService {
         switch (controlModel.dataType.toLocaleLowerCase()) {
             case "string":
             case "decimal":
+                if(controlModel.name.toLocaleLowerCase().indexOf('ccy') > -1)
+                {
+                    return new ComponentModel(IsoMatCurrency, { "control": controlModel, "formControl": formControl });
+                }
                 if (controlModel.values?.length > 0) {
                     return new ComponentModel(IsoMatSelect, { "control": controlModel, "formControl": formControl });
                 }
