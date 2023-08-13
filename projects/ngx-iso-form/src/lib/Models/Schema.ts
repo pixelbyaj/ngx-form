@@ -1,3 +1,5 @@
+import { AbstractControl } from "@angular/forms";
+
 export interface SchemaElement {
     id: string;
     name: string;
@@ -24,4 +26,5 @@ export interface SchemaModel extends SchemaElement{
     multi?:string;
     isFormControls?:boolean;
     children?: SchemaModel[];
+    choiceFormControl?: AbstractControl<any,any>;
 }

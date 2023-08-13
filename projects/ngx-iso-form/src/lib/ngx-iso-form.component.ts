@@ -58,27 +58,26 @@ export class NgxIsoFormComponent implements OnChanges {
     group[this.schema.id] = this.service.getFormGroupControls(this.schema.elements, this.service._formModel[0].elements);
     this._form = new FormGroup(group);
     if (!this._isFormInitiate) {
-      this.service.initFormModel(this._ngModel, this._form);
+      this.initiateFormModel();
     }
   }
 
   private initiateFormModel(): void {
     if (this._form) {
-      this._ngModel = this.form.model;
-      const newFunc = this.form.getFormModel as Function;
+      this._ngModel = this.form._model;      
       this.form.getFormModel = () => {
-        newFunc(this.getIsoForm);
+        return this.getIsoForm;
       };
       this._isFormInitiate = true;
       this.service.initFormModel(this._ngModel, this._form);
     }
   }
 
-  protected onChoiceSelectionChange(value: SchemaModel, formElement: any, nodes: SchemaModel): void {
+  protected onChoiceSelectionChange(id: string, formElement: any, nodes: SchemaModel): void {
     nodes.elements.forEach((element: SchemaModel) => {
       element.hidden = true;
       formElement.removeControl(element.id);
-      if (element.id === value.id) {
+      if (element.id === id) {
         element.hidden = false;
         if (element.elements.length) {
           const group = this.service.getFormGroupControls(element.elements, [], 0, true);
@@ -185,4 +184,8 @@ export class NgxIsoFormComponent implements OnChanges {
     return formControl;
   }
 
+  protected getFormControl(node: SchemaModel): FormControl{
+    debugger
+    return this.service.getFormControl('');
+  }
 }

@@ -31,24 +31,18 @@ export class AppComponent implements OnInit {
   }
   ngOnInit(): void {
     const camt = './assets/camt.053.001.10.json';
-    const sample = './assets/sample.json'
-    const sampleLoad = './assets/sample.load.json'
+    const sample = './assets/sample.json';
+    const sampleLoad = './assets/sample.load.json';
+    const camtLoad = './assets/camt.load.json';
     this.httpClient.get(camt).subscribe((data) => {
       this.schema = data as SchemaElement
     });
-    this.httpClient.get(sampleLoad).subscribe((model) => {
-      // this.form = {
-      //   model: model,
-      //   getFormModel: (data: any) => {
-      //     debugger
-      //   }
-      // }
-
+    this.httpClient.get(camtLoad).subscribe((data) => {      
+      this.form = new IsoForm(data);
     });
   }
   getForm() {
-    this.form.getFormModel();
-    const data = (this.someInput as any).ngModel;
+    const data = this.form.getFormModel();    
     console.log(JSON.stringify(data));
   }
 

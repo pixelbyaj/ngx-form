@@ -1,0 +1,30 @@
+{
+    "document": {
+        "document_bktocstmrstmt": {
+            "document_bktocstmrstmt_grphdr": {
+                "document_bktocstmrstmt_grphdr_msgid": "1"
+            },
+            "document_bktocstmrstmt_stmt": [
+                {
+                    "document_bktocstmrstmt_stmt_id": "1",
+                    "document_bktocstmrstmt_stmt_acct": {
+                        "document_bktocstmrstmt_stmt_acct_ccy": "USD"
+                    },
+                    "document_bktocstmrstmt_stmt_bal": [
+                        {
+                            "document_bktocstmrstmt_stmt_bal_tp": {
+                                "document_bktocstmrstmt_stmt_bal_tp_cdorprtry": {
+                                    "document_bktocstmrstmt_stmt_bal_tp_cdorprtry_cd": "1000"
+                                }
+                            },
+                            "document_bktocstmrstmt_stmt_bal_amt": {
+                                "document_bktocstmrstmt_stmt_bal_amt_ccy": "USD",
+                                "document_bktocstmrstmt_stmt_bal_amt_amt": "1000"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

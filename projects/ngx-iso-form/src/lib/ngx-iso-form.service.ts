@@ -51,6 +51,20 @@ export class NgxIsoService {
           }
           const _form = form.get(key) as FormGroup
           if (_form) {
+            if (node.dataType === 'choice') {                            
+              const choickKey = Object.keys(model[key])[0];
+              const choiceEle = node.elements.find((item: SchemaModel) => item.id === choickKey);
+              node.choiceFormControl.setValue(choickKey);
+              choiceEle.hidden = false;
+              const newNode = structuredClone(choiceEle);
+              if (newNode.elements.length) {
+                const group = this.getFormGroupControls(newNode.elements, [], 0, true);
+                _form.addControl(newNode.id, group);
+              } else {
+                const control = this.getFormControl('');
+                _form.addControl(newNode.id, control);
+              }
+            }
             this.initFormModel(model[key], _form);
           }
         }
@@ -79,6 +93,9 @@ export class NgxIsoService {
       const element = { ...item, elements: [], id };
       if (item.elements.length > 0) {
         let choice = item.dataType === 'choice';
+        if (choice) {
+          element.choiceFormControl = this.getFormControl('');
+        }
         if (this.maxOccurs(item.maxOccurs)) {
           element.uniqueId = `${element.id}_${index}`;
           keys.push({ id: element.id, multi: true, xpath: element.xpath, elements: [element] });
@@ -120,7 +137,6 @@ export class NgxIsoService {
         keys.push({ id: element.id, multi: true, xpath: element.xpath, elements: [element], isFormControls: true });
         control[id] = this.fb.array([this.getFormControl(item.value)]);
       } else if (item.isCurrency) {
-        debugger
         const _amountCurrency = this.getAmountCurrency(item);
         keys.push(element);
         const data = this.getFormGroupControls(_amountCurrency, element.elements, 0, false);
@@ -147,16 +163,15 @@ export class NgxIsoService {
     }
 
     if (Array.isArray(obj)) {
-      const cleanedObj: any = {};
+      const cleanedObj: any = [];
       for (const index in obj) {
         const cleanedValue = this.sanitize(obj[index]);
         if (cleanedValue !== null && cleanedValue !== "" && Object.keys(cleanedValue).length > 0 && (!Array.isArray(cleanedValue) || cleanedValue.length > 0)) {
-          cleanedObj[index] = cleanedValue;
+          cleanedObj.push(cleanedValue);
         }
       }
-    }
-
-    if (typeof obj === 'object') {
+      return cleanedObj;
+    } else if (typeof obj === 'object') {
       const cleanedObj: any = {};
 
       for (const key in obj) {
@@ -165,7 +180,6 @@ export class NgxIsoService {
           cleanedObj[key] = cleanedValue;
         }
       }
-
       return cleanedObj;
     }
 
@@ -191,9 +205,8 @@ export class NgxIsoService {
     }
   }
 
-  private getAmountCurrency(item: SchemaModel): SchemaModel[]
-  {
-    const elements: SchemaModel[] = []; 
+  private getAmountCurrency(item: SchemaModel): SchemaModel[] {
+    const elements: SchemaModel[] = [];
     const ccy = structuredClone(item);
     const amt = structuredClone(item);
 
