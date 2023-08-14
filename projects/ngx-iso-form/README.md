@@ -48,7 +48,7 @@ export interface SchemaElement {
 }
 
 ```
-## [Live Demo](https://www.pixelbyaj.com/ngx-iso-form)
+## [Live Demo](https://www.pixelbyaj.com/ngx-iso-form/)
 ## How to consume
 
 1. Install npm package ngx-iso-form.
