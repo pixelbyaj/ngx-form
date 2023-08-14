@@ -4,15 +4,15 @@
   </a>
   <br />
   XSD - JSON powered / Dynamic ISO 20022 forms in Angular
-  <br /><br />
-
-  [![Npm version](https://badge.fury.io/js/%40ngx-iso-form.svg)](https://npmjs.org/package/ngx-iso-form.svg)
-  [![Downloads](https://img.shields.io/npm/dm/ngx-iso-form.svg)](https://npmjs.org/package/ngx-iso-form.svg)
+  <br />
+  
+  [![npm version](https://badge.fury.io/js/ngx-iso-form.svg)](https://badge.fury.io/js/ngx-iso-form)
+  ![NPM](https://img.shields.io/npm/l/ngx-iso-form)
+  [![Downloads](https://img.shields.io/npm/dm/ngx-iso-form.svg)](https://npmjs.org/package/ngx-iso-form)
 </div>
 
 ---
 # NgxIsoForm
-
 
 This form is used to design Angular Reactive Form using any given XSD. The primary use of this UI library is to design ISO 20022 forms dynamically.
 
