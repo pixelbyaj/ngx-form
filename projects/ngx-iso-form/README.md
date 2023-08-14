@@ -80,17 +80,15 @@ export class AppComponent implements OnInit {
 
     this.httpClient.get(sample).subscribe((data) => {
       this.schema = data as SchemaElement
+      this.form = new IsoForm(null);
     });
 
     this.httpClient.get(sampleLoad).subscribe((model) => {
-      this.form = {
-        model: model,
-        getFormModel: (formModel: any) => {
-          console.log(formModel);
-        }
-      }
-
+      this.form = new IsoForm(model)
     });
+
+    //To get the form object please use
+    // this.form.getFormModel();
 }
 ```
 3. Translation Support

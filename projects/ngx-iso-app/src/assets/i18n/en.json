@@ -3,10 +3,43 @@
         "BkToCstmrStmt": {
             "label": "Bank To Customer Statement"
         },
+        "BkToCstmrAcctRpt":{
+            "label": "Bank to Customer Account Report"
+        },
+        "BkToCstmrDbtCdtNtfctn":{
+            "label":"Bank To Customer Debit Credit Notification"
+        },
+        "FIToFIPmtStsRpt":{
+            "label":"FI To FI Payment Status Report"
+        },
+        "PmtRtr":{
+            "label":"Payment Return"
+        },
+        "FIToFICstmrCdtTrf":{
+            "label":"FI To FI Customer Credit Transfer"
+        },
+        "FICdtTrf":{
+            "label":"Financial Institution Credit Transfer"
+        },
+        "CstmrCdtTrfInitn":{
+            "label":"Customer Credit Transfer Initiation"
+        },
+        "CstmrPmtStsRpt":{
+            "label":"Customer Payment Status Report"
+        },
+        "CstmrPmtRvsl":{
+            "label":"Customer Payment Reversal"
+        },
+        "CstmrDrctDbtInitn":{
+            "label":"Customer Direct Debit Initiation"
+        },
+        "MndtInitnReq":{
+            "label":"Mandate Initiation Request"
+        },
         "GrpHdr":{
             "label": "Group Header"
         },
-        "document_bktocstmrstmt_grphdr_credttm": {
+        "CreDtTm": {
             "label": "Create Datetime",
             "general":{
                 "format":"YYYY-MM-DDThh:mm:ss.sss+/-"

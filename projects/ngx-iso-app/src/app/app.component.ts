@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { IsoForm, SchemaElement } from 'projects/ngx-iso-form/src/public-api';
 // import { IsoForm, SchemaElement } from 'ngx-iso-form';
@@ -15,34 +16,65 @@ export class AppComponent implements OnInit {
   title = 'ngx-iso-app';
   form: IsoForm;
   schema: SchemaElement;
+  selectedSchema: string;
+  jsonSchema = {
+    camt: [
+      { id: 'camt.052.001.11', activated: false },
+      { id: 'camt.053.001.11', activated: false },
+      { id: 'camt.054.001.11', activated: false }],
+    pacs: [
+      { id: 'pacs.002.001.12', activated: false },
+      { id: 'pacs.002.001.13', activated: false },
+      { id: 'pacs.004.001.12', activated: false },
+      { id: 'pacs.008.001.11', activated: false },
+      { id: 'pacs.009.001.10', activated: false }
+    ],
+    pain: [
+      { id: 'pain.001.001.11', activated: false },
+      { id: 'pain.002.001.13', activated: false },
+      { id: 'pain.007.001.11', activated: false },
+      { id: 'pain.008.001.10', activated: false },
+      { id: 'pain.009.001.07', activated: false }
+    ]
+  }
   /**
    *
    */
-  constructor(private httpClient: HttpClient, translate: TranslateService, private fb: FormBuilder) {
+  constructor(private httpClient: HttpClient, translate: TranslateService, private route: ActivatedRoute) {
     // this language will be used as a fallback when a translation isn't found in the current language
     translate.setDefaultLang('en');
 
     // the lang to use, if the lang isn't available, it will use the current loader to get them
     translate.use('en');
-
-    
-    
-
   }
   ngOnInit(): void {
-    const camt = './assets/camt.053.001.10.json';
-    const sample = './assets/sample.json';
-    const sampleLoad = './assets/sample.load.json';
-    const camtLoad = './assets/camt.load.json';
-    this.httpClient.get(camt).subscribe((data) => {
-      this.schema = data as SchemaElement
-    });
-    this.httpClient.get(camtLoad).subscribe((data) => {      
-      this.form = new IsoForm(data);
+    this.route.queryParams.subscribe(params => {
+      if (params['json']) {
+        this.selectedSchema = params['json'];
+        const jsonURL = `./assets/iso20022/${params['json']}.json`;
+        this.httpClient.get(jsonURL).subscribe((data) => {
+          this.schema = data as SchemaElement
+          this.form = new IsoForm(null);
+        });
+      }
     });
   }
+  onFileChange($event: any) {
+    const files = $event.target.files;
+    if (files && files.length) {
+      const file = $event.target.files.item(0);
+      const formData = new FormData();
+      const fileToUpload = file as File;
+      formData.append('File', fileToUpload, fileToUpload.name);
+      this.httpClient.post('https://www.pixelbyaj.com/api/XsdToJson', formData).subscribe((data) => {
+        this.schema = data as SchemaElement;
+        this.selectedSchema = fileToUpload.name;
+        this.form = new IsoForm(null);
+      });
+    }
+  }
   getForm() {
-    const data = this.form.getFormModel();    
+    const data = this.form.getFormModel();
     console.log(JSON.stringify(data));
   }
 

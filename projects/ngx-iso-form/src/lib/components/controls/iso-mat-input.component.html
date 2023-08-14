@@ -1,5 +1,5 @@
 <mat-form-field class="form-control form-control-m">
-    <mat-label>{{ control.id | trans: control.id : control.name }}</mat-label>
+    <mat-label>{{ control.name | trans: control.id : control.name }}</mat-label>
     <input matInput placeholder="{{ control.name }}" [formControl]="formControl" [attr.minlength]="control.minLength" [attr.maxlength]="control.maxLength">
     <ng-container *ngFor="let item of getKeys(formControl.errors)">
         <div *ngIf="formControl.errors?.[item] && formControl.touched" class="iso-mat-error">

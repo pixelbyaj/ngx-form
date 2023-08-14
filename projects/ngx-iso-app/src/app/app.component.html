@@ -1,4 +1,36 @@
-<button (click)="getForm()">
-    Get Form
-</button>
-<ngx-iso-form [schema]="schema" [form]="form"></ngx-iso-form>
+<div class="main">
+    <div class="header">
+        <a hre="https://www.pixelbyaj.com/ngx-iso-form/">
+            <img src="https://material.angular.io/assets/img/homepage/angular-white-transparent.svg" alt="ngx-iso-form"
+                aria-hidden="true" class="logo"> NGX-ISO-FORM
+        </a>
+    </div>
+    <div class="content">
+        <as-split direction="horizontal">
+            <as-split-area [size]="25">
+                <button mat-fab extended (click)="fileEle.click()">
+                    Upload <mat-icon>upload</mat-icon>
+                </button>
+                <input type="file" class="hidden" #fileEle (change)="onFileChange($event)" accept=".xsd"/>
+                <mat-nav-list>
+                    <span matListItemTitle>Bank-to-Customer Cash Management</span>
+                    <a mat-list-item *ngFor="let camt of jsonSchema.camt" [activated]="camt.activated" [routerLink]="['/xsd']"
+                        [queryParams]="{json:camt.id}">{{camt.id}}</a>
+                    <span matListItemTitle>Payments Clearing and Settlement</span>
+                    <a mat-list-item *ngFor="let pacs of jsonSchema.pacs" [activated]="pacs.activated" [routerLink]="['/xsd']"
+                    [queryParams]="{json:pacs.id}">{{pacs.id}}</a>
+                    <span matListItemTitle>Payments Initiation</span>
+                    <a mat-list-item *ngFor="let pain of jsonSchema.pain" [activated]="pain.activated" [routerLink]="['/xsd']"
+                    [queryParams]="{json:pain.id}">{{pain.id}}</a>
+                </mat-nav-list>
+            </as-split-area>
+            <as-split-area [size]="75">
+                <h3>{{selectedSchema}}</h3>
+                <ngx-iso-form [schema]="schema" [form]="form"></ngx-iso-form>
+            </as-split-area>
+        </as-split>
+    </div>
+    <footer>
+        Powered by ngx-iso-form ©2023.
+    </footer>
+</div>
