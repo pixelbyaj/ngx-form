@@ -3,8 +3,8 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { IsoForm, SchemaElement } from 'projects/ngx-iso-form/src/public-api';
-// import { IsoForm, SchemaElement } from 'ngx-iso-form';
+// import { IsoForm, SchemaElement } from 'projects/ngx-iso-form/src/public-api';
+import { IsoForm, SchemaElement } from 'ngx-iso-form';
 
 @Component({
   selector: 'app-root',

@@ -69,7 +69,8 @@
             ],
             "styles": [
               "projects/ngx-iso-app/src/styles.scss",
-              "projects/ngx-iso-app/src/theme.scss"
+              "projects/ngx-iso-app/src/theme.scss",
+              "node_modules/ngx-iso-form/lib/styles/index.scss"
             ],
             "scripts": []
           },
@@ -133,7 +134,8 @@
             ],
             "styles": [
               "projects/ngx-iso-app/src/styles.scss",
-              "projects/ngx-iso-app/src/theme.scss"
+              "projects/ngx-iso-app/src/theme.scss",
+              "node_modules/ngx-iso-form/lib/styles/index.scss"
             ],
             "scripts": []
           }

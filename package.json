@@ -4,12 +4,12 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve ngx-iso-app",
-    "build:ngx-iso-form": "ng build ngx-iso-form --prod && npm run scss",
+    "build:ngx-iso-form": "ng build ngx-iso-form && npm run scss",
     "build": "ng build ngx-iso-app",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "scss": "node ./copy_sass.js ./dist/ngx-iso-form/src/lib/ ./dist/ngx-iso-form/lib/styles/",
-    "package:ngxisoform": "ng build npm run build && cd dist/ngx-iso-form && npm publish"
+    "package:ngxisoform": "cd dist/ngx-iso-form && npm publish"
   },
   "private": true,
   "dependencies": {
@@ -26,6 +26,7 @@
     "@ngx-translate/core": "^15.0.0",
     "@ngx-translate/http-loader": "^8.0.0",
     "angular-split": "^15.0.0",
+    "ngx-iso-form": "^1.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
@@ -42,7 +43,6 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "ng-packagr": "^16.1.0",
-    "ngx-iso-form": "file:dist/ngx-iso-form",
     "typescript": "~5.1.3"
   }
 }

@@ -5,13 +5,13 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { NgxIsoFormModule } from 'projects/ngx-iso-form/src/public-api';
+// import { NgxIsoFormModule } from 'projects/ngx-iso-form/src/public-api';
 import { AngularSplitModule } from 'angular-split';
 import {MatListModule} from '@angular/material/list';
 import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-// import { NgxIsoFormModule } from 'ngx-iso-form';
+import { NgxIsoFormModule } from 'ngx-iso-form';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {

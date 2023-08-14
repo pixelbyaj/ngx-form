@@ -48,7 +48,7 @@ export interface SchemaElement {
 }
 
 ```
-## [Live Demo](https://angular-ngrxeventbus.stackblitz.io)
+## [Live Demo](https://www.pixelbyaj.com/ngx-iso-form)
 ## How to consume
 
 1. Install npm package ngx-iso-form.
@@ -56,7 +56,7 @@ export interface SchemaElement {
     ```console
     npm i ngx-iso-form
     ```
-2. Import Module
+2. Import Module & SCSS
 ```typescript 
 import { NgxIsoFormModule } from 'ngx-iso-form';
 
@@ -66,6 +66,12 @@ import { NgxIsoFormModule } from 'ngx-iso-form';
     ...
 })
 
+```
+Add style file to angular.json file
+```json
+styles:[
+     "node_modules/ngx-iso-form/lib/styles/index.scss"
+]
 ```
 3. View
 ```html
