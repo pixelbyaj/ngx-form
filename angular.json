@@ -70,7 +70,8 @@
             "styles": [
               "projects/ngx-iso-app/src/styles.scss",
               "projects/ngx-iso-app/src/theme.scss",
-              "node_modules/ngx-iso-form/lib/styles/index.scss"
+              "node_modules/ngx-iso-form/lib/styles/index.scss",
+              "node_modules/ngx-xml-message/lib/styles/index.scss"
             ],
             "scripts": []
           },
@@ -138,6 +139,39 @@
               "node_modules/ngx-iso-form/lib/styles/index.scss"
             ],
             "scripts": []
+          }
+        }
+      }
+    },
+    "ngx-xml-message": {
+      "projectType": "library",
+      "root": "projects/ngx-xml-message",
+      "sourceRoot": "projects/ngx-xml-message/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/ngx-xml-message/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngx-xml-message/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ngx-xml-message/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/ngx-xml-message/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
           }
         }
       }

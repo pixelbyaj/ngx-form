@@ -7,11 +7,11 @@ import { IsoForm, SchemaElement } from 'projects/ngx-iso-form/src/public-api';
 //import { IsoForm, SchemaElement } from 'ngx-iso-form';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: 'app-iso',
+  templateUrl: './iso.component.html',
+  styleUrls: ['./iso.component.scss']
 })
-export class AppComponent implements OnInit {
+export class IsoComponent implements OnInit {
   @ViewChild('someInput') someInput!: TemplateRef<any>;
   title = 'ngx-iso-app';
   form: IsoForm;

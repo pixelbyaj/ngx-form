@@ -1,0 +1,25 @@
+<div class="main">
+    <div class="header">
+        <a hre="https://www.pixelbyaj.com/ngx-iso-form/">
+            <img src="https://material.angular.io/assets/img/homepage/angular-white-transparent.svg" alt="ngx-xml-message"
+                aria-hidden="true" class="logo"> NGX-XML-MESSAGE
+        </a>
+    </div>
+    <div class="content">
+        <as-split direction="horizontal">
+            <as-split-area [size]="40">
+                <mat-form-field class="example-full-width">
+                    <mat-label>XML Message</mat-label>
+                    <textarea matInput [(ngModel)]="message" class="textarea"></textarea>
+                </mat-form-field>
+                <button (click)="loadMessage()">Load Message</button>
+            </as-split-area>
+            <as-split-area [size]="60">
+                <ngx-xml-message [xmlMessage]="xmlMessage" [showNamspace]="true"></ngx-xml-message>
+            </as-split-area>
+        </as-split>
+    </div>
+    <footer>
+        Powered by ngx-xml-message ©2023.
+    </footer>
+</div>

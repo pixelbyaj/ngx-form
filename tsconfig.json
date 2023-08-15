@@ -15,6 +15,9 @@
     "paths": {
       "ngx-iso-form": [
         "dist/ngx-iso-form"
+      ],
+      "ngx-xml-message": [
+        "dist/ngx-xml-message"
       ]
     },
     "declaration": false,

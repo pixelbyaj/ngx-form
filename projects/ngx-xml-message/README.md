@@ -1,0 +1,73 @@
+<div align="center">
+  <h1>Display XML & ISO 20022 messages using Angular Forms
+  </h1>
+  <br />
+  
+  [![npm](https://img.shields.io/npm/dt/ngx-xml-message.svg)](https://www.npmjs.com/package/ngx-xml-message)
+  ![NPM](https://img.shields.io/npm/l/ngx-xml-message)
+  [![Downloads](https://img.shields.io/npm/dm/ngx-xml-message.svg)](https://npmjs.org/package/ngx-xml-message)
+</div>
+
+---
+# NgxXmlMessage
+
+This form is used to design Angular Readonly Form using any given XML/ISO 20022 messages. The primary use of this UI library is to design ISO 20022 or MX readonly forms dynamically.
+
+## Features
+
+- 🔥 Automatic forms generation
+- ⚡️ Supports ISO 20022 messages:
+    - Support translation labels.
+- 💪 Built on top of [Angular Reactive Forms](https://angular.io/guide/reactive-forms)
+
+## [Live Demo](https://www.pixelbyaj.com/ngx-xml-message/)
+## How to consume
+
+1. Install npm package ngx-xml-message.
+
+```console
+    npm i ngx-xml-message
+```
+2. Import Module & SCSS
+```typescript 
+import { NgxXmlMessageModule } from 'ngx-xml-message';
+
+@NgModule({
+    ...
+  imports:[NgxXmlMessageModule],
+    ...
+})
+
+```
+Add style file to angular.json file
+```json
+{
+    styles:[
+     "node_modules/ngx-xml-message/lib/styles/index.scss"
+    ]
+}
+```
+
+3. View
+```html
+<ngx-xml-message [xmlMessage]="message" [showNamspace]="true"></ngx-xml-message>
+```
+
+4. Component
+```typescript
+export class AppComponent implements OnInit {
+    message: string;
+     const xmlPath = `./assets/xml/${params['xml']}.xml`;
+        this.httpClient.get(xmlPath,{ responseType: 'text' }).subscribe((data) => {
+          this.message = data as string;
+     });
+}
+```
+3. Translation Support
+It support name and id properties of the SchemaElement
+```json
+{
+    "Hdr": "Header",
+    "MsgId": "Message Id"
+}
+```

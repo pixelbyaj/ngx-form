@@ -5,11 +5,14 @@
     "ng": "ng",
     "start": "ng serve ngx-iso-app",
     "build:ngx-iso-form": "ng build ngx-iso-form && npm run scss",
+    "build:ngx-xml-message": "ng build ngx-xml-message && npm run scss:ngxxmlmessage",
     "build": "ng build ngx-iso-app --base-href=./",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "scss": "node ./copy_sass.js ./dist/ngx-iso-form/src/lib/ ./dist/ngx-iso-form/lib/styles/",
-    "package:ngxisoform": "cd dist/ngx-iso-form && npm publish"
+    "scss:ngxxmlmessage": "node ./copy_sass.js ./dist/ngx-xml-message/src/lib/ ./dist/ngx-xml-message/lib/styles/",
+    "package:ngxisoform": "cd dist/ngx-iso-form && npm publish",
+    "package:ngxxmlmessage": "cd dist/ngx-xml-message && npm publish"
   },
   "private": true,
   "dependencies": {

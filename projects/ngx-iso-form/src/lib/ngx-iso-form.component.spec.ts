@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NgxIsoComponent } from './ngx-iso-form.component';
+import { NgxIsoFormComponent } from './ngx-iso-form.component';
 
 describe('NgxIsoComponent', () => {
-  let component: NgxIsoComponent;
-  let fixture: ComponentFixture<NgxIsoComponent>;
+  let component: NgxIsoFormComponent;
+  let fixture: ComponentFixture<NgxIsoFormComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [NgxIsoComponent]
+      declarations: [NgxIsoFormComponent]
     });
-    fixture = TestBed.createComponent(NgxIsoComponent);
+    fixture = TestBed.createComponent(NgxIsoFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -18,4 +18,5 @@ describe('NgxIsoComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  
 });

@@ -1,0 +1,69 @@
+<form *ngIf="jsonMessage">
+    <div class="form-group">
+        <ng-template #nodeTemplateRef let-node="node" let-index="index" let-key="key" let-namespace="namespace">
+            <ng-container *ngIf="isArray(node) then arr else obj"></ng-container>
+            <ng-template #arr>
+                <ng-template *ngFor="let model of node;let i = index" [ngTemplateOutlet]="nodeTemplateRef"
+                    [ngTemplateOutletContext]="{
+            node: model,
+            key: key,
+          }">
+                </ng-template>
+            </ng-template>
+            <ng-template #obj>
+                <ng-container *ngIf="isObject(node)">
+                    <mat-accordion>
+                        <mat-expansion-panel multi [expanded]="true">
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    {{ key | translate }} {{namespace && showNamspace ? ' - ' + namespace : ''}}
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <ng-container>
+                                <div *ngIf="node._attributes === undefined || node._attributes.xmlns">
+                                    <ng-template *ngFor="let key of getKeys(node);let i = index"
+                                        [ngTemplateOutlet]="nodeTemplateRef" [ngTemplateOutletContext]="{
+                                        node: node[key],
+                                        key: key
+                                        }">
+                                    </ng-template>
+                                </div>
+                                <div *ngIf="node._attributes !== undefined">
+                                    <mat-form-field class="form-control form-control-s"
+                                        *ngFor="let attr of getKeys(node._attributes)">
+                                        <mat-label>{{ attr | translate }}</mat-label>
+                                        <input matInput [readonly]="true" value="{{node._attributes[attr]}}">
+                                    </mat-form-field>
+                                    <mat-form-field class="form-control form-control-m">
+                                        <mat-label>{{ node.value | translate }}</mat-label>
+                                        <input matInput [readonly]="true" value="{{node.value}}">
+                                    </mat-form-field>
+                                </div>
+                            </ng-container>
+
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </ng-container>
+                <ng-container *ngIf="!isObject(node)">
+                    <mat-form-field *ngIf="node.length <= 70" class="form-control {{node.length > 70 ? 'form-control-l': 'form-control-m'}}">
+                        <mat-label>{{ key | translate }}</mat-label>
+                        <input matInput [readonly]="true" value="{{node}}">
+                    </mat-form-field>
+                    <mat-form-field *ngIf="node.length > 70" class="form-control form-control-full">
+                        <mat-label>{{ key | translate }}</mat-label>
+                        <textarea matInput [readonly]="true">{{node}}</textarea>
+                    </mat-form-field>
+                </ng-container>
+            </ng-template>
+        </ng-template>
+
+        <ng-container>
+            <ng-template [ngTemplateOutlet]="nodeTemplateRef" [ngTemplateOutletContext]="{
+            node: jsonMessage['Document'],
+            key: getKeyName(jsonMessage),
+            namespace: namespace
+          }">
+            </ng-template>
+        </ng-container>
+    </div>
+</form>
