@@ -1,11 +1,11 @@
 <div align="center">
   <h1>Display XML & ISO 20022 messages using Angular Forms
   </h1>
-  <br />
   
-  [![npm](https://img.shields.io/npm/dt/ngx-xml-message.svg)](https://www.npmjs.com/package/ngx-xml-message)
-  ![NPM](https://img.shields.io/npm/l/ngx-xml-message)
-  [![Downloads](https://img.shields.io/npm/dm/ngx-xml-message.svg)](https://npmjs.org/package/ngx-xml-message)
+![npm](https://img.shields.io/npm/v/ngx-xml-message)
+![NPM](https://img.shields.io/npm/l/ngx-xml-message)
+[![npm](https://img.shields.io/npm/dm/ngx-xml-message)](https://npmjs.org/package/ngx-xml-message)
+
 </div>
 
 ---

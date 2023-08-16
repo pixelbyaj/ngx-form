@@ -1,16 +1,16 @@
 {
   "name": "ngx-xml-message",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This form is used to design Angular Reactive Form using any given XML. The primary use of this Readonly UI library is to design ISO 20022 XML messages in forms dynamically.",
   "author": "Abhishek Joshi aka PixelByAJ",
   "repository": {
     "type": "git",
-    "url": "https://github.com/pixelbyaj/ngx-xml-form"
+    "url": "https://github.com/pixelbyaj/ngx-form/tree/main/projects/ngx-xml-message"
   },
   "bugs": {
-    "url": "https://github.com/pixelbyaj/ngx-iso-form/issues"
+    "url": "https://github.com/pixelbyaj/ngx-form/issues"
   },
-  "homepage": "https://www.pixelbyaj.com/ngx-iso-form",
+  "homepage": "https://www.pixelbyaj.com/ngx-xml-message/",
   "keywords": [
     "angular",
     "javascript",

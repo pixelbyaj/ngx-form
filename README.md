@@ -2,121 +2,28 @@
   <a href="https://https://github.com/pixelbyaj/ngx-iso-form">
     <img width="200" src="https://raw.githubusercontent.com/ngx-formly/ngx-formly/v5/logo.svg?sanitize=true" />
   </a>
-  <br />
-  XSD - JSON powered / Dynamic ISO 20022 forms in Angular
-  <br />
-  
-  [![npm version](https://badge.fury.io/js/ngx-iso-form.svg)](https://badge.fury.io/js/ngx-iso-form)
-  ![NPM](https://img.shields.io/npm/l/ngx-iso-form)
-  [![Downloads](https://img.shields.io/npm/dm/ngx-iso-form.svg)](https://npmjs.org/package/ngx-iso-form)
 </div>
 
 ---
-# NgxIsoForm
+# NgxIsoForm & NgxXmlMessage
 
+## NgxIsoForm
 This form is used to design Angular Reactive Form using any given XSD. The primary use of this UI library is to design ISO 20022 forms dynamically.
 
-## Features
+  ![npm](https://img.shields.io/npm/v/ngx-iso-form)
+  ![npm](https://img.shields.io/npm/l/ngx-iso-form)
+  [![npm](https://img.shields.io/npm/dm/ngx-iso-form)](https://npmjs.org/package/ngx-iso-form)
+### Details
 
-- 🔥 Automatic forms generation
-- 📝 Easy to extend with custom field types
-- ⚡️ Supports ISO 20022 schemas:
-    - XSD - JSON Schema using XSDService nuget
-    - Support all validation like required, pattern, minlength, maxlength
-    - Support translation labels, errors and date formats.
-- 💪 Built on top of [Angular Reactive Forms](https://angular.io/guide/reactive-forms)
+[Click me](https://github.com/pixelbyaj/ngx-iso-form/tree/main/projects/ngx-iso-form) for further details
 
-## Supported JSON Schema
-```typescript
-export interface SchemaElement {
-    id: string;
-    name: string;
-    dataType: string;
-    minOccurs: string;
-    maxOccurs: string;
-    minLength: string;
-    maxLength: string;
-    pattern: string;
-    fractionDigits: string;
-    totalDigits: string;
-    minInclusive: string;
-    maxInclusive: string;
-    values: string[];
-    isCurrency: boolean;
-    xpath: string;
-    elements: SchemaElement[];
-}
+## NgxXmlMessage
+This form is used to design Angular Readonly Form using any given XML/ISO 20022 messages. The primary use of this UI library is to design ISO 20022 or MX readonly forms dynamically.
 
-```
-## [Live Demo](https://www.pixelbyaj.com/ngx-iso-form/)
-## How to consume
+![npm](https://img.shields.io/npm/v/ngx-xml-message)
+![NPM](https://img.shields.io/npm/l/ngx-xml-message)
+[![npm](https://img.shields.io/npm/dm/ngx-xml-message)](https://npmjs.org/package/ngx-xml-message)
 
-1. Install npm package ngx-iso-form.
+### Details
 
-    ```console
-    npm i ngx-iso-form
-    ```
-2. Import Module & SCSS
-```typescript 
-import { NgxIsoFormModule } from 'ngx-iso-form';
-
-@NgModule({
-    ...
-  imports:[NgxIsoFormModule],
-    ...
-})
-
-```
-Add style file to angular.json file
-```json
-styles:[
-     "node_modules/ngx-iso-form/lib/styles/index.scss"
-]
-```
-3. View
-```html
-<ngx-iso-form [schema]="schema" [form]="form"></ngx-iso-form>
-
-```
-4. Component
-```typescript
-export class AppComponent implements OnInit {
-    form: IsoForm;
-    schema: SchemaElement;
-
-    this.httpClient.get(sample).subscribe((data) => {
-      this.schema = data as SchemaElement
-      this.form = new IsoForm(null);
-    });
-
-    this.httpClient.get(sampleLoad).subscribe((model) => {
-      this.form = new IsoForm(model)
-    });
-
-    //To get the form object please use
-    // this.form.getFormModel();
-}
-```
-3. Translation Support
-It support name and id properties of the SchemaElement
-```json
-{
-    "iso": {
-        "BkToCstmrStmt": {
-            "label": "Bank To Customer Statement"
-        },
-        "GrpHdr":{
-            "label": "Group Header"
-        },
-        "document_bktocstmrstmt_grphdr_credttm": {
-            "label": "Create Datetime",
-            "general":{
-                "format":"YYYY-MM-DDThh:mm:ss.sss+/-"
-            },
-             "error": {
-                "required":"This field is required"
-             }
-        }
-    }
-}
-```
+[Click me](https://github.com/pixelbyaj/ngx-iso-form/tree/main/projects/ngx-xml-message) for further details

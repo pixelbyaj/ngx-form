@@ -6,7 +6,7 @@
   XSD - JSON powered / Dynamic ISO 20022 forms in Angular
   <br />
   
-  [![npm version](https://badge.fury.io/js/ngx-iso-form.svg)](https://badge.fury.io/js/ngx-iso-form)
+  ![npm](https://img.shields.io/npm/v/ngx-iso-form)
   ![NPM](https://img.shields.io/npm/l/ngx-iso-form)
   [![Downloads](https://img.shields.io/npm/dm/ngx-iso-form.svg)](https://npmjs.org/package/ngx-iso-form)
 </div>
@@ -26,7 +26,56 @@ This form is used to design Angular Reactive Form using any given XSD. The prima
     - Support translation labels, errors and date formats.
 - 💪 Built on top of [Angular Reactive Forms](https://angular.io/guide/reactive-forms)
 
-## Supported JSON Schema
+## [Live Demo](https://www.pixelbyaj.com/ngx-iso-form/)
+## How to consume
+
+### Install npm package ngx-iso-form.
+
+```console
+npm i ngx-iso-form
+```
+### Import Module & SCSS
+```typescript 
+import { NgxIsoFormModule } from 'ngx-iso-form';
+
+@NgModule({
+    ...
+  imports:[NgxIsoFormModule],
+    ...
+})
+
+```
+Add style file to angular.json file
+```json
+styles:[
+     "node_modules/ngx-iso-form/lib/styles/index.scss"
+]
+```
+### View
+```html
+<ngx-iso-form [schema]="schema" [form]="form"></ngx-iso-form>
+
+```
+### Component
+```typescript
+export class AppComponent implements OnInit {
+    form: IsoForm;
+    schema: SchemaElement;
+
+    this.httpClient.get(sample).subscribe((data) => {
+      this.schema = data as SchemaElement
+      this.form = new IsoForm(null);
+    });
+
+    this.httpClient.get(sampleLoad).subscribe((model) => {
+      this.form = new IsoForm(model)
+    });
+
+    //To get the form object please use
+    // this.form.getFormModel();
+}
+```
+### Supported JSON Schema
 ```typescript
 export interface SchemaElement {
     id: string;
@@ -48,57 +97,10 @@ export interface SchemaElement {
 }
 
 ```
-## [Live Demo](https://www.pixelbyaj.com/ngx-iso-form/)
-## How to consume
 
-1. Install npm package ngx-iso-form.
-
-    ```console
-    npm i ngx-iso-form
-    ```
-2. Import Module & SCSS
-```typescript 
-import { NgxIsoFormModule } from 'ngx-iso-form';
-
-@NgModule({
-    ...
-  imports:[NgxIsoFormModule],
-    ...
-})
-
-```
-Add style file to angular.json file
-```json
-styles:[
-     "node_modules/ngx-iso-form/lib/styles/index.scss"
-]
-```
-3. View
-```html
-<ngx-iso-form [schema]="schema" [form]="form"></ngx-iso-form>
-
-```
-4. Component
-```typescript
-export class AppComponent implements OnInit {
-    form: IsoForm;
-    schema: SchemaElement;
-
-    this.httpClient.get(sample).subscribe((data) => {
-      this.schema = data as SchemaElement
-      this.form = new IsoForm(null);
-    });
-
-    this.httpClient.get(sampleLoad).subscribe((model) => {
-      this.form = new IsoForm(model)
-    });
-
-    //To get the form object please use
-    // this.form.getFormModel();
-}
-```
 3. Translation Support
 It support name and id properties of the SchemaElement
+Please declare all your translation rules under 'iso' object.
 ```json
 {
     "iso": {
