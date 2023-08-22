@@ -50,13 +50,17 @@ Add style file to angular.json file
 
 3. View
 ```html
-<ngx-xml-message [xmlMessage]="message" [showNamspace]="true"></ngx-xml-message>
+<ngx-xml-message [xmlMessage]="xmlMessage" [config]="config"></ngx-xml-message>
 ```
 
 4. Component
 ```typescript
 export class AppComponent implements OnInit {
     message: string;
+    config: XmlMessageConfig = {
+        showCopy: true,
+        showNamespace:true
+    }
      const xmlPath = `./assets/xml/${params['xml']}.xml`;
         this.httpClient.get(xmlPath,{ responseType: 'text' }).subscribe((data) => {
           this.message = data as string;
@@ -69,5 +73,14 @@ It support name and id properties of the SchemaElement
 {
     "Hdr": "Header",
     "MsgId": "Message Id"
+}
+```
+## Release
+### version 1.0.2
+With verions_1.0.2 user will able to see content copy button. User can use XmlMessageConfig to control the display of content copy button as well as namespace.
+```typescript
+export interface XmlMessageConfig{
+    showNamespace?: boolean;
+    showCopy?: boolean;
 }
 ```

@@ -1,4 +1,5 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
+import { XmlMessageConfig } from './Model/Config';
 
 @Component({
   selector: 'ngx-xml-message',
@@ -7,7 +8,7 @@ import { Component, Input, SimpleChanges } from '@angular/core';
 })
 export class NgxXmlMessageComponent {
   @Input({ required: true }) xmlMessage: string;
-  @Input() showNamspace: boolean;
+  @Input() config: XmlMessageConfig;
   protected namespace: string;
   protected jsonMessage: any;
   protected documentName: string;
@@ -55,11 +56,16 @@ export class NgxXmlMessageComponent {
     }
     return [];
   }
+
   protected getKeyName(object: Object): string {
     if (object) {
       return Object.keys(object)[0];
     }
     return '';
+  }
+
+  protected copyToClipboard(value: string){
+    navigator.clipboard.writeText(value);
   }
   private parseXML(node: any) {
     if (node.nodeType === Node.ELEMENT_NODE) {

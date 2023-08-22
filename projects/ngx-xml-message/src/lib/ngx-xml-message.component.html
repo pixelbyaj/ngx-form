@@ -16,7 +16,7 @@
                         <mat-expansion-panel multi [expanded]="true">
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
-                                    {{ key | translate }} {{namespace && showNamspace ? ' - ' + namespace : ''}}
+                                    {{ key | translate }} {{namespace && config.showNamespace ? ' - ' + namespace : ''}}
                                 </mat-panel-title>
                             </mat-expansion-panel-header>
                             <ng-container>
@@ -33,10 +33,16 @@
                                         *ngFor="let attr of getKeys(node._attributes)">
                                         <mat-label>{{ attr | translate }}</mat-label>
                                         <input matInput [readonly]="true" value="{{node._attributes[attr]}}">
+                                        <button *ngIf="config.showCopy" mat-icon-button matSuffix (click)="copyToClipboard(node._attributes[attr])">
+                                            <mat-icon>content_copy</mat-icon>
+                                        </button>
                                     </mat-form-field>
                                     <mat-form-field class="form-control form-control-m">
                                         <mat-label>{{ node.value | translate }}</mat-label>
                                         <input matInput [readonly]="true" value="{{node.value}}">
+                                        <button *ngIf="config.showCopy" mat-icon-button matSuffix (click)="copyToClipboard(node.value)">
+                                            <mat-icon>content_copy</mat-icon>
+                                        </button>
                                     </mat-form-field>
                                 </div>
                             </ng-container>
@@ -48,10 +54,16 @@
                     <mat-form-field *ngIf="node.length <= 70" class="form-control {{node.length > 70 ? 'form-control-l': 'form-control-m'}}">
                         <mat-label>{{ key | translate }}</mat-label>
                         <input matInput [readonly]="true" value="{{node}}">
+                        <button *ngIf="config.showCopy" mat-icon-button matSuffix (click)="copyToClipboard(node)">
+                            <mat-icon>content_copy</mat-icon>
+                        </button>
                     </mat-form-field>
                     <mat-form-field *ngIf="node.length > 70" class="form-control form-control-full">
                         <mat-label>{{ key | translate }}</mat-label>
                         <textarea matInput [readonly]="true">{{node}}</textarea>
+                        <button *ngIf="config.showCopy" mat-icon-button matSuffix (click)="copyToClipboard(node)">
+                            <mat-icon>content_copy</mat-icon>
+                        </button>
                     </mat-form-field>
                 </ng-container>
             </ng-template>

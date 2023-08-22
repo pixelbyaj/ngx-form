@@ -4,3 +4,4 @@
 
 export * from './lib/ngx-xml-message.component';
 export * from './lib/ngx-xml-message.module';
+export * from './lib/Model/Config'
