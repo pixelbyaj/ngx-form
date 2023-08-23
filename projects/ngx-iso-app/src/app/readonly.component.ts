@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { XmlMessageConfig } from 'projects/ngx-xml-message/src/public-api';
 
 @Component({
   selector: 'app-readonly',
@@ -14,6 +15,10 @@ export class ReadonlyComponent implements OnInit {
   title = 'ngx-iso-app';
   message: string;
   xmlMessage: string;
+  config: XmlMessageConfig = {
+    showCopy: true,
+    showNamespace:true
+  }
   /**
    *
    */

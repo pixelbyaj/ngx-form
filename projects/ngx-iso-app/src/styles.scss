@@ -23,10 +23,25 @@ body {
     line-height: 50px;
     color: #fff;
     .logo{
+       
         height: 32px;
         width: 32px;
         vertical-align: middle;
         padding: 5px 5px 10px 5px;
+    }
+
+    a{
+        line-height: 32px;
+        height: 32px;
+        vertical-align: middle;
+    }
+
+    .social{
+        color: #fff;
+        font-size: 32px;
+        position: absolute;
+        right: 10px;
+        top:10px
     }
 }
 footer{

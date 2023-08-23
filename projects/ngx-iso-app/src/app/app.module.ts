@@ -43,9 +43,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatFormFieldModule,
     MatInputModule,
     RouterModule.forRoot([
-      { path: 'xsd/:json', component: AppComponent, pathMatch: 'full' },
-      { path: '', component: ReadonlyComponent, pathMatch: 'full' },
-      { path: '**', component: AppComponent }
+      { path: '**', component: ReadonlyComponent }
     ], { useHash: true }),
     TranslateModule.forRoot({
       defaultLanguage: 'en',

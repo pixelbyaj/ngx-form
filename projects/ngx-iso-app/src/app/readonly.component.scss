@@ -1,6 +1,6 @@
 :host {
     textarea {
-        height: 400px;
+        height: calc(100vh - 210px);
         width: 100%;
     }
 }
