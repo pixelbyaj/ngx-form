@@ -8,7 +8,7 @@
   
   ![npm](https://img.shields.io/npm/v/ngx-iso-form)
   ![NPM](https://img.shields.io/npm/l/ngx-iso-form)
-  [![Downloads](https://img.shields.io/npm/dm/ngx-iso-form.svg)](https://npmjs.org/package/ngx-iso-form)
+  [![Downloads](https://img.shields.io/npm/dt/ngx-iso-form.svg)](https://npmjs.org/package/ngx-iso-form)
 </div>
 
 ---
@@ -29,20 +29,39 @@ This form is used to design Angular Reactive Form using any given XSD. The prima
 ## [Live Demo](https://www.pixelbyaj.com/ngx-iso-form/)
 ## How to consume
 
+### Add angular material
+```console
+ng add @angular/material
+
+```
 ### Install npm package ngx-iso-form.
 
 ```console
 npm i ngx-iso-form
 ```
+
 ### Import Module & SCSS
 ```typescript 
 import { NgxIsoFormModule } from 'ngx-iso-form';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
     ...
-  imports:[NgxIsoFormModule],
+  imports:[NgxIsoFormModule, HttpClientModule],
+  TranslateModule.forRoot({
+      defaultLanguage: 'en',
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
     ...
 })
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 ```
 Add style file to angular.json file

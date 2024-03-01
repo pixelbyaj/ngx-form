@@ -12,7 +12,7 @@ This form is used to design Angular Reactive Form using any given XSD. The prima
 
   ![npm](https://img.shields.io/npm/v/ngx-iso-form)
   ![npm](https://img.shields.io/npm/l/ngx-iso-form)
-  [![npm](https://img.shields.io/npm/dm/ngx-iso-form)](https://npmjs.org/package/ngx-iso-form)
+  [![npm](https://img.shields.io/npm/dt/ngx-iso-form)](https://npmjs.org/package/ngx-iso-form)
 ### Details
 
 [Click me](https://github.com/pixelbyaj/ngx-iso-form/tree/main/projects/ngx-iso-form) for further details
@@ -22,7 +22,7 @@ This form is used to design Angular Readonly Form using any given XML/ISO 20022 
 
 ![npm](https://img.shields.io/npm/v/ngx-xml-message)
 ![NPM](https://img.shields.io/npm/l/ngx-xml-message)
-[![npm](https://img.shields.io/npm/dm/ngx-xml-message)](https://npmjs.org/package/ngx-xml-message)
+[![npm](https://img.shields.io/npm/dt/ngx-xml-message)](https://npmjs.org/package/ngx-xml-message)
 
 ### Details
 

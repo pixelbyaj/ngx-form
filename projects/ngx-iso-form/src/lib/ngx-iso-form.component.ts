@@ -52,7 +52,7 @@ export class NgxIsoFormComponent implements OnChanges {
   }
 
   private initiateForm(): void {
-    this.service._formModel = [structuredClone(this.schema)];
+    this.service._formModel = [this.structuredClone(this.schema)];
     this.service._formModel[0].elements = [];
     let group: any = {};
     group[this.schema.id] = this.service.getFormGroupControls(this.schema.elements, this.service._formModel[0].elements);
@@ -62,9 +62,20 @@ export class NgxIsoFormComponent implements OnChanges {
     }
   }
 
+  private structuredClone(data: any): any {
+    let cloneData;
+    try {
+      cloneData = structuredClone(data);
+    } catch(e) {
+      debugger
+      cloneData = JSON.parse(JSON.stringify(data));
+    }
+    return cloneData;
+  }
+
   private initiateFormModel(): void {
     if (this._form) {
-      this._ngModel = this.form._model;      
+      this._ngModel = this.form._model;
       this.form.getFormModel = () => {
         return this.getIsoForm;
       };
@@ -105,7 +116,7 @@ export class NgxIsoFormComponent implements OnChanges {
     if (node.maxOccurs && parseInt(node.maxOccurs, 10) <= parentNode.elements.length) {
       return;
     }
-    const newEle = structuredClone(parentNode.elements[0]);
+    const newEle = this.structuredClone(parentNode.elements[0]);
     const newKeys: any = [];
     const groupControls = this.service.getFormGroupControls(newEle.elements, newKeys, parentNode.elements.length - 1);
     parentNode.elements.push(newEle);
@@ -128,7 +139,7 @@ export class NgxIsoFormComponent implements OnChanges {
     }
     const control: FormArray = parentFormEle.get(node.id) as FormArray;
     const newControl = this.service.getFormControl('');
-    const newEle = structuredClone(parentNode.elements[parentNode.elements.length - 1]);
+    const newEle = this.structuredClone(parentNode.elements[parentNode.elements.length - 1]);
     control.push(newControl);
     parentNode.elements.push(newEle);
     this.changeDetection.detectChanges();
@@ -184,7 +195,7 @@ export class NgxIsoFormComponent implements OnChanges {
     return formControl;
   }
 
-  protected getFormControl(node: SchemaModel): FormControl{
+  protected getFormControl(node: SchemaModel): FormControl {
     debugger
     return this.service.getFormControl('');
   }
