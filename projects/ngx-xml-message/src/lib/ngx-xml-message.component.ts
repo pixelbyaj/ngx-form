@@ -13,20 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'ngx-xml-message',
   templateUrl: './ngx-xml-message.component.html',
-  styleUrls: ['./ngx-xml-message.component.scss'],
-  standalone:true,
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    MatIconModule,
-    TranslateModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatExpansionModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule
-  ]
+  styleUrls: ['./ngx-xml-message.component.scss']
 })
 export class NgxXmlMessageComponent {
   @Input({ required: true }) xmlMessage: string;
