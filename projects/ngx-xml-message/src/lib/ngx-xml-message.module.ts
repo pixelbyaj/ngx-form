@@ -12,9 +12,6 @@ import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
-  declarations: [
-    NgxXmlMessageComponent
-  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -26,9 +23,6 @@ import { MatButtonModule } from '@angular/material/button';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule
-  ],
-  exports: [
-    NgxXmlMessageComponent
   ]
 })
 export class NgxXmlMessageModule { }

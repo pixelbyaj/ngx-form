@@ -1,7 +1,9 @@
-import { ComponentRef, Inject, Type, ViewContainerRef } from "@angular/core";
+import { ComponentRef, Injectable, ViewContainerRef } from "@angular/core";
 import { ComponentModel } from "../models/component.model";
 
-@Inject('root')
+@Injectable({
+    providedIn: 'root'
+  })
 export class ComponentService{
     public getComponent<T>(viewContainerRef: ViewContainerRef,dynamicModel: ComponentModel): ComponentRef<T> {
         const componentRef = viewContainerRef.createComponent<T>(dynamicModel.component);

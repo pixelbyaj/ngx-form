@@ -26,5 +26,5 @@ export interface SchemaModel extends SchemaElement{
     multi?:string;
     isFormControls?:boolean;
     children?: SchemaModel[];
-    choiceFormControl?: AbstractControl<any,any>;
+    choiceKey?: string;
 }

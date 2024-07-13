@@ -1,10 +1,32 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { XmlMessageConfig } from './Model/Config';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'ngx-xml-message',
   templateUrl: './ngx-xml-message.component.html',
   styleUrls: ['./ngx-xml-message.component.scss'],
+  standalone:true,
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    MatIconModule,
+    TranslateModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatExpansionModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule
+  ]
 })
 export class NgxXmlMessageComponent {
   @Input({ required: true }) xmlMessage: string;

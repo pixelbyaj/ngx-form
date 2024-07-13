@@ -2,7 +2,11 @@ import { FormControl } from "@angular/forms";
 import { ComponentModel } from "../models/component.model";
 import { SchemaElement } from "../../Models/Schema";
 import { IsoMatCurrency, IsoMatDate, IsoMatDateTime, IsoMatInput, IsoMatSelect, IsoMatTextarea } from "../../components";
+import { Injectable } from "@angular/core";
 
+@Injectable({
+    providedIn: 'root'
+  })
 export class ControlService {
 
     public getComponentByType(controlModel: SchemaElement, formControl: FormControl): ComponentModel {

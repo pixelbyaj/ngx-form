@@ -35,7 +35,7 @@
               <ng-container *ngIf="expan.expanded">
                 <mat-form-field *ngIf="node.dataType === 'choice'">
                   <mat-label>{{ node.name | trans: node.id : node.name }}</mat-label>
-                  <mat-select (selectionChange)="onChoiceSelectionChange($event.value,formElement, node)" [formControl]="node.choiceFormControl">
+                  <mat-select (selectionChange)="onChoiceSelectionChange($event.value,formElement, node)" [formControl]="getChoiceFormControl(node.choiceKey)">
                     <mat-option *ngFor="let item of node.elements" [value]="item.id">
                       {{item.name}}
                     </mat-option>

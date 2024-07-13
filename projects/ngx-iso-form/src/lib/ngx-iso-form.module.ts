@@ -7,7 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatNativeDateModule } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -36,6 +36,7 @@ import { IsoTranslatePipe } from './shared/pipe/translate.pipe';
 import { IsoErrorPipe } from './shared/pipe/error.pipe';
 import { IsoGeneralPipe } from './shared/pipe/general.pipe';
 import { ControlService } from './shared/services';
+import { CUSTOM_DATE_FORMATS, CustomDateAdapter } from './shared/services/custom-date-adapter';
 
 
 // // AoT requires an exported function for factories
@@ -77,7 +78,8 @@ import { ControlService } from './shared/services';
     MatIconModule,
   ],
   providers: [
-    ControlService
+    { provide: DateAdapter, useClass: CustomDateAdapter },
+    { provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMATS }
   ],
   exports: [
     NgxIsoFormComponent

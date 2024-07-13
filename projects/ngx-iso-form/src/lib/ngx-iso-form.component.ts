@@ -55,7 +55,9 @@ export class NgxIsoFormComponent implements OnChanges {
     this.service._formModel = [this.structuredClone(this.schema)];
     this.service._formModel[0].elements = [];
     let group: any = {};
-    group[this.schema.id] = this.service.getFormGroupControls(this.schema.elements, this.service._formModel[0].elements);
+    const schemaElements =  this.schema.elements.length > 0 ? this.structuredClone(this.schema.elements) : this.schema.elements;
+    const formElements = this.service._formModel[0].elements.length > 0 ? this.structuredClone(this.service._formModel[0].elements) : this.service._formModel[0].elements;
+    group[this.schema.id] = this.service.getFormGroupControls(schemaElements, formElements);
     this._form = new FormGroup(group);
     if (!this._isFormInitiate) {
       this.initiateFormModel();
@@ -67,7 +69,6 @@ export class NgxIsoFormComponent implements OnChanges {
     try {
       cloneData = structuredClone(data);
     } catch(e) {
-      debugger
       cloneData = JSON.parse(JSON.stringify(data));
     }
     return cloneData;
@@ -198,5 +199,11 @@ export class NgxIsoFormComponent implements OnChanges {
   protected getFormControl(node: SchemaModel): FormControl {
     debugger
     return this.service.getFormControl('');
+  }
+
+  protected getChoiceFormControl(choiceKey:string){
+    const formControl = this.service.getFormControl('');
+    formControl.setValue(choiceKey);
+    return formControl;
   }
 }
