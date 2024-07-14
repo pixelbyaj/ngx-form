@@ -76,6 +76,7 @@ export class NgxXmlMessageComponent {
   protected copyToClipboard(value: string){
     navigator.clipboard.writeText(value);
   }
+  
   private parseXML(node: any) {
     if (node.nodeType === Node.ELEMENT_NODE) {
       const obj: Record<string, any> = {};
