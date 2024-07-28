@@ -17,10 +17,11 @@ export class IsoComponent implements OnInit {
   form: IsoForm;
   schema: SchemaElement;
   selectedSchema: string;
+  formData:string;
   jsonSchema = {
     camt: [
       { id: 'camt.052.001.11', activated: false },
-      { id: 'camt.053.001.11', activated: false },
+      { id: 'camt.053.001.10', activated: false },
       { id: 'camt.054.001.11', activated: false }],
     pacs: [
       { id: 'pacs.002.001.12', activated: false },
@@ -73,9 +74,12 @@ export class IsoComponent implements OnInit {
       });
     }
   }
+  initForm(){
+    this.form = new IsoForm(JSON.parse(this.formData));
+  }
   getForm() {
     const data = this.form.getFormModel();
-    console.log(JSON.stringify(data));
+    this.formData = JSON.stringify(data)
   }
 
 }

@@ -129,7 +129,7 @@ Please declare all your translation rules under 'iso' object.
         "GrpHdr":{
             "label": "Group Header"
         },
-        "document_bktocstmrstmt_grphdr_credttm": {
+        "Document_BkToCstmrStmt_GrpHdr_CreDtTm": {
             "label": "Create Datetime",
             "general":{
                 "format":"YYYY-MM-DDThh:mm:ss.sss+/-"

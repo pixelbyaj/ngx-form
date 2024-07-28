@@ -197,7 +197,6 @@ export class NgxIsoFormComponent implements OnChanges {
   }
 
   protected getFormControl(node: SchemaModel): FormControl {
-    debugger
     return this.service.getFormControl('');
   }
 

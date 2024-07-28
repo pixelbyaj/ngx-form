@@ -10,8 +10,8 @@ import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-//import { NgxIsoFormModule } from 'projects/ngx-iso-form/src/public-api';
-import { NgxIsoFormModule } from 'ngx-iso-form';
+import { NgxIsoFormModule } from 'projects/ngx-iso-form/src/public-api';
+//import { NgxIsoFormModule } from 'ngx-iso-form';
 import { ReadonlyComponent } from './readonly.component';
 import { IsoComponent } from './component/iso.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -43,7 +43,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatFormFieldModule,
     MatInputModule,
     RouterModule.forRoot([
-      { path: '**', component: ReadonlyComponent }
+      { path: '**', component: IsoComponent }
     ], { useHash: true }),
     TranslateModule.forRoot({
       defaultLanguage: 'en',

@@ -281,17 +281,17 @@ export class NgxIsoService {
     const ccy = structuredClone(item);
     const amt = structuredClone(item);
 
-    ccy.id = `${ccy.id}_ccy`;
+    ccy.id = `${ccy.id}_Ccy`;
     ccy.name = 'Ccy';
     ccy.fractionDigits = '';
     ccy.totalDigits = '';
     ccy.maxLength = '3';
-    ccy.xpath = `${ccy.xpath}@ccy`;
+    ccy.xpath = `${ccy.xpath}@Ccy`;
     ccy.isCurrency = false;
     elements.push(ccy);
 
-    amt.id = `${amt.id}_amt`;
-    amt.xpath = `${amt.xpath}/amt`;
+    amt.id = `${amt.id}_Amt`;
+    amt.xpath = `${amt.xpath}/Amt`;
     amt.isCurrency = false;
     amt.pattern = '';
     elements.push(amt);

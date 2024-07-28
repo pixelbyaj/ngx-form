@@ -34,6 +34,9 @@
                 </mat-nav-list>
             </as-split-area>
             <as-split-area [size]="75">
+                <textarea [(ngModel)]="formData"></textarea>
+                <button (click)="getForm()">Get Form Data</button>
+                <button (click)="initForm()">Show the form</button>
                 <h3>{{selectedSchema}}</h3>
                 <ngx-iso-form [schema]="schema" [form]="form"></ngx-iso-form>
             </as-split-area>

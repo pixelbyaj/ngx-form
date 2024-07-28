@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
   jsonSchema = {
     camt: [
       { id: 'camt.052.001.11', activated: false },
-      { id: 'camt.053.001.11', activated: false },
+      { id: 'camt.053.001.10', activated: false },
       { id: 'camt.054.001.11', activated: false }],
     pacs: [
       { id: 'pacs.002.001.12', activated: false },
