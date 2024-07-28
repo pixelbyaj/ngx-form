@@ -85,14 +85,16 @@ export class NgxIsoFormComponent implements OnChanges {
     }
   }
 
-  protected onChoiceSelectionChange(id: string, formElement: any, nodes: SchemaModel): void {
-    nodes.elements.forEach((element: SchemaModel) => {
+  protected onChoiceSelectionChange(id: string, formElement: any, node: SchemaModel): void {
+    node.elements.forEach((element: SchemaModel) => {
       element.hidden = true;
       formElement.removeControl(element.id);
       if (element.id === id) {
+        node.choiceKey = id;
         element.hidden = false;
         if (element.elements.length) {
-          const group = this.service.getFormGroupControls(element.elements, [], 0, true);
+         // element.elements[0].hidden = false;
+          const group = this.service.getFormGroupControls(element.elements, [], 0, false);
           formElement.addControl(element.id, group);
         } else {
           const control = this.service.getFormControl('');
@@ -162,7 +164,7 @@ export class NgxIsoFormComponent implements OnChanges {
   }
 
   protected isEmpty(formElement: FormGroup): boolean {
-    return Object.keys(formElement.controls).length === 0;
+    return formElement.controls && Object.keys(formElement.controls).length === 0;
   }
 
   protected getElement(formElement: FormGroup, element: any): AbstractControl<any, any> | undefined {

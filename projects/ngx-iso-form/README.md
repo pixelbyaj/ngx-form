@@ -112,6 +112,7 @@ export interface SchemaElement {
     values: string[];
     isCurrency: boolean;
     xpath: string;
+    expanded:boolean;
     elements: SchemaElement[];
 }
 

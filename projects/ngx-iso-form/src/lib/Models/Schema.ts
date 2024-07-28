@@ -16,7 +16,8 @@ export interface SchemaElement {
     values: string[];
     isCurrency: boolean;
     xpath: string;
-    elements: SchemaElement[];
+    elements: SchemaModel[];
+    expanded:boolean;
 }
 
 export interface SchemaModel extends SchemaElement{

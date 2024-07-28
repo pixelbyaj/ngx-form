@@ -54,6 +54,7 @@ export class NgxIsoService {
           }
 
           for (let i = 0; i < item.length; i++) {
+            parentNode.elements[i].expanded = true;
             const formArray = form.get(key);
             if (formArray) {
               const frmGroup = (formArray as FormArray).at(i);
@@ -64,6 +65,7 @@ export class NgxIsoService {
           }
         } else if (typeof model[key] === 'object') {
           const node = this.getFormModel(this._formModel[0], key);
+          node.expanded = true;
           if (node && (!node.minOccurs || parseInt(node.minOccurs, 10) === 0)) {
             node.minOccurs = '1';
           }
@@ -76,13 +78,14 @@ export class NgxIsoService {
               );
               node.choiceKey = choiceKey;
               choiceEle.hidden = false;
+              choiceEle.expanded = true;
               const newNode = structuredClone(choiceEle);
               if (newNode.elements.length) {
                 const group = this.getFormGroupControls(
                   newNode.elements,
                   [],
                   0,
-                  true
+                  false
                 );
                 _form.addControl(newNode.id, group);
               } else {

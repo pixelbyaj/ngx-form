@@ -17,7 +17,7 @@
       <ng-template #obj>
         <ng-container *ngIf="node.elements.length">
           <mat-accordion [formGroup]="formElement" *ngIf="!node.hidden">
-            <mat-expansion-panel multi [expanded]="expand(node.minOccurs)" #expan>
+            <mat-expansion-panel multi [expanded]="expand(node.minOccurs) || node.expanded" #expan>
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   {{ node.name | trans: node.id : node.name }}
