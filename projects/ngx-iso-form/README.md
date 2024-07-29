@@ -142,3 +142,50 @@ Please declare all your translation rules under 'iso' object.
     }
 }
 ```
+
+# Convert XSD to JSON
+Global (For CLI)
+```console
+    npm install -g xsd-json-converter
+```
+Local (For SCRIPT)
+```console
+    npm install xsd-json-converter
+```
+
+### CLI
+```console
+xjc <source-path> <output-path>
+```
+
+#### Example
+##### Linux
+
+```console
+xjc /mnt/c/source/xsd/camt.053.001.10.xsd /mnt/c/source/xsd/camt.053.json 
+```
+
+##### Windows
+```console
+xjc C:/source/xsd/camt.053.001.10.xsd C:/source/xsd/camt.053.json 
+```
+### Script
+JavaScript
+```js
+const xsd = require('xsd-json-converter').default;
+
+xsd.convert('./camt.053.001.10.xsd')
+.then(output => console.log(output))
+  .catch(error => console.error(error));
+```
+
+TypeScript
+```ts
+import xsd from "xsd-json-converter";
+
+
+xsd.convert('./camt.053.001.10.xsd')
+.then(output => console.log(output))
+  .catch(error => console.error(error));
+```
+**NOTE**: For script please install the package locally
