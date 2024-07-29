@@ -1,10 +1,11 @@
 <div align="center">
   <a href="https://https://github.com/pixelbyaj/ngx-iso-form">
-    <img width="200" src="https://raw.githubusercontent.com//ngx-ngx-formlyformly/v5/logo.svg?sanitize=true" />
+    <img src="https://raw.githubusercontent.com/pixelbyaj/ngx-form/main/anguar_logo.svg?sanitize=true" />
   </a>
   <br />
+  <h1>
   XSD - JSON powered / Dynamic ISO 20022 forms in Angular v18
-  <br />
+  </h1>
   
   ![npm](https://img.shields.io/npm/v/ngx-iso-form)
   ![NPM](https://img.shields.io/npm/l/ngx-iso-form)

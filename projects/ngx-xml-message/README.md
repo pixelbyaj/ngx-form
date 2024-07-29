@@ -1,4 +1,7 @@
 <div align="center">
+<a href="https://https://github.com/pixelbyaj/ngx-iso-form">
+    <img src="https://raw.githubusercontent.com/pixelbyaj/ngx-form/main/anguar_logo.svg?sanitize=true" />
+  </a>
   <h1>Display XML & ISO 20022 messages using Angular Forms
   </h1>
   
