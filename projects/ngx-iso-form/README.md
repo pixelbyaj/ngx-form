@@ -1,9 +1,9 @@
 <div align="center">
   <a href="https://https://github.com/pixelbyaj/ngx-iso-form">
-    <img width="200" src="https://raw.githubusercontent.com/ngx-formly/ngx-formly/v5/logo.svg?sanitize=true" />
+    <img width="200" src="https://raw.githubusercontent.com//ngx-ngx-formlyformly/v5/logo.svg?sanitize=true" />
   </a>
   <br />
-  XSD - JSON powered / Dynamic ISO 20022 forms in Angular
+  XSD - JSON powered / Dynamic ISO 20022 forms in Angular v18
   <br />
   
   ![npm](https://img.shields.io/npm/v/ngx-iso-form)
@@ -24,12 +24,12 @@ This form is used to design Angular Reactive Form using any given XSD. The prima
     - XSD - JSON Schema using XSDService nuget
     - Support all validation like required, pattern, minlength, maxlength
     - Support translation labels, errors and date formats.
-- 💪 Built on top of [Angular Reactive Forms](https://angular.io/guide/reactive-forms)
+- 💪 Built on top of [Angular Reactive Forms](https://angular.dev/guide/forms/reactive-forms)
 
 ## [Live Demo](https://www.pixelbyaj.com/ngx-iso-form/)
 ## How to consume
 
-### Add angular material
+### Add angular material v18
 ```console
 ng add @angular/material
 
@@ -46,8 +46,12 @@ import { NgxIsoFormModule } from 'ngx-iso-form';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
+  ...  
+  imports: [
     ...
-  imports:[NgxIsoFormModule, HttpClientModule],
+    NgxIsoFormModule
+  ],
+  provider:[provideHttpClient()]
   TranslateModule.forRoot({
       defaultLanguage: 'en',
       loader: {
@@ -118,7 +122,7 @@ export interface SchemaElement {
 
 ```
 
-3. Translation Support
+### Translation Support
 It support name and id properties of the SchemaElement
 Please declare all your translation rules under 'iso' object.
 ```json
@@ -182,7 +186,6 @@ xsd.convert('./camt.053.001.10.xsd')
 TypeScript
 ```ts
 import xsd from "xsd-json-converter";
-
 
 xsd.convert('./camt.053.001.10.xsd')
 .then(output => console.log(output))

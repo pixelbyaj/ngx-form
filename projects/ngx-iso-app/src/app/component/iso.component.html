@@ -17,8 +17,8 @@
     <div class="content">
         <as-split direction="horizontal">
             <as-split-area [size]="25">
-                <button mat-fab extended (click)="fileEle.click()">
-                    Upload <mat-icon>upload</mat-icon>
+                <button mat-flat-button (click)="fileEle.click()">
+                    Upload XSD
                 </button>
                 <input type="file" class="hidden" #fileEle (change)="onFileChange($event)" accept=".xsd"/>
                 <mat-nav-list>
@@ -34,11 +34,13 @@
                 </mat-nav-list>
             </as-split-area>
             <as-split-area [size]="75">
+                <div class="iso-form">
                 <textarea [(ngModel)]="formData"></textarea>
                 <button (click)="getForm()">Get Form Data</button>
                 <button (click)="initForm()">Show the form</button>
                 <h3>{{selectedSchema}}</h3>
                 <ngx-iso-form [schema]="schema" [form]="form"></ngx-iso-form>
+            </div>
             </as-split-area>
         </as-split>
     </div>

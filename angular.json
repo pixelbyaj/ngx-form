@@ -70,8 +70,8 @@
             "styles": [
               "projects/ngx-iso-app/src/styles.scss",
               "projects/ngx-iso-app/src/theme.scss",
-              "node_modules/ngx-iso-form/lib/styles/index.scss",
-              "node_modules/ngx-xml-message/lib/styles/index.scss"
+              "projects/ngx-iso-form/src//lib/index.scss",
+              "projects/ngx-xml-message/src/lib/index.scss"
             ],
             "scripts": []
           },
@@ -106,10 +106,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "ngx-iso-app:build:production"
+              "buildTarget": "ngx-iso-app:build:production"
             },
             "development": {
-              "browserTarget": "ngx-iso-app:build:development"
+              "buildTarget": "ngx-iso-app:build:development"
             }
           },
           "defaultConfiguration": "development"

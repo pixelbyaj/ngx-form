@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, provideHttpClient } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -11,13 +11,11 @@ import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { NgxIsoFormModule } from 'projects/ngx-iso-form/src/public-api';
-//import { NgxIsoFormModule } from 'ngx-iso-form';
 import { ReadonlyComponent } from './readonly.component';
 import { IsoComponent } from './component/iso.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
-//import { NgxXmlMessageModule } from 'ngx-xml-message';
 import { NgxXmlMessageModule } from 'projects/ngx-xml-message/src/public-api';
 
 // AoT requires an exported function for factories
@@ -34,7 +32,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserModule,
     NgxIsoFormModule,
     NgxXmlMessageModule,
-    HttpClientModule,
     AngularSplitModule,
     MatListModule,
     MatIconModule,
@@ -43,7 +40,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatFormFieldModule,
     MatInputModule,
     RouterModule.forRoot([
-      { path: '**', component: IsoComponent }
+      { path: '**', component: ReadonlyComponent }
     ], { useHash: true }),
     TranslateModule.forRoot({
       defaultLanguage: 'en',
@@ -54,7 +51,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),
   ],
-  providers: [],
+  providers: [provideHttpClient()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
