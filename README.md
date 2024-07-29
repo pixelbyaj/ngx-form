@@ -1,6 +1,6 @@
 <div align="center">
-  <a href="https://https://github.com/pixelbyaj/ngx-iso-form">
-    <img width="200" src="https://raw.githubusercontent.com/ngx-formly/ngx-formly/v5/logo.svg?sanitize=true" />
+  <a href="https://https://github.com/pixelbyaj/ngx-form">
+    <img src="https://raw.githubusercontent.com/pixelbyaj/ngx-form/main/anguar_logo.svg?sanitize=true" />
   </a>
 </div>
 
