@@ -15,7 +15,7 @@
 ---
 # NgxIsoForm
 
-This form is used to design Angular Reactive Form using any given XSD. The primary use of this UI library is to design ISO 20022 forms dynamically.
+This form is used to design Angular Reactive Form using any given JSON - XSD. The primary use of this UI library is to design ISO 20022 forms dynamically.
 
 ## Features
 
@@ -28,12 +28,15 @@ This form is used to design Angular Reactive Form using any given XSD. The prima
 - 💪 Built on top of [Angular Reactive Forms](https://angular.dev/guide/forms/reactive-forms)
 
 ## [Live Demo](https://www.pixelbyaj.com/ngx-iso-form/)
+## [StackBlitz Demo](https://stackblitz.com/edit/ngx-iso-form)
+
+## **NOTE**
+**The library don't support direct execution of XSD and user need to convert XSD to JSON using [xsd-json-converter](https://www.npmjs.com/package/xsd-json-converter) npm package** 
 ## How to consume
 
 ### Add angular material v18
 ```console
 ng add @angular/material
-
 ```
 ### Install npm package ngx-iso-form.
 
@@ -44,7 +47,7 @@ npm i ngx-iso-form
 ### Import Module & SCSS
 ```typescript 
 import { NgxIsoFormModule } from 'ngx-iso-form';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, provideHttpClient } from '@angular/common/http';
 
 @NgModule({
   ...  
@@ -65,7 +68,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 })
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+  return new TranslateHttpLoader(http, '/i18n/', '.json');
 }
 
 ```
@@ -88,7 +91,6 @@ export class AppComponent implements OnInit {
 
     this.httpClient.get(sample).subscribe((data) => {
       this.schema = data as SchemaElement
-      this.form = new IsoForm(null);
     });
 
     this.httpClient.get(sampleLoad).subscribe((model) => {

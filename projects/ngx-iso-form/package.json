@@ -1,6 +1,6 @@
 {
   "name": "ngx-iso-form",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "This form is used to design Angular Reactive Form using any given XSD. The primary use of this UI library is to design ISO 20022 forms dynamically.",
   "author": "Abhishek Joshi aka PixelByAJ",
   "repository": {

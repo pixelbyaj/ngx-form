@@ -2,8 +2,7 @@
 <a href="https://https://github.com/pixelbyaj/ngx-iso-form">
     <img src="https://raw.githubusercontent.com/pixelbyaj/ngx-form/main/anguar_logo.svg?sanitize=true" />
   </a>
-  <h1>Display XML & ISO 20022 messages using Angular Forms
-  </h1>
+  <h1>Display XML & ISO 20022 messages using Angular v18 </h1>
   
 ![npm](https://img.shields.io/npm/v/ngx-xml-message)
 ![NPM](https://img.shields.io/npm/l/ngx-xml-message)
@@ -24,14 +23,21 @@ This form is used to design Angular Readonly Form using any given XML/ISO 20022 
 - 💪 Built on top of [Angular Reactive Forms](https://angular.io/guide/reactive-forms)
 
 ## [Live Demo](https://www.pixelbyaj.com/ngx-xml-message/)
+
+
 ## How to consume
 
-1. Install npm package ngx-xml-message.
+### Add angular material v18
+```console
+ng add @angular/material
+```
+
+### Install npm package ngx-xml-message.
 
 ```console
     npm i ngx-xml-message
 ```
-2. Import Module & SCSS
+### Import Module & SCSS
 ```typescript 
 import { NgxXmlMessageModule } from 'ngx-xml-message';
 
@@ -51,12 +57,12 @@ Add style file to angular.json file
 }
 ```
 
-3. View
+### View
 ```html
 <ngx-xml-message [xmlMessage]="xmlMessage" [config]="config"></ngx-xml-message>
 ```
 
-4. Component
+### Component
 ```typescript
 export class AppComponent implements OnInit {
     message: string;
@@ -70,7 +76,7 @@ export class AppComponent implements OnInit {
      });
 }
 ```
-3. Translation Support
+### Translation Support
 It support name and id properties of the SchemaElement
 ```json
 {
