@@ -55,7 +55,7 @@ export class NgxIsoFormComponent implements OnChanges {
     return this.service._formModel;
   }
 
-  protected get invalid(): boolean {
+  public get invalid(): boolean {
     return this._form.invalid;
   }
 
