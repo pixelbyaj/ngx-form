@@ -1,9 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { IsoForm, SchemaElement } from 'projects/ngx-iso-form/src/public-api';
+import { IsoForm, NgxIsoFormComponent, SchemaElement } from 'projects/ngx-iso-form/src/public-api';
 //import { IsoForm, SchemaElement } from 'ngx-iso-form';
 
 @Component({
@@ -12,8 +11,9 @@ import { IsoForm, SchemaElement } from 'projects/ngx-iso-form/src/public-api';
   styleUrls: ['./iso.component.scss']
 })
 export class IsoComponent implements OnInit {
-  @ViewChild('someInput') someInput!: TemplateRef<any>;
+  @ViewChild('isoForm') isoForm: NgxIsoFormComponent;
   title = 'ngx-iso-app';
+  excludes = ['Document_BkToCstmrStmt_GrpHdr_MsgId']
   form: IsoForm;
   schema: SchemaElement;
   selectedSchema: string;
@@ -78,7 +78,7 @@ export class IsoComponent implements OnInit {
     this.form = new IsoForm(JSON.parse(this.formData));
   }
   getForm() {
-    const data = this.form.getFormModel();
+    const data = this.isoForm.model;
     this.formData = JSON.stringify(data)
   }
 

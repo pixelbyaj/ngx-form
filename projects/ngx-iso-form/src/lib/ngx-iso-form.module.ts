@@ -35,14 +35,7 @@ import { NgxDynamicComponent } from './shared/components/dynamic/ngx-dynamic.com
 import { IsoTranslatePipe } from './shared/pipe/translate.pipe';
 import { IsoErrorPipe } from './shared/pipe/error.pipe';
 import { IsoGeneralPipe } from './shared/pipe/general.pipe';
-import { ControlService } from './shared/services';
 import { CUSTOM_DATE_FORMATS, CustomDateAdapter } from './shared/services/custom-date-adapter';
-
-
-// // AoT requires an exported function for factories
-// export function HttpLoaderFactory(http: HttpClient) {
-//   return new TranslateHttpLoader(http);
-// }
 
 @NgModule({
   declarations: [

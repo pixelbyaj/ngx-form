@@ -1,11 +1,16 @@
-import { SchemaElement } from "./Schema";
+import { SchemaElement } from './Schema';
 
-export class IsoForm {    
-    public _model: any;
-    constructor(model: any) {
-        this._model = model;
-        
-    }    
-    public getFormModel = (): any => {        
-    };
+export class IsoForm {
+  private _model: any;
+  constructor(model: any) {
+    this._model = model;
+  }
+  public get isoFormModel(): any{
+    return this._model;
+  }
+
+  /**
+   * @deprecated This method is deprecated use `#isoForm.getFormModel` instead
+   */
+  public getFormModel = (): any => {};
 }

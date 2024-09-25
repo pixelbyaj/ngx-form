@@ -8,6 +8,7 @@ import { CustomDateAdapter } from './shared/services/custom-date-adapter';
 })
 export class NgxIsoService {
   public _formModel: any[] = [];
+  public excludes: string[] = [];
   constructor(
     private fb: FormBuilder,
     private dateService: CustomDateAdapter
@@ -119,97 +120,103 @@ export class NgxIsoService {
     let value = {};
 
     json.forEach((item: SchemaModel) => {
-      item.hidden = choiceEle;
-      value = item.elements;
-      const id = item.id;
-      const element = { ...item, elements: [], id };
-      if (item.elements.length > 0) {
-        let choice = item.dataType === 'choice';
-        if (choice) {
-          element.choiceKey = '';
-        }
-        if (this.maxOccurs(item.maxOccurs)) {
-          element.uniqueId = `${element.id}_${index}`;
+      if (
+        (this.excludes.length > 0 && !this.excludes.includes(item.id)) ||
+        this.excludes.length == 0
+      ) {
+        item.hidden = choiceEle;
+        value = item.elements;
+        const id = item.id;
+        const element = { ...item, elements: [], id };
+        if (item.elements.length > 0) {
+          let choice = item.dataType === 'choice';
+          if (choice) {
+            element.choiceKey = '';
+          }
+          if (this.maxOccurs(item.maxOccurs)) {
+            element.uniqueId = `${element.id}_${index}`;
+            keys.push({
+              id: element.id,
+              multi: true,
+              xpath: element.xpath,
+              elements: [element],
+            });
+            const data = this.getFormGroupControls(
+              item.elements,
+              element.elements,
+              index,
+              choice
+            );
+            controls = this.fb.array([]);
+            if (!choice) {
+              controls.push(data);
+            }
+            control[id] = controls;
+          } else if (item.multi && !item.isFormControls) {
+            keys.push({
+              id: element.id,
+              multi: true,
+              xpath: element.xpath,
+              elements: element.elements,
+            });
+            const data = this.getFormGroupControls(
+              item.elements[item.elements.length - 1].elements,
+              element.elements,
+              index,
+              choice
+            );
+            controls = this.fb.array([]);
+            if (!choice) {
+              controls.push(data);
+            }
+            control[id] = controls;
+          } else if (item.multi && item.isFormControls) {
+            if (item.elements.length > 1) {
+              item.elements.splice(1, item.elements.length - 1);
+            }
+            keys.push(item);
+            control[id] = this.fb.array([
+              this.getFormControl(item.value || ''),
+            ]);
+          } else {
+            keys.push(element);
+            const data = this.getFormGroupControls(
+              item.elements,
+              element.elements,
+              index,
+              choice
+            );
+            if (!choice) {
+              control[id] = data;
+            } else {
+              control[id] = this.fb.group({});
+            }
+          }
+        } else if (this.maxOccurs(item.maxOccurs)) {
           keys.push({
             id: element.id,
             multi: true,
             xpath: element.xpath,
             elements: [element],
+            isFormControls: true,
           });
-          const data = this.getFormGroupControls(
-            item.elements,
-            element.elements,
-            index,
-            choice
-          );
-          controls = this.fb.array([]);
-          if (!choice) {
-            controls.push(data);
-          }
-          control[id] = controls;
-        } else if (item.multi && !item.isFormControls) {
-          keys.push({
-            id: element.id,
-            multi: true,
-            xpath: element.xpath,
-            elements: element.elements,
-          });
-          const data = this.getFormGroupControls(
-            item.elements[item.elements.length - 1].elements,
-            element.elements,
-            index,
-            choice
-          );
-          controls = this.fb.array([]);
-          if (!choice) {
-            controls.push(data);
-          }
-          control[id] = controls;
-        } else if (item.multi && item.isFormControls) {
-          if (item.elements.length > 1) {
-            item.elements.splice(1, item.elements.length - 1);
-          }
-          keys.push(item);
-          control[id] = this.fb.array([this.getFormControl(item.value || '')]);
-        } else {
+          control[id] = this.fb.array([this.getFormControl(item.value)]);
+        } else if (item.isCurrency) {
+          const _amountCurrency = this.getAmountCurrency(item);
           keys.push(element);
           const data = this.getFormGroupControls(
-            item.elements,
+            _amountCurrency,
             element.elements,
-            index,
-            choice
+            0,
+            false
           );
-          if (!choice) {
-            control[id] = data;
-          } else {
-            control[id] = this.fb.group({});
-          }
+          control[item.id] = data;
+        } else {
+          keys.push(element);
+          control[id] = this.getFormControl(item.value || '');
         }
-      } else if (this.maxOccurs(item.maxOccurs)) {
-        keys.push({
-          id: element.id,
-          multi: true,
-          xpath: element.xpath,
-          elements: [element],
-          isFormControls: true,
-        });
-        control[id] = this.fb.array([this.getFormControl(item.value)]);
-      } else if (item.isCurrency) {
-        const _amountCurrency = this.getAmountCurrency(item);
-        keys.push(element);
-        const data = this.getFormGroupControls(
-          _amountCurrency,
-          element.elements,
-          0,
-          false
-        );
-        control[item.id] = data;
-      } else {
-        keys.push(element);
-        control[id] = this.getFormControl(item.value || '');
       }
     });
-
     return new FormGroup(control);
   }
 

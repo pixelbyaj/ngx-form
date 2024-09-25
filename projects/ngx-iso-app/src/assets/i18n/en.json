@@ -1,6 +1,6 @@
 {
     "iso": {
-        "BkToCstmrStmt": {
+        "Document_BkToCstmrStmt": {
             "label": "Bank To Customer Statement"
         },
         "BkToCstmrAcctRpt":{
@@ -36,10 +36,10 @@
         "MndtInitnReq":{
             "label":"Mandate Initiation Request"
         },
-        "GrpHdr":{
+        "Document_BkToCstmrStmt_GrpHdr":{
             "label": "Group Header"
         },
-        "CreDtTm": {
+        "Document_BkToCstmrStmt_GrpHdr_CreDtTm": {
             "label": "Create Datetime",
             "general":{
                 "format":"YYYY-MM-DDThh:mm:ss.sss+/-"

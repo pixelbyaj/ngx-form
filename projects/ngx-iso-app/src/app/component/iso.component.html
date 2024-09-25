@@ -1,7 +1,14 @@
 <div class="main">
     <div class="header">
         <a hre="https://www.pixelbyaj.com/ngx-iso-form/">
-            <svg class="logo"_ngcontent-ng-c1910891413="" x="0px" y="0px" width="960px" height="960px" viewBox="0 0 960 960"><polygon _ngcontent-ng-c1910891413="" points="562.6,109.8 804.1,629.5 829.2,233.1"></polygon><polygon _ngcontent-ng-c1910891413="" points="624.9,655.9 334.3,655.9 297.2,745.8 479.6,849.8 662,745.8"></polygon><polygon _ngcontent-ng-c1910891413="" points="384.1,539.3 575.2,539.3 479.6,307"></polygon><polygon _ngcontent-ng-c1910891413="" points="396.6,109.8 130,233.1 155.1,629.5"></polygon></svg>
+            <svg class="logo" _ngcontent-ng-c1910891413="" x="0px" y="0px" width="960px" height="960px"
+                viewBox="0 0 960 960">
+                <polygon _ngcontent-ng-c1910891413="" points="562.6,109.8 804.1,629.5 829.2,233.1"></polygon>
+                <polygon _ngcontent-ng-c1910891413=""
+                    points="624.9,655.9 334.3,655.9 297.2,745.8 479.6,849.8 662,745.8"></polygon>
+                <polygon _ngcontent-ng-c1910891413="" points="384.1,539.3 575.2,539.3 479.6,307"></polygon>
+                <polygon _ngcontent-ng-c1910891413="" points="396.6,109.8 130,233.1 155.1,629.5"></polygon>
+            </svg>
             NGX-ISO-FORM
         </a>
         <a href="https://npmjs.com/package/ngx-iso-form" target="_blank" class="logo">
@@ -20,27 +27,32 @@
                 <button mat-flat-button (click)="fileEle.click()">
                     Upload XSD
                 </button>
-                <input type="file" class="hidden" #fileEle (change)="onFileChange($event)" accept=".xsd"/>
+                <input type="file" class="hidden" #fileEle (change)="onFileChange($event)" accept=".xsd" />
                 <mat-nav-list>
                     <span matListItemTitle>Bank-to-Customer Cash Management</span>
-                    <a mat-list-item *ngFor="let camt of jsonSchema.camt" [activated]="camt.activated" [routerLink]="['/xsd']"
-                        [queryParams]="{json:camt.id}">{{camt.id}}</a>
+                    <a mat-list-item *ngFor="let camt of jsonSchema.camt" [activated]="camt.activated"
+                        [routerLink]="['/xsd']" [queryParams]="{json:camt.id}">{{camt.id}}</a>
                     <span matListItemTitle>Payments Clearing and Settlement</span>
-                    <a mat-list-item *ngFor="let pacs of jsonSchema.pacs" [activated]="pacs.activated" [routerLink]="['/xsd']"
-                    [queryParams]="{json:pacs.id}">{{pacs.id}}</a>
+                    <a mat-list-item *ngFor="let pacs of jsonSchema.pacs" [activated]="pacs.activated"
+                        [routerLink]="['/xsd']" [queryParams]="{json:pacs.id}">{{pacs.id}}</a>
                     <span matListItemTitle>Payments Initiation</span>
-                    <a mat-list-item *ngFor="let pain of jsonSchema.pain" [activated]="pain.activated" [routerLink]="['/xsd']"
-                    [queryParams]="{json:pain.id}">{{pain.id}}</a>
+                    <a mat-list-item *ngFor="let pain of jsonSchema.pain" [activated]="pain.activated"
+                        [routerLink]="['/xsd']" [queryParams]="{json:pain.id}">{{pain.id}}</a>
                 </mat-nav-list>
             </as-split-area>
             <as-split-area [size]="75">
                 <div class="iso-form">
-                <textarea [(ngModel)]="formData"></textarea>
-                <button (click)="getForm()">Get Form Data</button>
-                <button (click)="initForm()">Show the form</button>
-                <h3>{{selectedSchema}}</h3>
-                <ngx-iso-form [schema]="schema" [form]="form"></ngx-iso-form>
-            </div>
+                    <mat-form-field class="example-full-width">
+                        <textarea matInput [(ngModel)]="formData"></textarea>
+                    </mat-form-field>
+                    <br/>
+                    <button mat-button (click)="getForm()">Get Form Data</button>
+                    <button mat-button (click)="initForm()">Show the form</button>
+                </div>
+                <div>
+                    <h3>{{selectedSchema}}</h3>
+                    <ngx-iso-form #isoForm [schema]="schema" [form]="form" [excludes]="excludes"></ngx-iso-form>
+                </div>
             </as-split-area>
         </as-split>
     </div>

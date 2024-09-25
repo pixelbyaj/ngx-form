@@ -15,7 +15,7 @@ export class IsoErrorPipe implements PipeTransform {
         let key = `iso.${value}`;
         let tran = this.translateService.instant(key);
         if (tran === key) {
-            key = `iso.${id.toLocaleLowerCase()}`;
+            key = `iso.${id}`;
             tran = this.translateService.instant(key);
             if (tran === key) {
                 return defaultValue;

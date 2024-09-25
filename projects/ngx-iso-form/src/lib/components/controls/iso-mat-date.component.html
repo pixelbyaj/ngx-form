@@ -4,7 +4,7 @@
   <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
   <mat-datepicker #picker></mat-datepicker>
   <ng-container *ngFor="let item of getKeys(formControl.errors)">
-    <div *ngIf="formControl.errors?.[item] && formControl.touched" class="iso-mat-error">
+    <div *ngIf="formControl.errors?.[item] && formControl.dirty" class="iso-mat-error">
       {{ control.name | error: control.id : item : item + " validation failed" }}
     </div>
   </ng-container>

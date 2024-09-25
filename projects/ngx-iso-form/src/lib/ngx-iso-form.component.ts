@@ -26,6 +26,7 @@ import { IsoForm } from './Models/IsoForm';
 export class NgxIsoFormComponent implements OnChanges {
   @Input({ required: true }) form: IsoForm;
   @Input({ required: true }) schema: SchemaModel;
+  @Input() excludes: string[];
   protected _form: FormGroup;
   private _isFormInitiate: boolean;
   private _ngModel: any;
@@ -40,15 +41,22 @@ export class NgxIsoFormComponent implements OnChanges {
     if (changes['form'] && changes['form'].currentValue) {
       this.initiateFormModel();
     }
+    if (changes['excludes'] && changes['excludes'].currentValue) {
+      this.service.excludes = this.excludes;      
+    }
   }
 
-  public get getIsoForm(): any {
+  public get model(): any {
     if (this._form)
       return this.service.sanitize(this._form.value);
   }
 
   protected get getFormModel(): any[] {
     return this.service._formModel;
+  }
+
+  protected get invalid(): boolean {
+    return this._form.invalid;
   }
 
   private initiateForm(): void {
@@ -76,10 +84,12 @@ export class NgxIsoFormComponent implements OnChanges {
 
   private initiateFormModel(): void {
     if (this._form) {
-      this._ngModel = this.form._model;
+      this._ngModel = this.form.isoFormModel;      
       this.form.getFormModel = () => {
-        return this.getIsoForm;
+        return this.model;
       };
+
+      
       this._isFormInitiate = true;
       this.service.initFormModel(this._ngModel, this._form);
     }
