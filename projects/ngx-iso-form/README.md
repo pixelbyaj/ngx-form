@@ -28,7 +28,7 @@ This form is used to design Angular Reactive Form using any given JSON - XSD. Th
   - Support translation labels, errors and date formats.
 - 💪 Built on top of [Angular Reactive Forms](https://angular.dev/guide/forms/reactive-forms)
 
-## [Live Demo](https://www.pixelbyaj.com/ngx-iso-form/)
+## [Live Demo](https://iso20022.in/#/ngx-iso-form-demo?json=pacs.009.001.10)
 
 ## [StackBlitz Demo](https://stackblitz.com/edit/ngx-iso-form)
 
