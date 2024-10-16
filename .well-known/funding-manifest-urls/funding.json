@@ -22,7 +22,7 @@
       },
       "repositoryUrl": {
         "url": "https://github.com/pixelbyaj/ngx-form.git",
-        "wellKnown": "https://github.com/pixelbyaj/ngx-form/blob/main/.well-known/funding-manifest-urls"
+        "wellKnown": "https://github.com/pixelbyaj/ngx-form/blob/main/.well-known/funding.json"
       },
       "licenses": [
         "spdx:MIT"
