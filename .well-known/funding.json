@@ -1,0 +1,67 @@
+{
+  "version": "v1.0.0",
+  "entity": {
+    "type": "individual",
+    "role": "owner",
+    "name": "Abhishek Joshi",
+    "email": "pixelbyaj.dev@gmail.com",
+    "phone": "7768069191",
+    "description": "It is a free and Open source softwares which we can use to download, extract, render, generate & upload the payment messages which are based on the SWIFT ISO20022 & SEPA enterprise standards.",
+    "webpageUrl": {
+      "url": "https://iso20022.in/",
+      "wellKnown": "https://iso20022.in/funding.json"
+    }
+  },
+  "projects": [
+    {
+      "guid": "ngx-iso-form",
+      "name": "ngx-iso-form",
+      "description": "'ngx-iso-form' is an Angular UI library that facilitates the creation and validation of ISO 20022 forms.",
+      "webpageUrl": {
+        "url": "https://iso20022.in/ngx-iso-form/",
+        "wellKnown": ""
+      },
+      "repositoryUrl": {
+        "url": "https://github.com/pixelbyaj/ngx-form.git",
+        "wellKnown": "https://github.com/pixelbyaj/ngx-form/blob/main/.well-known/funding.json"
+      },
+      "licenses": [
+        "spdx:MIT"
+      ],
+      "tags": [
+        "iso20022",
+        "swift",
+        "fintech",
+        "mx",
+        "angular",
+        "iso20022 form",
+        "create iso20022 message"
+      ]
+    }
+  ],
+  "funding": {
+    "channels": [
+      {
+        "guid": "pixelyaj-paypal",
+        "type": "gateway",
+        "address": "paypal.me/pixelbyaj",
+        "description": "Paypal payment"
+      }
+    ],
+    "plans": [
+      {
+        "guid": "paypal",
+        "status": "active",
+        "name": "Starter support",
+        "description": "This will cover the monthly server hosting costs for the projects and the help me to promote it via different channels",
+        "amount": 0,
+        "currency": "INR",
+        "frequency": "yearly",
+        "channels": [
+          "pixelyaj-paypal"
+        ]
+      }
+    ],
+    "history": []
+  }
+}

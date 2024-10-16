@@ -8,3 +8,9 @@
         margin: 5px 0
     }
 }
+
+.mat-mdc-form-field-hint{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
