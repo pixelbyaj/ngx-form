@@ -84,9 +84,8 @@ It support name and id properties of the SchemaElement
     "MsgId": "Message Id"
 }
 ```
-## Release
-### version 1.0.2
-With verions_1.0.2 user will able to see content copy button. User can use XmlMessageConfig to control the display of content copy button as well as namespace.
+### Interface
+
 ```typescript
 export interface XmlMessageConfig{
     showNamespace?: boolean;

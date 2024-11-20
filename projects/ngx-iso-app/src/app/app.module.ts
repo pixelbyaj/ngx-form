@@ -40,7 +40,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatFormFieldModule,
     MatInputModule,
     RouterModule.forRoot([
-      { path: '**', component: IsoComponent }
+      { path: '**', component: ReadonlyComponent }
     ], { useHash: true }),
     TranslateModule.forRoot({
       defaultLanguage: 'en',

@@ -16,7 +16,7 @@
                         <mat-expansion-panel multi [expanded]="true">
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
-                                    {{ key | translate }} {{namespace && config.showNamespace ? ' - ' + namespace : ''}}
+                                    {{namespace && config.showNamespace ? namespace : key | translate}}
                                 </mat-panel-title>
                             </mat-expansion-panel-header>
                             <ng-container>
@@ -51,14 +51,14 @@
                     </mat-accordion>
                 </ng-container>
                 <ng-container *ngIf="!isObject(node)">
-                    <mat-form-field *ngIf="node.length <= 70" class="form-control {{node.length > 70 ? 'form-control-l': 'form-control-m'}}">
+                    <mat-form-field *ngIf="node && node.length <= 70" class="form-control {{node && node.length > 70 ? 'form-control-l': 'form-control-m'}}">
                         <mat-label>{{ key | translate }}</mat-label>
                         <input matInput [readonly]="true" value="{{node}}">
                         <button *ngIf="config.showCopy" mat-icon-button matSuffix (click)="copyToClipboard(node)">
                             <mat-icon>content_copy</mat-icon>
                         </button>
                     </mat-form-field>
-                    <mat-form-field *ngIf="node.length > 70" class="form-control form-control-full">
+                    <mat-form-field *ngIf="node && node.length > 70" class="form-control form-control-full">
                         <mat-label>{{ key | translate }}</mat-label>
                         <textarea matInput [readonly]="true">{{node}}</textarea>
                         <button *ngIf="config.showCopy" mat-icon-button matSuffix (click)="copyToClipboard(node)">
@@ -71,7 +71,7 @@
 
         <ng-container>
             <ng-template [ngTemplateOutlet]="nodeTemplateRef" [ngTemplateOutletContext]="{
-            node: jsonMessage['Document'],
+            node: jsonMessage,
             key: getKeyName(jsonMessage),
             namespace: namespace
           }">
