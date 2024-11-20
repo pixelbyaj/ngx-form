@@ -1,6 +1,6 @@
 <form *ngIf="jsonMessage">
     <div class="form-group">
-        <ng-template #nodeTemplateRef let-node="node" let-index="index" let-key="key" let-namespace="namespace">
+        <ng-template #nodeTemplateRef let-node="node" let-index="index" let-key="key">
             <ng-container *ngIf="isArray(node) then arr else obj"></ng-container>
             <ng-template #arr>
                 <ng-template *ngFor="let model of node;let i = index" [ngTemplateOutlet]="nodeTemplateRef"
@@ -16,11 +16,11 @@
                         <mat-expansion-panel multi [expanded]="true">
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
-                                    {{namespace && config.showNamespace ? namespace : key | translate}}
+                                    {{namespace[key] && config.showNamespace ? key + ' - ' + namespace[key] : key | translate}}
                                 </mat-panel-title>
                             </mat-expansion-panel-header>
                             <ng-container>
-                                <div *ngIf="node._attributes === undefined || node._attributes.xmlns">
+                                <div *ngIf="node._attributes === undefined">
                                     <ng-template *ngFor="let key of getKeys(node);let i = index"
                                         [ngTemplateOutlet]="nodeTemplateRef" [ngTemplateOutletContext]="{
                                         node: node[key],
@@ -70,12 +70,12 @@
         </ng-template>
 
         <ng-container>
-            <ng-template [ngTemplateOutlet]="nodeTemplateRef" [ngTemplateOutletContext]="{
-            node: jsonMessage,
-            key: getKeyName(jsonMessage),
-            namespace: namespace
-          }">
-            </ng-template>
+            <ng-template *ngFor="let key of getKeys(jsonMessage);"
+            [ngTemplateOutlet]="nodeTemplateRef" [ngTemplateOutletContext]="{
+            node: jsonMessage[key],
+            key: key
+            }">
+        </ng-template>
         </ng-container>
     </div>
 </form>

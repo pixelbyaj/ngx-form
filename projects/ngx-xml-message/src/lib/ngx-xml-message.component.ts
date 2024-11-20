@@ -18,7 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
 export class NgxXmlMessageComponent {
   @Input({ required: true }) xmlMessage: string;
   @Input() config: XmlMessageConfig;
-  protected namespace: string;
+  protected namespace: any = {};
   protected jsonMessage: any;
   protected documentName: string;
   constructor() {
@@ -26,17 +26,12 @@ export class NgxXmlMessageComponent {
 
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes['xmlMessage'] && changes['xmlMessage'].currentValue) {
+      this.namespace = {};
       const parser: DOMParser = new DOMParser();
       const xmlDoc = parser.parseFromString(this.xmlMessage, 'text/xml');
       const document = this.parseXML(xmlDoc.childNodes[0]);
       
       if (document) {
-        const docKey = Object.keys(document);
-        this.documentName = docKey[0];
-        if (docKey.length && document[this.documentName]._attributes) {
-          this.namespace = document[this.documentName]._attributes.xmlns;
-          delete document[this.documentName]._attributes;
-        }
         this.jsonMessage = document;
       }else{
         this.jsonMessage = [];
@@ -102,9 +97,19 @@ export class NgxXmlMessageComponent {
       }
 
       if (node.attributes && node.attributes.length > 0) {
-        obj[node.nodeName]['_attributes'] = {};
         for (const attribute of Array.from(node.attributes) as any) {
-          obj[node.nodeName]['_attributes'][attribute.nodeName] = attribute.nodeValue;
+          if (attribute.nodeName === 'xmlns')
+          {
+            this.namespace[node.nodeName] = attribute.nodeValue;
+          }
+          else
+          {
+            if (![node.nodeName]['_attributes'])
+            {
+              obj[node.nodeName]['_attributes'] = {};
+            }
+            obj[node.nodeName]['_attributes'][attribute.nodeName] = attribute.nodeValue;
+          }
         }
       }
 
