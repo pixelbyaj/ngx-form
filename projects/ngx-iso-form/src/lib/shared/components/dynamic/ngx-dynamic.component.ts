@@ -3,8 +3,9 @@ import { ComponentDirective } from '../../directives/component-content.directive
 import { ComponentModel } from '../../models/component.model';
 
 @Component({
-  selector: 'ngx-dynamic',
-  template: `<div><ng-template componentContent></ng-template></div>`
+    selector: 'ngx-dynamic',
+    template: `<div><ng-template componentContent></ng-template></div>`,
+    standalone: false
 })
 export class NgxDynamicComponent implements OnInit {
 

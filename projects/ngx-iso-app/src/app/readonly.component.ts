@@ -5,11 +5,12 @@ import { TranslateService } from '@ngx-translate/core';
 import { XmlMessageConfig } from 'projects/ngx-xml-message/src/public-api';
 
 @Component({
-  selector: 'app-readonly',
-  templateUrl: './readonly.component.html',
-  styleUrls: [
-    './readonly.component.scss'
-  ]
+    selector: 'app-readonly',
+    templateUrl: './readonly.component.html',
+    styleUrls: [
+        './readonly.component.scss'
+    ],
+    standalone: false
 })
 export class ReadonlyComponent implements OnInit {
   title = 'ngx-iso-app';

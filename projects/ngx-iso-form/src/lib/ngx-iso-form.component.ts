@@ -18,10 +18,11 @@ import { NgxIsoService } from './ngx-iso-form.service';
 import { IsoForm } from './Models/IsoForm';
 
 @Component({
-  selector: 'ngx-iso-form',
-  templateUrl: './ngx-iso-form.component.html',
-  styleUrls: ['./ngx-iso-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'ngx-iso-form',
+    templateUrl: './ngx-iso-form.component.html',
+    styleUrls: ['./ngx-iso-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class NgxIsoFormComponent implements OnChanges {
   @Input({ required: true }) form: IsoForm;

@@ -5,15 +5,16 @@ import { ComponentModel } from '../../shared/models/component.model';
 import { SchemaElement } from '../../Models/Schema';
 
 @Component({
-  selector: 'ngx-iso-control',
-  templateUrl: './iso-control.component.html',
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => NgxIsoControlComponent),
-      multi: true,
-    }
-  ]
+    selector: 'ngx-iso-control',
+    templateUrl: './iso-control.component.html',
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => NgxIsoControlComponent),
+            multi: true,
+        }
+    ],
+    standalone: false
 })
 
 export class NgxIsoControlComponent implements OnInit, ControlValueAccessor {

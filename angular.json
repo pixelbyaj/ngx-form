@@ -53,11 +53,12 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/ngx-iso-app",
+            "outputPath": {
+              "base": "dist/ngx-iso-app"
+            },
             "index": "projects/ngx-iso-app/src/index.html",
-            "main": "projects/ngx-iso-app/src/main.ts",
             "polyfills": [
               "zone.js"
             ],
@@ -73,7 +74,8 @@
               "projects/ngx-iso-form/src//lib/index.scss",
               "projects/ngx-xml-message/src/lib/index.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "browser": "projects/ngx-iso-app/src/main.ts"
           },
           "configurations": {
             "production": {
@@ -92,9 +94,7 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
@@ -117,7 +117,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ngx-iso-app:build"
+            "buildTarget": "ngx-iso-app:build"
           }
         },
         "test": {
