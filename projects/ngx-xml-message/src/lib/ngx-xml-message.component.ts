@@ -11,9 +11,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'ngx-xml-message',
-  templateUrl: './ngx-xml-message.component.html',
-  styleUrls: ['./ngx-xml-message.component.scss']
+    selector: 'ngx-xml-message',
+    templateUrl: './ngx-xml-message.component.html',
+    styleUrls: ['./ngx-xml-message.component.scss'],
+    standalone: false
 })
 export class NgxXmlMessageComponent {
   @Input({ required: true }) xmlMessage: string;

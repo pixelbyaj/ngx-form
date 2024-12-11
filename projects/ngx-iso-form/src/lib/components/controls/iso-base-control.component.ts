@@ -4,8 +4,9 @@ import { FormControl } from '@angular/forms';
 
 @Component({
     selector: 'iso-base',
-    template:'',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    template: '',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class IsoBaseControlComponent {
 

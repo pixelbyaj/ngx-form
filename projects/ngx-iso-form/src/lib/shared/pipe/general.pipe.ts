@@ -3,7 +3,8 @@ import { TranslateService } from '@ngx-translate/core';
 
 @Pipe({
     name: 'general',
-    pure: false
+    pure: false,
+    standalone: false
 })
 export class IsoGeneralPipe implements PipeTransform {
 

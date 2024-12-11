@@ -3,7 +3,8 @@ import { TranslateService } from '@ngx-translate/core';
 
 @Pipe({
     name: 'error',
-    pure: false
+    pure: false,
+    standalone: false
 })
 export class IsoErrorPipe implements PipeTransform {
 

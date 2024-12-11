@@ -2,11 +2,11 @@
 <a href="https://https://github.com/pixelbyaj/ngx-iso-form">
     <img src="https://raw.githubusercontent.com/pixelbyaj/ngx-form/main/anguar_logo.svg?sanitize=true" />
   </a>
-  <h1>Display XML & ISO 20022 messages using Angular v18 </h1>
+  <h1>Display XML & ISO 20022 messages using Angular v19 </h1>
   
 ![npm](https://img.shields.io/npm/v/ngx-xml-message)
 ![NPM](https://img.shields.io/npm/l/ngx-xml-message)
-[![npm](https://img.shields.io/npm/dm/ngx-xml-message)](https://npmjs.org/package/ngx-xml-message)
+[![npm](https://img.shields.io/npm/dt/ngx-xml-message)](https://npmjs.org/package/ngx-xml-message)
 
 </div>
 
@@ -27,7 +27,7 @@ This form is used to design Angular Readonly Form using any given XML/ISO 20022 
 
 ## How to consume
 
-### Add angular material v18
+### Add angular material v19
 ```console
 ng add @angular/material
 ```

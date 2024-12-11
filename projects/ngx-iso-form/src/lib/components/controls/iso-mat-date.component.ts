@@ -4,8 +4,9 @@ import { FormControl } from '@angular/forms';
 import { IsoBaseControlComponent } from './iso-base-control.component';
 
 @Component({
-  selector: 'iso-mat-date',
-  templateUrl: './iso-mat-date.component.html'
+    selector: 'iso-mat-date',
+    templateUrl: './iso-mat-date.component.html',
+    standalone: false
 })
 
 export class IsoMatDate extends IsoBaseControlComponent {

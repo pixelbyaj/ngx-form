@@ -6,9 +6,10 @@ import { IsoForm, NgxIsoFormComponent, SchemaElement } from 'projects/ngx-iso-fo
 //import { IsoForm, SchemaElement } from 'ngx-iso-form';
 
 @Component({
-  selector: 'app-iso',
-  templateUrl: './iso.component.html',
-  styleUrls: ['./iso.component.scss']
+    selector: 'app-iso',
+    templateUrl: './iso.component.html',
+    styleUrls: ['./iso.component.scss'],
+    standalone: false
 })
 export class IsoComponent implements OnInit {
   @ViewChild('isoForm') isoForm: NgxIsoFormComponent;
