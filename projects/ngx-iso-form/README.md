@@ -4,7 +4,7 @@
   </a>
   <br />
   <h1>
-  XSD - JSON powered / Dynamic ISO 20022 forms in Angular v18
+  XSD - JSON powered / Dynamic ISO 20022 forms in Angular v19
   </h1>
   
   ![npm](https://img.shields.io/npm/v/ngx-iso-form)
@@ -38,7 +38,7 @@ This form is used to design Angular Reactive Form using any given JSON - XSD. Th
 
 ## How to consume
 
-### Add angular material v18
+### Add angular material v19
 
 ```console
 ng add @angular/material

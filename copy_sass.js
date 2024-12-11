@@ -51,7 +51,7 @@ fs.readdir(sourceFolder, (err, files) => {
     });
 });
 
-fs.rmdir(sourceFolder, { recursive: true }, (err) => {
+fs.rm(sourceFolder, { recursive: true }, (err) => {
     if (err) {
       console.error('Error deleting folder:', err);
     } else {
