@@ -1,5 +1,6 @@
 <div align="center">
-<a href="https://https://github.com/pixelbyaj/ngx-iso-form">
+<a href="
+">
     <img src="https://raw.githubusercontent.com/pixelbyaj/ngx-form/main/anguar_logo.svg?sanitize=true" />
   </a>
   <h1>Display XML & ISO 20022 messages using Angular v19 </h1>
@@ -22,7 +23,7 @@ This form is used to design Angular Readonly Form using any given XML/ISO 20022 
     - Support translation labels.
 - 💪 Built on top of [Angular Reactive Forms](https://angular.io/guide/reactive-forms)
 
-## [Live Demo](https://www.pixelbyaj.com/ngx-xml-message/)
+## [Live Demo](https://iso20022.in/demo/#/ngx-xml-message-demo/)
 
 
 ## How to consume

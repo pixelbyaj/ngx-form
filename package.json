@@ -11,8 +11,8 @@
     "test": "ng test",
     "scss:ngx-iso-form": "node ./copy_sass.js ./dist/ngx-iso-form/src/lib/ ./dist/ngx-iso-form/lib/styles/",
     "scss:ngx-xml-message": "node ./copy_sass.js ./dist/ngx-xml-message/src/lib/ ./dist/ngx-xml-message/lib/styles/",
-    "package:ngx-iso-form": "cd dist/ngx-iso-form && npm publish",
-    "package:ngx-xml-message": "cd dist/ngx-xml-message && npm publish"
+    "package:ngx-iso-form": "npm run build:ngx-iso-form && cd dist/ngx-iso-form && npm publish",
+    "package:ngx-xml-message": "npm run build:ngx-xml-message && cd dist/ngx-xml-message && npm publish"
   },
   "private": true,
   "dependencies": {

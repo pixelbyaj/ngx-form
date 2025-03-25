@@ -1,6 +1,6 @@
 {
   "name": "ngx-xml-message",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "This form is used to design Angular Reactive Form using any given XML. The primary use of this Readonly UI library is to design ISO 20022 XML messages in forms dynamically.",
   "author": "Abhishek Joshi",
   "repository": {
@@ -16,6 +16,7 @@
     "javascript",
     "reactive-form",
     "iso20022",
+    "iso 20022",
     "MX",
     "xml",
     "dynamic-form",
