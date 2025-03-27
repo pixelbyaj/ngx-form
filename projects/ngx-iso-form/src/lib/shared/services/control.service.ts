@@ -33,7 +33,8 @@ export class ControlService {
             case "datetime":
                 return new ComponentModel(IsoMatDateTime, { "control": controlModel, "formControl": formControl });
             case "boolean":
-                return new ComponentModel(IsoMatDate, { "control": controlModel, "formControl": formControl });
+                controlModel.values = ["true", "false"];
+                return new ComponentModel(IsoMatSelect, { "control": controlModel, "formControl": formControl });
             case "any":
                 return new ComponentModel(IsoMatTextarea, { "control": controlModel, "formControl": formControl });
             default:
