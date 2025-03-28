@@ -1,6 +1,6 @@
 {
   "name": "ngx-iso-form",
-  "version": "3.0.2",
+  "version": "3.1.0",
   "description": "Angular component design Reactive Form using specific JSON. The primary use of this UI library is to design ISO 20022 forms dynamically.",
   "author": "Abhishek Joshi aka PixelByAJ",
   "repository": {

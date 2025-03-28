@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
       { id: 'pacs.009.001.10', activated: false }
     ],
     pain: [
-      { id: 'pain.001.001.11', activated: false },
+      { id: 'pain.001.001.12', activated: false },
       { id: 'pain.002.001.13', activated: false },
       { id: 'pain.007.001.11', activated: false },
       { id: 'pain.008.001.10', activated: false },

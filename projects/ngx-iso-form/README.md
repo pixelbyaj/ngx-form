@@ -198,7 +198,70 @@ Please declare all your translation rules under 'iso' object.
   }
 }
 ```
-
+# Output JSON 
+Example pain.001.001.12
+```json
+{
+  "Document": {
+    "CstmrCdtTrfInitn": {
+      "GrpHdr": {
+        "MsgId": "123456",
+        "CreDtTm": "2025-03-27T10:00:00",
+        "NbOfTxs": "1",
+        "CtrlSum": "1000",
+        "InitgPty": {
+          "Nm": "Sender Company",
+          "CtryOfRes": "US"
+        }
+      },
+      "PmtInf": [
+        {
+          "PmtInfId": "PAY001",
+          "PmtMtd": "TRF",
+          "BtchBookg": "false",
+          "Dbtr": {
+            "Nm": "John Doe"
+          },
+          "DbtrAcct": {
+            "Nm": "DE89370400440532013000"
+          },
+          "DbtrAgt": {
+            "FinInstnId": {
+              "BICFI": "DEUTDEFFXXX"
+            }
+          },
+          "CdtTrfTxInf": [
+            {
+              "PmtId": {
+                "EndToEndId": "TX123"
+              },
+              "Amt": {
+                "InstdAmt": {
+                  "Ccy": "USD",
+                  "Amt": "1000"
+                }
+              },
+              "CdtrAgt": {
+                "FinInstnId": {
+                  "BICFI": "BNPAFRPPXXX"
+                }
+              },
+              "Cdtr": {
+                "Nm": "Jane Smith"
+              },
+              "CdtrAcct": {
+                "Id": {
+                  "IBAN": "FR7630006000011234567890189"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
+```
 # Convert XSD to JSON
 
 Global (For CLI)
@@ -258,3 +321,5 @@ xsd
 ```
 
 **NOTE**: For script please install the package locally
+
+

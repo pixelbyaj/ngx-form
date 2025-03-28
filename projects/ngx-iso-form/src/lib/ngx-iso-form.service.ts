@@ -18,93 +18,96 @@ export class NgxIsoService {
     return maxOccurs === 'unbounded' || parseInt(maxOccurs, 10) > 1;
   }
 
-  public initFormModel(model: any, form: FormGroup | FormArray): void {
+  public initFormModel(model: any, form: FormGroup | FormArray,prev_key:string): void {
     if (typeof model === 'object') {
       for (const key in model) {
+        const __key = !prev_key ? key : `${prev_key}_${key}`;
         if (Array.isArray(model[key])) {
-          const parentNode = this.getFormModel(this._formModel[0], key);
+          const parentNode = this.getFormModel(this._formModel[0], __key);
           const item = model[key];
-          const formArray = form.get(key) as FormArray;
+          const formArray = form.get(__key) as FormArray;
           if (formArray && formArray.length !== item.length) {
-            const newEle = structuredClone(
-              parentNode.elements[parentNode.elements.length - 1]
-            );
+        const newEle = structuredClone(
+          parentNode.elements[parentNode.elements.length - 1]
+        );
+        if (
+          !(
+            newEle.maxOccurs &&
+            parseInt(newEle.maxOccurs, 10) <= parentNode.elements.length
+          )
+        ) {
+          const newKeys: any = [];
+          const groupControls = this.getFormGroupControls(
+            newEle.elements,
+            newKeys,
+            parentNode.elements.length - 1
+          );
+          parentNode.elements.push(newEle);
+          formArray.push(groupControls);
+          parentNode.elements.forEach((element: SchemaModel) => {
             if (
-              !(
-                newEle.maxOccurs &&
-                parseInt(newEle.maxOccurs, 10) <= parentNode.elements.length
-              )
+          !element.minOccurs ||
+          parseInt(element.minOccurs, 10) === 0
             ) {
-              const newKeys: any = [];
-              const groupControls = this.getFormGroupControls(
-                newEle.elements,
-                newKeys,
-                parentNode.elements.length - 1
-              );
-              parentNode.elements.push(newEle);
-              formArray.push(groupControls);
-              parentNode.elements.forEach((element: SchemaModel) => {
-                if (
-                  !element.minOccurs ||
-                  parseInt(element.minOccurs, 10) === 0
-                ) {
-                  element.minOccurs = '1';
-                }
-              });
+          element.minOccurs = '1';
             }
+          });
+        }
           }
 
           for (let i = 0; i < item.length; i++) {
-            parentNode.elements[i].expanded = true;
-            const formArray = form.get(key);
-            if (formArray) {
-              const frmGroup = (formArray as FormArray).at(i);
-              if (frmGroup) {
-                this.initFormModel(item[i], frmGroup as FormGroup);
-              }
-            }
+        parentNode.elements[i].expanded = true;
+        const formArray = form.get(__key);
+        if (formArray) {
+          const frmGroup = (formArray as FormArray).at(i);
+          if (frmGroup) {
+            this.initFormModel(item[i], frmGroup as FormGroup, __key);
           }
-        } else if (typeof model[key] === 'object') {
-          const node = this.getFormModel(this._formModel[0], key);
+        }
+          }
+        } 
+        else if (typeof model[key] === 'object') {
+          const node = this.getFormModel(this._formModel[0], __key);
           node.expanded = true;
           if (node && (!node.minOccurs || parseInt(node.minOccurs, 10) === 0)) {
-            node.minOccurs = '1';
+        node.minOccurs = '1';
           }
-          const _form = form.get(key) as FormGroup;
+          const _form = form.get(__key) as FormGroup;
           if (_form) {
-            if (node.dataType === 'choice') {
-              const choiceKey = Object.keys(model[key])[0];
-              const choiceEle = node.elements.find(
-                (item: SchemaModel) => item.id === choiceKey
-              );
-              node.choiceKey = choiceKey;
-              choiceEle.hidden = false;
-              choiceEle.expanded = true;
-              const newNode = structuredClone(choiceEle);
-              if (newNode.elements.length) {
-                const group = this.getFormGroupControls(
-                  newNode.elements,
-                  [],
-                  0,
-                  false
-                );
-                _form.addControl(newNode.id, group);
-              } else {
-                const control = this.getFormControl('');
-                _form.addControl(newNode.id, control);
-              }
-            }
-            this.initFormModel(model[key], _form);
+        if (node.dataType === 'choice') {
+          const choiceKey = Object.keys(model[key])[0];
+          const _choiceKey = `${__key}_${choiceKey}`;
+          const choiceEle = node.elements.find(
+            (item: SchemaModel) => item.id === _choiceKey
+          );
+          node.choiceKey = _choiceKey;
+          choiceEle.hidden = false;
+          choiceEle.expanded = true;
+          const newNode = structuredClone(choiceEle);
+          if (newNode.elements.length) {
+            const group = this.getFormGroupControls(
+          newNode.elements,
+          [],
+          0,
+          false
+            );
+            _form.addControl(newNode.id, group);
+          } else {
+            const control = this.getFormControl('');
+            _form.addControl(newNode.id, control);
+          }
+        }
+        this.initFormModel(model[key], _form, __key);
           }
         } else {
-          const _form = form.get(key) as FormControl;
+          const _form = form.get(__key) as FormControl;
           _form.setValue(model[key]);
         }
       }
     } else if (Array.isArray(model)) {
       for (let i = 0; i < model.length; i++) {
         const frmGroup = (form as FormArray).at(i);
-        this.initFormModel(model[i], frmGroup as FormGroup);
+        this.initFormModel(model[i], frmGroup as FormGroup, "");
       }
     }
   }
@@ -259,7 +262,9 @@ export class NgxIsoService {
           Object.keys(cleanedValue).length > 0 &&
           (!Array.isArray(cleanedValue) || cleanedValue.length > 0)
         ) {
-          cleanedObj[key] = cleanedValue;
+          const _keys = key.split('_');
+          const newKey = _keys[_keys.length - 1];
+          cleanedObj[newKey] = cleanedValue;
         }
       }
       return cleanedObj;

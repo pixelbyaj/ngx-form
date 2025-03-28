@@ -85,14 +85,14 @@ export class NgxIsoFormComponent implements OnChanges {
 
   private initiateFormModel(): void {
     if (this._form) {
-      this._ngModel = this.form.isoFormModel;      
+      this._ngModel = this.form.isoFormModel;
       this.form.getFormModel = () => {
         return this.model;
       };
 
       
       this._isFormInitiate = true;
-      this.service.initFormModel(this._ngModel, this._form);
+      this.service.initFormModel(this._ngModel, this._form,"");
     }
   }
 
