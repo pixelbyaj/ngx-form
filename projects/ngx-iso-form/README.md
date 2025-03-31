@@ -34,7 +34,10 @@ This form is used to design Angular Reactive Form using any given JSON - XSD. Th
 
 ## **NOTE**
 
-**The library don't support direct execution of XSD and user need to convert XSD to JSON using [xsd-json-converter](https://www.npmjs.com/package/xsd-json-converter) npm package**
+**The library don't support direct execution of XSD and user need to convert XSD to JSON using Node base [xsd-json-converter](https://www.npmjs.com/package/xsd-json-converter) npm package or for .Net use [ISO2022.XSD](https://www.nuget.org/packages/iSO20022.XSD) nuget package**
+
+## New Version
+**With version 3.2.0 now for we can use ISO20022 XML message as a model**
 
 ## How to consume
 
@@ -124,15 +127,26 @@ export class AppComponent implements OnInit {
     form: IsoForm;
     schema: SchemaElement;
     // exclude the MsgId field from loading
-    excludes:['Document_BkToCstmrStmt_GrpHdr_MsgId']
+    excludes:[]
     
     this.httpClient.get(sample).subscribe((data) => {
       this.schema = data as SchemaElement
     });
 
-    this.httpClient.get(sampleLoad).subscribe((model) => {
-      this.form = new IsoForm(model)
-    });
+    
+    const setWithJsonModel = () => {
+      this.httpClient.get(sampleLoad).subscribe((model) => {
+          
+          this.form = new IsoForm(model);
+      });
+    }
+
+    //with ISO 20022 XML Message
+    const setWithXmlMessage = () => {
+      this.httpClient.get(sampleLoad).subscribe((xmlMessage) => {
+          this.form = new IsoForm(null, xmlMessage);
+      });
+    }
 
     //To get the form object
     get model():string {
@@ -198,6 +212,63 @@ Please declare all your translation rules under 'iso' object.
   }
 }
 ```
+# Sample XML Model
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
+    <CstmrCdtTrfInitn>
+        <GrpHdr>
+            <MsgId>123456</MsgId>
+            <CreDtTm>2025-03-27T10:00:00</CreDtTm>
+            <NbOfTxs>1</NbOfTxs>
+            <CtrlSum>1000.00</CtrlSum>
+            <InitgPty>
+                <Nm>Sender Company</Nm>
+            </InitgPty>
+        </GrpHdr>
+        <PmtInf>
+            <PmtInfId>PAY001</PmtInfId>
+            <PmtMtd>TRF</PmtMtd>
+            <BtchBookg>false</BtchBookg>
+            <Dbtr>
+                <Nm>John Doe</Nm>
+            </Dbtr>
+            <DbtrAcct>
+                <Id>
+                    <IBAN>DE89370400440532013000</IBAN>
+                </Id>
+            </DbtrAcct>
+            <DbtrAgt>
+                <FinInstnId>
+                    <BICFI>DEUTDEFFXXX</BICFI>
+                </FinInstnId>
+            </DbtrAgt>
+            <CdtTrfTxInf>
+                <PmtId>
+                    <EndToEndId>TX123</EndToEndId>
+                </PmtId>
+                <Amt>
+                    <InstdAmt Ccy="EUR">1000.00</InstdAmt>
+                </Amt>
+                <Cdtr>
+                    <Nm>Jane Smith</Nm>
+                </Cdtr>
+                <CdtrAcct>
+                    <Id>
+                        <IBAN>FR7630006000011234567890189</IBAN>
+                    </Id>
+                </CdtrAcct>
+                <CdtrAgt>
+                    <FinInstnId>
+                        <BICFI>BNPAFRPPXXX</BICFI>
+                    </FinInstnId>
+                </CdtrAgt>
+            </CdtTrfTxInf>
+        </PmtInf>
+    </CstmrCdtTrfInitn>
+</Document>
+```
+
 # Output JSON 
 Example pain.001.001.12
 ```json
@@ -321,5 +392,6 @@ xsd
 ```
 
 **NOTE**: For script please install the package locally
+
 
 
