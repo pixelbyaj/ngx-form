@@ -1,11 +1,9 @@
 <div align="center">
-  <a href="https://https://github.com/pixelbyaj/ngx-iso-form">
-    <img src="https://raw.githubusercontent.com/pixelbyaj/ngx-form/main/anguar_logo.svg?sanitize=true" />
+  <a href="https://github.com/pixelbyaj/ngx-iso-form">
+    <img src="https://raw.githubusercontent.com/pixelbyaj/ngx-form/main/anguar_logo.svg?sanitize=true" alt="Angular Logo" />
   </a>
   <br />
-  <h1>
-  XSD - JSON powered / Dynamic ISO 20022 forms in Angular v19
-  </h1>
+  <h1>XSD - JSON Powered / Dynamic ISO 20022 Forms in Angular v19</h1>
   
   ![npm](https://img.shields.io/npm/v/ngx-iso-form)
   ![NPM](https://img.shields.io/npm/l/ngx-iso-form)
@@ -16,17 +14,17 @@
 
 # NgxIsoForm
 
-This form is used to design Angular Reactive Form using any given JSON - XSD. The primary use of this UI library is to design ISO 20022 forms dynamically.
+NgxIsoForm is a library for dynamically generating Angular Reactive Forms using JSON derived from XSD. It is primarily designed for ISO 20022 forms.
 
 ## Features
 
-- 🔥 Automatic forms generation
-- 📝 Easy to extend with custom field types
+- 🔥 Automatic form generation
+- 📝 Extendable with custom field types
 - ⚡️ Supports ISO 20022 schemas:
-  - XSD - JSON Schema using XSDService nuget
-  - Support all validation like required, pattern, minlength, maxlength
-  - Support translation labels, errors and date formats.
-- 💪 Built on top of [Angular Reactive Forms](https://angular.dev/guide/forms/reactive-forms)
+  - XSD to JSON Schema conversion using XSDService NuGet
+  - Validation support: required, pattern, minlength, maxlength
+  - Translation support for labels, errors, and date formats
+- 💪 Built on [Angular Reactive Forms](https://angular.dev/guide/forms/reactive-forms)
 
 ## [Live Demo](https://iso20022.in/#/ngx-iso-form-demo?json=pacs.009.001.10)
 
@@ -34,39 +32,36 @@ This form is used to design Angular Reactive Form using any given JSON - XSD. Th
 
 ## **NOTE**
 
-**The library don't support direct execution of XSD and user need to convert XSD to JSON using Node base [xsd-json-converter](https://www.npmjs.com/package/xsd-json-converter) npm package or for .Net use [ISO2022.XSD](https://www.nuget.org/packages/iSO20022.XSD) nuget package**
+The library does not directly execute XSD. Users must convert XSD to JSON using the [xsd-json-converter](https://www.npmjs.com/package/xsd-json-converter) npm package or the [.NET ISO20022.XSD](https://www.nuget.org/packages/iSO20022.XSD) NuGet package.
 
 ## New Version
-**With version 3.2.0 now for we can use ISO20022 XML message as a model**
 
-## How to consume
+**Version 3.2.0** introduces support for using ISO 20022 XML messages as a model.
 
-### Add angular material v19
+## How to Use
 
-```console
+### Add Angular Material v19
+
+```bash
 ng add @angular/material
 ```
 
-### Install npm package ngx-iso-form.
+### Install the Library
 
-```console
-npm i ngx-iso-form
+```bash
+npm install ngx-iso-form
 ```
 
-### Import Module & SCSS
+### Import Module and SCSS
 
 ```typescript
 import { NgxIsoFormModule } from 'ngx-iso-form';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
 
 @NgModule({
-  ...
   imports: [
-    ...
-    NgxIsoFormModule
-  ],
-  provider:[provideHttpClient()]
-  TranslateModule.forRoot({
+    NgxIsoFormModule,
+    TranslateModule.forRoot({
       defaultLanguage: 'en',
       loader: {
         provide: TranslateLoader,
@@ -74,91 +69,87 @@ import { HttpClient, provideHttpClient } from '@angular/common/http';
         deps: [HttpClient]
       }
     })
-    ...
+  ],
+  providers: [provideHttpClient()]
 })
-
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '/i18n/', '.json');
 }
-
 ```
 
-Add style file to angular.json file
+Add the style file to `angular.json`:
 
 ```json
-styles:[
-     "node_modules/ngx-iso-form/lib/styles/index.scss"
+"styles": [
+  "node_modules/ngx-iso-form/lib/styles/index.scss"
 ]
 ```
 
-### View
+### Usage
 
-**New Option `excludes`**
+#### New Option: `excludes`
 
 ```html
 <ngx-iso-form #isoForm [schema]="schema" [form]="form" [excludes]="excludes"></ngx-iso-form>
 ```
 
-**NOTE: `excludes` (optional) takes string[] and excludes all the mentioned Ids from the form. It will help you to minimize the form and include only the required fields for your business requirements.
+**Note:** `excludes` (optional) accepts a `string[]` to exclude specific IDs from the form, allowing customization for business requirements.
 
 ### Public APIs
 
-- model: Get the form data in the json format
-- invalid: Get the validation status of the form. true | false
+- `model`: Retrieves form data in JSON format.
+- `invalid`: Returns the form's validation status (`true` or `false`).
 
-```ts
+```typescript
 @ViewChild('isoForm') isoForm: NgxIsoFormComponent;
 
-get model():string {
-    const data = this.isoForm.model;
-    this.formData = JSON.stringify(data)
-  }
-get invalid():boolean {
+get model(): string {
+  return JSON.stringify(this.isoForm.model);
+}
+
+get invalid(): boolean {
   return this.isoForm.invalid;
 }
 ```
 
-### Component
+### Component Example
 
 ```typescript
 export class AppComponent implements OnInit {
-    @ViewChild('isoForm') isoForm: NgxIsoFormComponent;
+  @ViewChild('isoForm') isoForm: NgxIsoFormComponent;
 
-    form: IsoForm;
-    schema: SchemaElement;
-    // exclude the MsgId field from loading
-    excludes:[]
-    
-    this.httpClient.get(sample).subscribe((data) => {
-      this.schema = data as SchemaElement
+  form: IsoForm;
+  schema: SchemaElement;
+  excludes: string[] = [];
+
+  constructor(private httpClient: HttpClient) {}
+
+  ngOnInit() {
+    this.httpClient.get('path/to/schema.json').subscribe((data) => {
+      this.schema = data as SchemaElement;
     });
+  }
 
-    
-    const setWithJsonModel = () => {
-      this.httpClient.get(sampleLoad).subscribe((model) => {
-          
-          this.form = new IsoForm(model);
-      });
-    }
+  setWithJsonModel() {
+    this.httpClient.get('path/to/model.json').subscribe((model) => {
+      this.form = new IsoForm(model);
+    });
+  }
 
-    //with ISO 20022 XML Message
-    const setWithXmlMessage = () => {
-      this.httpClient.get(sampleLoad).subscribe((xmlMessage) => {
-          this.form = new IsoForm(null, xmlMessage);
-      });
-    }
+  // New Support of XML Message as a model
+  setWithXmlMessage() {
+    this.httpClient.get('path/to/message.xml').subscribe((xmlMessage) => {
+      this.form = new IsoForm(null, xmlMessage);
+    });
+  }
 
-    //To get the form object
-    get model():string {
-      const data = this.isoForm.model;
-      this.formData = JSON.stringify(data)
-    }
+  get model(): string {
+    return JSON.stringify(this.isoForm.model);
+  }
 
-  //To get the form validation status
-    get invalid():boolean {
-      return this.isoForm.invalid;
-    }
-
+  get invalid(): boolean {
+    return this.isoForm.invalid;
+  }
 }
 ```
 
@@ -188,8 +179,7 @@ export interface SchemaElement {
 
 ### Translation Support
 
-It support name and id properties of the SchemaElement
-Please declare all your translation rules under 'iso' object.
+Translation is supported for the `name` and `id` properties of `SchemaElement`. Declare translation rules under the `iso` object.
 
 ```json
 {
@@ -212,65 +202,67 @@ Please declare all your translation rules under 'iso' object.
   }
 }
 ```
-# Sample XML Model
+
+### Sample XML Model
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.09">
-    <CstmrCdtTrfInitn>
-        <GrpHdr>
-            <MsgId>123456</MsgId>
-            <CreDtTm>2025-03-27T10:00:00</CreDtTm>
-            <NbOfTxs>1</NbOfTxs>
-            <CtrlSum>1000.00</CtrlSum>
-            <InitgPty>
-                <Nm>Sender Company</Nm>
-            </InitgPty>
-        </GrpHdr>
-        <PmtInf>
-            <PmtInfId>PAY001</PmtInfId>
-            <PmtMtd>TRF</PmtMtd>
-            <BtchBookg>false</BtchBookg>
-            <Dbtr>
-                <Nm>John Doe</Nm>
-            </Dbtr>
-            <DbtrAcct>
-                <Id>
-                    <IBAN>DE89370400440532013000</IBAN>
-                </Id>
-            </DbtrAcct>
-            <DbtrAgt>
-                <FinInstnId>
-                    <BICFI>DEUTDEFFXXX</BICFI>
-                </FinInstnId>
-            </DbtrAgt>
-            <CdtTrfTxInf>
-                <PmtId>
-                    <EndToEndId>TX123</EndToEndId>
-                </PmtId>
-                <Amt>
-                    <InstdAmt Ccy="EUR">1000.00</InstdAmt>
-                </Amt>
-                <Cdtr>
-                    <Nm>Jane Smith</Nm>
-                </Cdtr>
-                <CdtrAcct>
-                    <Id>
-                        <IBAN>FR7630006000011234567890189</IBAN>
-                    </Id>
-                </CdtrAcct>
-                <CdtrAgt>
-                    <FinInstnId>
-                        <BICFI>BNPAFRPPXXX</BICFI>
-                    </FinInstnId>
-                </CdtrAgt>
-            </CdtTrfTxInf>
-        </PmtInf>
-    </CstmrCdtTrfInitn>
+  <CstmrCdtTrfInitn>
+    <GrpHdr>
+      <MsgId>123456</MsgId>
+      <CreDtTm>2025-03-27T10:00:00</CreDtTm>
+      <NbOfTxs>1</NbOfTxs>
+      <CtrlSum>1000.00</CtrlSum>
+      <InitgPty>
+        <Nm>Sender Company</Nm>
+      </InitgPty>
+    </GrpHdr>
+    <PmtInf>
+      <PmtInfId>PAY001</PmtInfId>
+      <PmtMtd>TRF</PmtMtd>
+      <BtchBookg>false</BtchBookg>
+      <Dbtr>
+        <Nm>John Doe</Nm>
+      </Dbtr>
+      <DbtrAcct>
+        <Id>
+          <IBAN>DE89370400440532013000</IBAN>
+        </Id>
+      </DbtrAcct>
+      <DbtrAgt>
+        <FinInstnId>
+          <BICFI>DEUTDEFFXXX</BICFI>
+        </FinInstnId>
+      </DbtrAgt>
+      <CdtTrfTxInf>
+        <PmtId>
+          <EndToEndId>TX123</EndToEndId>
+        </PmtId>
+        <Amt>
+          <InstdAmt Ccy="EUR">1000.00</InstdAmt>
+        </Amt>
+        <Cdtr>
+          <Nm>Jane Smith</Nm>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <IBAN>FR7630006000011234567890189</IBAN>
+          </Id>
+        </CdtrAcct>
+        <CdtrAgt>
+          <FinInstnId>
+            <BICFI>BNPAFRPPXXX</BICFI>
+          </FinInstnId>
+        </CdtrAgt>
+      </CdtTrfTxInf>
+    </PmtInf>
+  </CstmrCdtTrfInitn>
 </Document>
 ```
 
-# Output JSON 
-Example pain.001.001.12
+### Output JSON Example (pain.001.001.12)
+
 ```json
 {
   "Document": {
@@ -333,23 +325,24 @@ Example pain.001.001.12
   }
 }
 ```
-# Convert XSD to JSON
 
-Global (For CLI)
+## Convert XSD to JSON
 
-```console
-    npm install -g xsd-json-converter
+### Global Installation (CLI)
+
+```bash
+npm install -g xsd-json-converter
 ```
 
-Local (For SCRIPT)
+### Local Installation (Script)
 
-```console
-    npm install xsd-json-converter
+```bash
+npm install xsd-json-converter
 ```
 
-### CLI
+### CLI Usage
 
-```console
+```bash
 xjc <source-path> <output-path>
 ```
 
@@ -357,21 +350,21 @@ xjc <source-path> <output-path>
 
 ##### Linux
 
-```console
+```bash
 xjc /mnt/c/source/xsd/camt.053.001.10.xsd /mnt/c/source/xsd/camt.053.json
 ```
 
 ##### Windows
 
-```console
+```bash
 xjc C:/source/xsd/camt.053.001.10.xsd C:/source/xsd/camt.053.json
 ```
 
-### Script
+### Script Usage
 
-JavaScript
+#### JavaScript
 
-```js
+```javascript
 const xsd = require("xsd-json-converter").default;
 
 xsd
@@ -380,9 +373,9 @@ xsd
   .catch((error) => console.error(error));
 ```
 
-TypeScript
+#### TypeScript
 
-```ts
+```typescript
 import xsd from "xsd-json-converter";
 
 xsd
@@ -391,7 +384,4 @@ xsd
   .catch((error) => console.error(error));
 ```
 
-**NOTE**: For script please install the package locally
-
-
-
+**Note:** For scripts, install the package locally.
