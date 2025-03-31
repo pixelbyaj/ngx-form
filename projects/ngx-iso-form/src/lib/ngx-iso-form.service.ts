@@ -18,86 +18,93 @@ export class NgxIsoService {
     return maxOccurs === 'unbounded' || parseInt(maxOccurs, 10) > 1;
   }
 
-  public initFormModel(model: any, form: FormGroup | FormArray,prev_key:string): void {
+  public initFormModel(
+    model: any,
+    form: FormGroup | FormArray,
+    prev_key: string
+  ): void {
     if (typeof model === 'object') {
       for (const key in model) {
         const __key = !prev_key ? key : `${prev_key}_${key}`;
-        if (Array.isArray(model[key])) {
-          const parentNode = this.getFormModel(this._formModel[0], __key);
+        const parentNode = this.getFormModel(this._formModel[0], __key);
+
+        if (parentNode && parentNode.multi || Array.isArray(model[key])) {
+          if ((!Array.isArray(model[key])) && parentNode && parentNode.multi) {
+            model[key] = [model[key]];
+          }
           const item = model[key];
           const formArray = form.get(__key) as FormArray;
           if (formArray && formArray.length !== item.length) {
-        const newEle = structuredClone(
-          parentNode.elements[parentNode.elements.length - 1]
-        );
-        if (
-          !(
-            newEle.maxOccurs &&
-            parseInt(newEle.maxOccurs, 10) <= parentNode.elements.length
-          )
-        ) {
-          const newKeys: any = [];
-          const groupControls = this.getFormGroupControls(
-            newEle.elements,
-            newKeys,
-            parentNode.elements.length - 1
-          );
-          parentNode.elements.push(newEle);
-          formArray.push(groupControls);
-          parentNode.elements.forEach((element: SchemaModel) => {
+            const newEle = structuredClone(
+              parentNode.elements[parentNode.elements.length - 1]
+            );
             if (
-          !element.minOccurs ||
-          parseInt(element.minOccurs, 10) === 0
+              !(
+                newEle.maxOccurs &&
+                parseInt(newEle.maxOccurs, 10) <= parentNode.elements.length
+              )
             ) {
-          element.minOccurs = '1';
+              const newKeys: any = [];
+              const groupControls = this.getFormGroupControls(
+                newEle.elements,
+                newKeys,
+                parentNode.elements.length - 1
+              );
+              parentNode.elements.push(newEle);
+              formArray.push(groupControls);
+              parentNode.elements.forEach((element: SchemaModel) => {
+                if (
+                  !element.minOccurs ||
+                  parseInt(element.minOccurs, 10) === 0
+                ) {
+                  element.minOccurs = '1';
+                }
+              });
             }
-          });
-        }
           }
 
           for (let i = 0; i < item.length; i++) {
-        parentNode.elements[i].expanded = true;
-        const formArray = form.get(__key);
-        if (formArray) {
-          const frmGroup = (formArray as FormArray).at(i);
-          if (frmGroup) {
-            this.initFormModel(item[i], frmGroup as FormGroup, __key);
+            parentNode.elements[i].expanded = true;
+            const formArray = form.get(__key);
+            if (formArray) {
+              const frmGroup = (formArray as FormArray).at(i);
+              if (frmGroup) {
+                this.initFormModel(item[i], frmGroup as FormGroup, __key);
+              }
+            }
           }
-        }
-          }
-        } 
-        else if (typeof model[key] === 'object') {
+        } else if (typeof model[key] === 'object') {
           const node = this.getFormModel(this._formModel[0], __key);
           node.expanded = true;
           if (node && (!node.minOccurs || parseInt(node.minOccurs, 10) === 0)) {
-        node.minOccurs = '1';
+            node.minOccurs = '1';
           }
           const _form = form.get(__key) as FormGroup;
           if (_form) {
-        if (node.dataType === 'choice') {
-          const choiceKey = Object.keys(model[key])[0];
-          const _choiceKey = `${__key}_${choiceKey}`;
-          const choiceEle = node.elements.find(
-            (item: SchemaModel) => item.id === _choiceKey
-          );
-          node.choiceKey = _choiceKey;
-          choiceEle.hidden = false;
-          choiceEle.expanded = true;
-          const newNode = structuredClone(choiceEle);
-          if (newNode.elements.length) {
-            const group = this.getFormGroupControls(
-          newNode.elements,
-          [],
-          0,
-          false
-            );
-            _form.addControl(newNode.id, group);
-          } else {
-            const control = this.getFormControl('');
-            _form.addControl(newNode.id, control);
-          }
-        }
-        this.initFormModel(model[key], _form, __key);
+            if (node.dataType === 'choice') {
+              const choiceKey = Object.keys(model[key])[0];
+              const _choiceKey = `${__key}_${choiceKey}`;
+              const choiceEle = node.elements.find(
+                (item: SchemaModel) => item.id === _choiceKey
+              );
+              node.choiceKey = _choiceKey;
+              choiceEle.hidden = false;
+              choiceEle.expanded = true;
+              const newNode = structuredClone(choiceEle);
+              if (newNode.elements.length) {
+                const group = this.getFormGroupControls(
+                  newNode.elements,
+                  [],
+                  0,
+                  false
+                );
+                _form.addControl(newNode.id, group);
+              } else {
+                const control = this.getFormControl('');
+                _form.addControl(newNode.id, control);
+              }
+            }
+            this.initFormModel(model[key], _form, __key);
           }
         } else {
           const _form = form.get(__key) as FormControl;
@@ -107,7 +114,7 @@ export class NgxIsoService {
     } else if (Array.isArray(model)) {
       for (let i = 0; i < model.length; i++) {
         const frmGroup = (form as FormArray).at(i);
-        this.initFormModel(model[i], frmGroup as FormGroup, "");
+        this.initFormModel(model[i], frmGroup as FormGroup, '');
       }
     }
   }

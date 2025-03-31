@@ -14,7 +14,7 @@ import { IsoForm, NgxIsoFormComponent, SchemaElement } from 'projects/ngx-iso-fo
 export class IsoComponent implements OnInit {
   @ViewChild('isoForm') isoForm: NgxIsoFormComponent;
   title = 'ngx-iso-app';
-  excludes = ['Document_BkToCstmrStmt_GrpHdr_MsgId']
+  excludes = []
   form: IsoForm;
   schema: SchemaElement;
   selectedSchema: string;
@@ -54,7 +54,7 @@ export class IsoComponent implements OnInit {
       if (params['json']) {
         this.selectedSchema = params['json'];
         const jsonURL = `./assets/iso20022/${params['json']}.json`;
-        this.httpClient.get(jsonURL).subscribe((data) => {
+        this.httpClient.get(jsonURL).subscribe((data: any) => {
           this.schema = data as SchemaElement
           this.form = new IsoForm(null);
         });
@@ -76,7 +76,8 @@ export class IsoComponent implements OnInit {
     }
   }
   initForm(){
-    this.form = new IsoForm(JSON.parse(this.formData));
+  //  this.form = new IsoForm(JSON.parse(this.formData));
+    this.form = new IsoForm(null, this.formData);
   }
   getForm() {
     const data = this.isoForm.model;
