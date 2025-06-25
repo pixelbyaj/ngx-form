@@ -68,8 +68,8 @@ export class IsoComponent implements OnInit {
       const formData = new FormData();
       const fileToUpload = file as File;
       formData.append('File', fileToUpload, fileToUpload.name);
-      this.httpClient.post('https://www.pixelbyaj.com/api/XsdToJson', formData).subscribe((data) => {
-        this.schema = data as SchemaElement;
+      this.httpClient.post('https://www.pixelbyaj.com/api/XsdToJson', formData).subscribe((data: any) => {
+        this.schema = data.schemaElement as SchemaElement;
         this.selectedSchema = fileToUpload.name;
         this.form = new IsoForm(null);
       });

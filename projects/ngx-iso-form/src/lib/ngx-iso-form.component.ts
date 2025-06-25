@@ -132,7 +132,12 @@ export class NgxIsoFormComponent implements OnChanges {
     }
     const newEle = this.structuredClone(parentNode.elements[0]);
     const newKeys: any = [];
-    const groupControls = this.service.getFormGroupControls(newEle.elements, newKeys, parentNode.elements.length - 1);
+    let groupControls;
+    if (newEle.dataType === 'choice'){
+        groupControls = this.service.getFormGroupControls([newEle], newKeys, parentNode.elements.length - 1);
+    }else{
+        groupControls = this.service.getFormGroupControls(newEle.elements, newKeys, parentNode.elements.length - 1);
+    }
     parentNode.elements.push(newEle);
     control.push(groupControls);
     this.changeDetection.detectChanges();

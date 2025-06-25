@@ -158,9 +158,7 @@ export class NgxIsoService {
               choice
             );
             controls = this.fb.array([]);
-            if (!choice) {
-              controls.push(data);
-            }
+            controls.push(data);
             control[id] = controls;
           } else if (item.multi && !item.isFormControls) {
             keys.push({
