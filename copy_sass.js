@@ -39,12 +39,11 @@ fs.readdir(sourceFolder, (err, files) => {
             }
 
             if (stats.isFile() && path.extname(file) === targetExtension) {
-                fs.rename(sourceFilePath, destinationFilePath, moveErr => {
-                    if (moveErr) {
-                        console.error('Error moving file:', moveErr);
+                fs.copyFile(sourceFilePath, destinationFilePath, (copyErr) => {
+                    if (copyErr) {
+                        console.error('Error copying file:', copyErr);
                         return;
                     }
-                    console.log(`Moved ${file} to ${destinationFolder}`);
                 });
             }
         });
@@ -53,8 +52,8 @@ fs.readdir(sourceFolder, (err, files) => {
 
 fs.rm(sourceFolder, { recursive: true }, (err) => {
     if (err) {
-      console.error('Error deleting folder:', err);
+        console.error('Error deleting folder:', err);
     } else {
-      console.log(`Folder deleted at ${sourceFolder}`);
+        console.log(`Folder deleted at ${sourceFolder}`);
     }
-  });
+});
