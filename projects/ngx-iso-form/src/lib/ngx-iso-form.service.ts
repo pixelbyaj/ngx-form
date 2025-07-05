@@ -21,15 +21,20 @@ export class NgxIsoService {
   public initFormModel(
     model: any,
     form: FormGroup | FormArray,
-    prev_key: string
+    prev_key: string,
+    choiceKey: boolean = false,
+    index: number = -1
   ): void {
     if (typeof model === 'object') {
       for (const key in model) {
         const __key = !prev_key ? key : `${prev_key}_${key}`;
         const parentNode = this.getFormModel(this._formModel[0], __key);
 
-        if (parentNode && parentNode.multi || Array.isArray(model[key])) {
-          if ((!Array.isArray(model[key])) && parentNode && parentNode.multi) {
+        if (
+          !choiceKey &&
+          ((parentNode && parentNode.multi) || Array.isArray(model[key]))
+        ) {
+          if (!Array.isArray(model[key]) && parentNode && parentNode.multi) {
             model[key] = [model[key]];
           }
           const item = model[key];
@@ -66,21 +71,31 @@ export class NgxIsoService {
           for (let i = 0; i < item.length; i++) {
             parentNode.elements[i].expanded = true;
             const formArray = form.get(__key);
+            const choiceKey = parentNode.elements[i].dataType === 'choice';
             if (formArray) {
               const frmGroup = (formArray as FormArray).at(i);
               if (frmGroup) {
-                this.initFormModel(item[i], frmGroup as FormGroup, __key);
+                this.initFormModel(
+                  item[i],
+                  frmGroup as FormGroup,
+                  __key,
+                  choiceKey,
+                  i
+                );
               }
             }
           }
         } else if (typeof model[key] === 'object') {
-          const node = this.getFormModel(this._formModel[0], __key);
+          let node = this.getFormModel(this._formModel[0], __key);
           node.expanded = true;
           if (node && (!node.minOccurs || parseInt(node.minOccurs, 10) === 0)) {
             node.minOccurs = '1';
           }
           const _form = form.get(__key) as FormGroup;
           if (_form) {
+            if (node.elements.length === 1 && node.elements[0].dataType === 'choice'){
+              node = node.elements[0];
+            }
             if (node.dataType === 'choice') {
               const choiceKey = Object.keys(model[key])[0];
               const _choiceKey = `${__key}_${choiceKey}`;
@@ -106,6 +121,26 @@ export class NgxIsoService {
             }
             this.initFormModel(model[key], _form, __key);
           }
+        } else if (choiceKey) {
+          let node = this.getFormModel(this._formModel[0], prev_key);
+          if (node.multi) {
+            node = node.elements[index];
+          }
+          node.expanded = true;
+          if (node && (!node.minOccurs || parseInt(node.minOccurs, 10) === 0)) {
+            node.minOccurs = '1';
+          }
+          
+          const choiceEle = node.elements.find(
+            (item: SchemaModel) => item.id === __key
+          );
+          node.choiceKey = __key;
+          choiceEle.hidden = false;
+          choiceEle.expanded = true;
+          const newNode = structuredClone(choiceEle);
+          const _formCtrl = form.get(__key) as FormControl;
+          _formCtrl.setValue(model[key]);
+          
         } else {
           const _form = form.get(__key) as FormControl;
           _form.setValue(model[key]);
@@ -123,7 +158,8 @@ export class NgxIsoService {
     json: SchemaModel[],
     keys: any,
     index: number = 0,
-    choiceEle: boolean = false
+    choiceEle: boolean = false,
+    prev_key: string = ''
   ): FormGroup {
     let control: any = {};
     let controls: any;
@@ -134,6 +170,9 @@ export class NgxIsoService {
         (this.excludes.length > 0 && !this.excludes.includes(item.id)) ||
         this.excludes.length == 0
       ) {
+        if (item.id === null){
+          item.id = prev_key;
+        }
         item.hidden = choiceEle;
         value = item.elements;
         const id = item.id;
@@ -155,7 +194,8 @@ export class NgxIsoService {
               item.elements,
               element.elements,
               index,
-              choice
+              choice,
+              id
             );
             controls = this.fb.array([]);
             controls.push(data);
@@ -171,7 +211,8 @@ export class NgxIsoService {
               item.elements[item.elements.length - 1].elements,
               element.elements,
               index,
-              choice
+              choice,
+              id
             );
             controls = this.fb.array([]);
             if (!choice) {
@@ -192,7 +233,8 @@ export class NgxIsoService {
               item.elements,
               element.elements,
               index,
-              choice
+              choice,
+              id
             );
             if (!choice) {
               control[id] = data;
@@ -216,7 +258,8 @@ export class NgxIsoService {
             _amountCurrency,
             element.elements,
             0,
-            false
+            false,
+            item.id
           );
           control[item.id] = data;
         } else {

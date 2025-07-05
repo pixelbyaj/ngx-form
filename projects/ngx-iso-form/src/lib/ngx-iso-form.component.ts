@@ -208,12 +208,14 @@ export class NgxIsoFormComponent implements OnChanges {
           return ctrl.indexOf(element.id) > -1;
         })
       });
-      if (formGroup)
-        return formControl.at(formControl.length - 1);
+      formGroup;
     }
     return formControl;
   }
 
+  protected getFormGroupByIndex(formArray: FormArray, _index: number): FormGroup {
+    return formArray.controls[_index] as FormGroup;
+  }
   protected getFormControl(node: SchemaModel): FormControl {
     return this.service.getFormControl('');
   }
