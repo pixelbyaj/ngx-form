@@ -23,7 +23,7 @@ This form is used to design Angular Readonly Form using any given XML/ISO 20022 
     - Support translation labels.
 - 💪 Built on top of [Angular Reactive Forms](https://angular.io/guide/reactive-forms)
 
-## [Live Demo](https://iso20022.in/demo/#/ngx-xml-message-demo/)
+## [Live Demo](https://swiftmx.co/demo/#/ngx-xml-message-demo/)
 
 
 ## How to consume

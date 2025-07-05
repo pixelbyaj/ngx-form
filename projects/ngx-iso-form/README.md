@@ -26,7 +26,7 @@ NgxIsoForm is a library for dynamically generating Angular Reactive Forms using 
   - Translation support for labels, errors, and date formats
 - 💪 Built on [Angular Reactive Forms](https://angular.dev/guide/forms/reactive-forms)
 
-## [Live Demo](https://iso20022.in/#/ngx-iso-form-demo?json=pacs.009.001.10)
+## [Live Demo](https://swiftmx.co/#/ngx-iso-form-demo?json=pacs.009.001.10)
 
 ## [StackBlitz Demo](https://stackblitz.com/edit/ngx-iso-form)
 
